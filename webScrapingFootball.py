@@ -41,9 +41,8 @@ def getPlayerIds(year):
 
     return player_ids
 
-
 ### Player IDS dictionary
-playerIdsDict = {}
+#playerIdsDict = {}
 
 # executes getPlayerIds function for years from startYear to endYear arguments
 def executeGetPlayerIds(startYear, endYear):
@@ -66,10 +65,10 @@ def makePlayerUnique():
 
 # Executes executeGetPlayerIds. playerIdsDict will contain lists of ids from years
 # specified in this call below after this function is executed
-executeGetPlayerIds(2018, 2019)
+#executeGetPlayerIds(2018, 2019)
 
 # Unique playerIdList from years specified in executeGetPlayerIds call above
-finalPlayerIdList = makePlayerUnique()
+#finalPlayerIdList = makePlayerUnique()
 ##############################################################################
 
     
@@ -101,32 +100,98 @@ def getPlayer():
         players_info = players_info.append(pd.DataFrame(data))
         i+=1
         #sleep for a few seconds to avoid overloading
-        if i%10 == 0:
-            sleep(3)
+        sleep(1)
     return players_info
 
-playerInfoTable = getPlayer()
+#playerInfoTable = getPlayer()
+##############################################################################
+
+
+##############################################################################
+# Get Table of Team - schema attributes to scrape are
+# team_name, current_head_coach, division, 
+
+teamList = ['/teams/nwe', '/teams/car']
+
+### Team Dict, key is year(season), value is teamID    
+teamDict = {}
+
+def initTeamDict(startYear, endYear):
+    while startYear <= endYear:
+        teamDict[startYear] = teamList
+        startYear+=1
+        
+
+def getTeamTable():
+    teams_info_start = {'team_name': [],
+                        'season': [],
+                        'current_head_coach': [],
+                        'division': [],
+                        'record': [],
+                        'curr_offensive_coordinator': [],
+                        'curr_defensive_coordinator': []}
+    team_info_toReturn = pd.DataFrame(teams_info_start)
+    for year in teamDict:
+        for team in teamDict[year]:
+            urlToHit = baseLink + team + '/' + str(year) + '.htm'
+            teamPageHTML = requests.get(urlToHit)
+            tree = html.fromstring(teamPageHTML.content)
+            data = {'team_name': tree.xpath('//*[@id="info"]//*[@itemprop="name"]/span[2]/text()'),
+                        'season': year,
+                        'current_head_coach': tree.xpath('//*[@id="info"]//*//*//strong[text()="Coach:"]//../a/text()'),
+                        'division': tree.xpath('//*[@id="info"]//*[text()="Record:"]//../a[1]/text()'),
+                        'record': tree.xpath('substring(//*[@id="info"]//*[text()="Record:"]/../text()[2], "2", "7")'),
+                        'curr_offensive_coordinator': tree.xpath('concat(//*[@id="info"]//*//*//strong[text()="Offensive Coordinator:"]//../a/text(), "")'),
+                        'curr_defensive_coordinator': tree.xpath('concat(//*[@id="info"]//*//*//strong[text()="Defensive Coordinator:"]//../a/text(), "")')}
+            team_info_toReturn = team_info_toReturn.append(pd.DataFrame(data))
+            #sleep for a few seconds to avoid overloading
+            sleep(1)
+    return team_info_toReturn
+
+
+### initTeamDict(int startYear, int endYear INCLUSIVE)
+### Start at the first szn to eventually get teamInfo about
+initTeamDict(2018, 2019)
+
+### call getTeamTable
+teamTable = getTeamTable()
+
 ##############################################################################
     
 
 ##############################################################################
-# Get DataFrame of Team - schema attributes to scrape are
-# team_name, current_head_coach, division, 
+# Get Table of Offensive statistics & in turn Games schemas attrs are
 
+"""
+    Go through playerIdsDict, have to use year to make sure player is there and also get stuff from
+    each year
+"""
 
+def getStatisticTable():
+    toReturn = pd.DataFrame(
+            )
+    # Delete maxp and i after, just for testing
+    maxp = 6
+    i = 0
+    for year in playerIdsDict:
+        for playerId in playerIdsDict[year]:
+                urlToHit = baseLink + playerId + '/gamelog/' + str(year) + '/'
+                statisticTable = pd.read_html(urlToHit)[0]
+                toReturn = pd.concat([toReturn, statisticTable])
+                statisticTable.insert(0, "player_id", playerId)
+                sleep(1) #(150 * 1second * 2) / 60   mins total time for this
+                # Delete this code after, it is just for testing
+                i+=1
+                if i >= maxp:
+                    return toReturn
+    
+    return toReturn
+
+#statisticTable = getStatisticTable()
 
 ##############################################################################
-"""
-year = 2018
-i = 0
-while i < 3: #len(player_ids):
-#Create url of gamelog page given current player id
-urlToHit = baseLink + player_ids[i] + '/gamelog/' + str(year) + '/'
-#Inserting dataframe of current player into 2018 stats 
-player_stat_2018.append(pd.read_html(urlToHit)[0])
-player_stat_2018[i].insert(0, "player_id", player_ids[i])
-i += 1
-"""
 
 # To export DataFrame to csv
-# playerInfo2018.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/exportTest.csv', index = None)
+# playerInfoTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/playerInfoTable.csv', index = None)
+# teamTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/teamTable.csv', index = None)
+# statisticTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/statisticTable.csv', index = None)

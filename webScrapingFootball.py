@@ -8,17 +8,6 @@ from time import sleep
 # Purpose statements of functions have been added and code is annotated as much as possible!
 ##############################################################################
 
-
-##############################################################################
-# How to use pandas to hit an url and grab the table from it into a dataframe
-
-# url = 'https://www.pro-football-reference.com/years/2018/fantasy.htm'
-# urlHitTable = pd.read_html(url)[0]
-
-# df now holds an unformatted DataFrame holding information from the first
-# table (represented by [0])  
-##############################################################################
-
 # Global Variables
 baseLink = 'https://www.pro-football-reference.com'
 
@@ -41,15 +30,14 @@ def getPlayerIds(year):
 
     return player_ids
 
-### Player IDS dictionary
-#playerIdsDict = {}
 
 # executes getPlayerIds function for years from startYear to endYear arguments
 def executeGetPlayerIds(startYear, endYear):
+    playerIdsDict = {}
     while (startYear <= endYear):
         playerIdsDict[startYear] = getPlayerIds(startYear)
         startYear+=1
-
+    return playerIdsDict
 
 # A function to return a unique array of player ids from the dictionary of playerIds
 def makePlayerUnique():
@@ -61,14 +49,6 @@ def makePlayerUnique():
             else:
                 toReturn.append(playerID)
     return toReturn
-
-
-# Executes executeGetPlayerIds. playerIdsDict will contain lists of ids from years
-# specified in this call below after this function is executed
-#executeGetPlayerIds(2018, 2019)
-
-# Unique playerIdList from years specified in executeGetPlayerIds call above
-#finalPlayerIdList = makePlayerUnique()
 ##############################################################################
 
     
@@ -86,7 +66,7 @@ def getPlayer():
     #for player_id in finalPlayerIdList:
     #replace all instances of player_ids[i] in loop below when ready to execute all players crawl
     i = 0
-    while i < 339:
+    while i < 7:
         #Create url of player page given current player id
         urlToHit = baseLink + finalPlayerIdList[i] + '.htm'
         playerPageHTML = requests.get(urlToHit)
@@ -102,8 +82,6 @@ def getPlayer():
         #sleep for a few seconds to avoid overloading
         sleep(1)
     return players_info
-
-#playerInfoTable = getPlayer()
 ##############################################################################
 
 
@@ -147,31 +125,18 @@ def getTeamTable():
             #sleep for a few seconds to avoid overloading
             sleep(1)
     return team_info_toReturn
-
-
-### initTeamDict(int startYear, int endYear INCLUSIVE)
-### Start at the first szn to eventually get teamInfo about
-initTeamDict(2018, 2019)
-
-### call getTeamTable
-teamTable = getTeamTable()
-
 ##############################################################################
     
 
 ##############################################################################
-# Get Table of Offensive statistics & in turn Games schemas attrs are
+# Get Table of Offensive statistics & inherently fulfill Games schema
 
-"""
-    Go through playerIdsDict, have to use year to make sure player is there and also get stuff from
-    each year
-"""
-
+### Gets the statistic Table - Weak Entity table between Player and Game
 def getStatisticTable():
     toReturn = pd.DataFrame(
             )
     # Delete maxp and i after, just for testing
-    maxp = 6
+    maxp = 8
     i = 0
     for year in playerIdsDict:
         for playerId in playerIdsDict[year]:
@@ -186,12 +151,46 @@ def getStatisticTable():
                     return toReturn
     
     return toReturn
+##############################################################################
+# Execution - main, Python doesn't have a main method? This is a collection of
+# All method calls
+    
+# Executes executeGetPlayerIds. playerIdsDict will contain lists of ids from years
+# specified in this call below after this function is executed
+playerIdsDict = executeGetPlayerIds(2018, 2019)
 
-#statisticTable = getStatisticTable()
+# Unique playerIdList from years specified in executeGetPlayerIds call above
+finalPlayerIdList = makePlayerUnique()
 
+# Get the playerTable using finalPlayerIdList
+playerInfoTable = getPlayer()
+
+### initTeamDict(int startYear, int endYear INCLUSIVE)
+### Start at the first szn to eventually get teamInfo about
+initTeamDict(2018, 2019)
+
+### call gets the Team Table
+teamTable = getTeamTable()
+
+# Gets the weak entity Statistic Table and inherently enough info for Game Table as well
+statisticTable = getStatisticTable()
 ##############################################################################
 
 # To export DataFrame to csv
 # playerInfoTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/playerInfoTable.csv', index = None)
 # teamTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/teamTable.csv', index = None)
 # statisticTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/statisticTable.csv', index = None)
+ 
+    
+
+##############################################################################
+# Note to self: How to use pandas to hit an url and grab the table from it into a dataframe
+
+# url = 'https://www.pro-football-reference.com/years/2018/fantasy.htm'
+# urlHitTable = pd.read_html(url)[0]
+
+# df now holds an unformatted DataFrame holding information from the first
+# table (represented by [0])
+
+# Also xpath method used in getPlayer() & getTeamTable()  
+##############################################################################

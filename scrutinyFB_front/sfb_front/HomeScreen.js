@@ -60,7 +60,8 @@ export default class HomeScreen extends React.Component {
         {statusbar}
 
         
-        <HomeScreenFormat title="scrutinyFB" version="1.0.0" />
+        <HomeScreenFormat title="scrutinyFB"/> 
+        {/* version="1.0.0" /> */}
 
       {/* <Text> {loading} </Text> */}
 
@@ -74,15 +75,18 @@ export default class HomeScreen extends React.Component {
     }
   }
 
+  const mainBackgroundColor = '#7b8894';
+  const statusBarColor = '#2a4b69';
+
   const styles = StyleSheet.create({
     container: {
       // width: scale(20),
       // height: verticalScale(50),
-      backgroundColor: 'tan',
+      backgroundColor: mainBackgroundColor,
       flex: 1
     },
     statusbar: {
-      backgroundColor: '#40e0d0',
+      backgroundColor: statusBarColor,
       height: hp('5%')
     },
     version: {

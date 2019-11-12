@@ -1,35 +1,52 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
  
 const InputBar = (props) => {
     
     return (
-        <View style={styles.inputContainer}>
-            <TextInput 
-                placeholder='Select a player...' 
-                style={styles.input}
-                onChangeText={(searchInput) => props.textChange(searchInput)}
-                onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}
-                value={props.searchInput}
-            />
-            {/* <Button 
-                title="GO"
-                color="green"
-                onPress={(submitRequestButton) => props.changePageFromButton(submitRequestButton)}
-            /> */}
+        <View style={[styles.inputBarContainer]}>
+            <View style={styles.inputContainer}>
+                <TextInput 
+                    placeholder='Select a player...' 
+                    style={styles.input}
+                    onChangeText={(searchInput) => props.textChange(searchInput)}
+                    onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}
+                    value={props.searchInput}
+                />
+                {/* <Button 
+                    title="GO"
+                    color="green"
+                    onPress={(submitRequestButton) => props.changePageFromButton(submitRequestButton)}
+                /> */}
 
-            <TouchableOpacity style={styles.searchButton}
-            onPress={(submitRequestButton) => props.changePageFromButton(submitRequestButton)}>
-                <Text style={styles.searchButtonText}>GO</Text>
-            </TouchableOpacity>
+                <TouchableOpacity style={styles.searchButton}
+                onPress={(submitRequestButton) => props.changePageFromButton(submitRequestButton)}>
+                    <Text style={styles.searchButtonText}>GO</Text>
+                    {/* <Image
+                      style={{width: 50, height: 50}}
+                      source={{uri: 'https://imgur.com/9An5ON3'}}
+                    /> */}
+                </TouchableOpacity>
+            </View>
         </View>
     )  
 }
 
 const styles = StyleSheet.create({
+    inputBarContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: widthPercentageToDP('100%'),
+        height: heightPercentageToDP('10%'),
+        backgroundColor: 'transparent',
+        top: heightPercentageToDP('40%')
+    },
     inputContainer: {
-        left: 35,
-        top: 180,
+        position: 'absolute',
+        left: widthPercentageToDP('8%'), //35
+        top: heightPercentageToDP('2%'), //180
         backgroundColor: '#F3F3F3',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -38,18 +55,19 @@ const styles = StyleSheet.create({
         shadowOpacity: .1,
         borderWidth: 3,
         borderColor: '#a9a9a9',
-        height: 50,
-        width: 340
+        height: heightPercentageToDP('6%'), //50
+        width: widthPercentageToDP('85%') //340
     },
     input: {
         backgroundColor: '#F3F3F3',
         flex: 1,
-        fontSize: 30,
-        height: 44,
-        width: 370
+        fontSize: widthPercentageToDP('7.5%'), //30
+        top: heightPercentageToDP('0.25%'),
+        height: heightPercentageToDP('5%'), //44
+        width: widthPercentageToDP('90') //370
     },
     searchButton: {
-        width: 50,
+        width: widthPercentageToDP('13%'), //50
         borderLeftColor: '#a9a9a9',
         borderRightColor: 'transparent',
         borderTopColor: 'transparent',
@@ -61,17 +79,8 @@ const styles = StyleSheet.create({
     },
     searchButtonText: {
         color: '#228C22',
-        left: 3,
-        fontSize: 25,
-        fontWeight: '500'
-    },
-    inputPlaceholder: {
-        top: 7,
-        right: 80,
-        height: 36,
-        backgroundColor: 'transparent',
-        color: '#a9a9a9',
-        fontSize: 25,
+        left: widthPercentageToDP('0.5'), //3
+        fontSize: widthPercentageToDP('6.5'), //25
         fontWeight: '500'
     }
 })

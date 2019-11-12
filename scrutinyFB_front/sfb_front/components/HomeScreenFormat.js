@@ -1,37 +1,75 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
-const Header = (props) => {
+const HomeScreenFormat = (props) => {
     return (
-        <View style={styles.header}>
-            <View style={[styles.triangle1_under]} />
-            <View style={[styles.triangle2_under]} />
-            <View style={[styles.triangle3_under]} />
-            <View style={[styles.triangle1]} />
-            <View style={[styles.triangle2]} />
-            <View style={[styles.triangle3]} />
-            <Text style={styles.title}>{ props.title }</Text>
+        <View>
+            <View style={styles.header}>
+                <View style={[styles.triangle1_under]} />
+                <View style={[styles.triangle2_under]} />
+                <View style={[styles.triangle1]} />
+                <View style={[styles.triangle2]} />
+                <Text style={styles.title}>{ props.title }</Text>
+            </View>
+            <View style={[styles.middle]}/>
+            <View style={styles.bottom}>
+                <View style={[styles.triangle3_under]} />
+                <View style={[styles.triangle3]} />
+                <Text style={styles.version}>{ props.version }</Text>
+            </View>
         </View>
+        
     )
 }
 
-const styles = StyleSheet.create({
-    title: {
-        color: '#d3d3d3',
-        fontSize: 50,
+const mainThemeColor = '#40e0d0'
+const subThemeColor = '#292828'
+const titleColor = '#d3d3d3'
+
+const styles = StyleSheet.create({ 
+    titleBox: {
+        height: heightPercentageToDP('-30%')
+    },
+    title: { 
+        color: titleColor,
+        textShadowColor: 'black',
+        textShadowRadius: 9,
+        textShadowOffset: { width: 5, height: 2 },
+        top: 15,
+        fontSize: widthPercentageToDP('19%'), //85
         fontWeight: '500',
     },
     version: {
         position: 'absolute',
-        color: '#d3d3d3',
+        color: 'white',
+        fontWeight: '300',
         fontSize: 20,
-        fontWeight: '100',
+        top: 670,
+        left: 340
     },
     header: {
-        backgroundColor: '#3E505B',
-        height: 130,
+        //flex: 1,
+        width: widthPercentageToDP('100%'),
+        height: heightPercentageToDP('14'),
+        //height: heightPercentageToDP('100%'),
+        //height: 140, 
+        backgroundColor: '#e82e2e',
         alignItems: 'center',
         justifyContent: 'center'
+    },
+    bottom: {
+        //flex: 1, 
+        width: widthPercentageToDP('100%'),
+
+        backgroundColor: '#e82e2e',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    middle: {
+        //flex: 1,
+        backgroundColor: 'tan'
     },
     triangle1_under: {
         width: 0,
@@ -41,7 +79,7 @@ const styles = StyleSheet.create({
         borderRightWidth: 260,
         borderTopWidth: 199,
         borderRightColor: 'transparent',
-        borderTopColor: '#8AB0AB',
+        borderTopColor: subThemeColor,
         position: 'absolute',
         left: 0,
         top: 0
@@ -54,7 +92,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1320,
         borderTopWidth: 184,
         borderLeftColor: 'transparent',
-        borderTopColor: '#8AB0AB',
+        borderTopColor: subThemeColor,
         position: 'absolute',
         right: 0,
         top: 0
@@ -67,7 +105,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1650,
         borderTopWidth: 275,
         borderLeftColor: 'transparent',
-        borderTopColor: '#8AB0AB',
+        borderTopColor: subThemeColor,
         borderStyle: 'solid',
         position: 'absolute',
         bottom: -731,
@@ -83,7 +121,7 @@ const styles = StyleSheet.create({
         borderRightWidth: 265,
         borderTopWidth: 185,
         borderRightColor: 'transparent',
-        borderTopColor: '#3E505B',
+        borderTopColor: mainThemeColor,
         position: 'absolute',
         left: 0,
         top: 0
@@ -96,20 +134,20 @@ const styles = StyleSheet.create({
         borderLeftWidth: 1200,
         borderTopWidth: 180,
         borderLeftColor: 'transparent',
-        borderTopColor: '#3E505B',
+        borderTopColor: mainThemeColor,
         position: 'absolute',
         right: 0,
         top: 0
     },
     triangle3: {
-        width: 0,
+        width: 0, 
         height: 0,
         backgroundColor: 'transparent',
         borderStyle: 'solid',
         borderLeftWidth: 1500,
         borderTopWidth: 275,
         borderLeftColor: 'transparent',
-        borderTopColor: '#3E505B',
+        borderTopColor: mainThemeColor,
         borderStyle: 'solid',
         position: 'absolute',
         bottom: -740,
@@ -119,4 +157,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Header;
+export default HomeScreenFormat;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
+import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const HomeScreenFormat = (props) => {
@@ -23,13 +23,13 @@ const HomeScreenFormat = (props) => {
     )
 }
 
-const mainThemeColor = '#2a4b69'
+const mainThemeColor = '#566347'
 const subThemeColor = '#292828'
 const titleColor = '#d3d3d3'
 
 const styles = StyleSheet.create({ 
     titleBox: {
-        height: heightPercentageToDP('-30%')
+        height: hp('-30%')
     },
     title: { 
         position: 'absolute',
@@ -37,31 +37,31 @@ const styles = StyleSheet.create({
         textShadowColor: 'black',
         textShadowRadius: 9,
         textShadowOffset: { width: 2, height: 2 },
-        top: heightPercentageToDP('1%'),
-        fontSize: widthPercentageToDP('14%'), //85
+        top: hp('1%'),
+        fontSize: wp('14%'), //85
         fontWeight: '500',
     },
     titleBox: {
         position: 'absolute',
         justifyContent: 'center',
         alignItems: 'center',
-        top: heightPercentageToDP('2%'),
-        width: widthPercentageToDP('100%'),
-        height: heightPercentageToDP('11%'),
+        top: hp('2%'),
+        width: wp('100%'),
+        height: hp('11%'),
     },
     version: {
         position: 'absolute',
         color: 'white',
         fontWeight: '300',
-        fontSize: heightPercentageToDP('2%'),
-        top: heightPercentageToDP('74%'),
-        left: widthPercentageToDP('80%'),
+        fontSize: hp('2%'),
+        top: hp('88%'),
+        left: wp('80%'),
     },
     header: {
         //flex: 1,
-        width: widthPercentageToDP('100%'),
-        height: heightPercentageToDP('14%'),
-        //height: heightPercentageToDP('100%'),
+        width: wp('100%'),
+        height: hp('14%'),
+        //height: hp('100%'),
         //height: 140, 
         backgroundColor: '#e82e2e',
         alignItems: 'center',
@@ -69,8 +69,8 @@ const styles = StyleSheet.create({
     },
     bottom: {
         //flex: 1, 
-        width: widthPercentageToDP('100%'),
-        height: heightPercentageToDP('-20%'),
+        width: wp('100%'),
+        height: hp('-20%'),
         backgroundColor: '#e82e2e',
         alignItems: 'center',
         justifyContent: 'center'
@@ -80,87 +80,87 @@ const styles = StyleSheet.create({
         backgroundColor: 'tan'
     },
     triangle1_under: {
-        width: widthPercentageToDP('0%'),
-        height: heightPercentageToDP('0%'),
+        width: wp('0%'),
+        height: hp('0%'),
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderRightWidth: widthPercentageToDP('65%'), //260
-        borderTopWidth: widthPercentageToDP('48%'),
+        borderRightWidth: wp('65%'), //260
+        borderTopWidth: wp('48%'),
         borderRightColor: 'transparent',
         borderTopColor: subThemeColor,
         position: 'absolute',
-        left: widthPercentageToDP('0%'),
-        top: heightPercentageToDP('0%')
+        left: wp('0%'),
+        top: hp('0%')
     },
     triangle2_under: {
-        width: widthPercentageToDP('0%'),
-        height: heightPercentageToDP('0%'),
+        width: wp('0%'),
+        height: hp('0%'),
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderLeftWidth: heightPercentageToDP('140%'), //1320
-        borderTopWidth: widthPercentageToDP('45%'),
+        borderLeftWidth: wp('274%'), //1320
+        borderTopWidth: wp('45%'),
         borderLeftColor: 'transparent',
         borderTopColor: subThemeColor,
         position: 'absolute',
-        right: widthPercentageToDP('0%'),
-        top: heightPercentageToDP('0%')
+        right: wp('0%'),
+        top: hp('0%')
     },
     triangle3_under: {
-        width: widthPercentageToDP('0%'),
-        height: heightPercentageToDP('0%'),
+        width: wp('0%'),
+        height: hp('0%'),
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderLeftWidth: widthPercentageToDP('330%'), //1650
-        borderTopWidth: heightPercentageToDP('31%'), //275
+        borderLeftWidth: wp('330%'), //1650
+        borderTopWidth: wp('65.5%'), //275
         borderLeftColor: 'transparent',
         borderTopColor: subThemeColor,
         borderStyle: 'solid',
         position: 'absolute',
-        left: widthPercentageToDP('-115%'),
-        bottom: heightPercentageToDP('-88.5%'), //-731
+        left: wp('-115%'),
+        bottom: hp('-88.5%'), //-731
         transform: [
             {rotate: '180deg'}
           ]
     },
     triangle1: {
-        width: widthPercentageToDP('0%'),
-        height: heightPercentageToDP('0%'),
+        width: wp('0%'),
+        height: hp('0%'),
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderRightWidth: widthPercentageToDP('66%'), //265
-        borderTopWidth: heightPercentageToDP('20.5%'), //185
+        borderRightWidth: wp('66%'), //265
+        borderTopWidth: hp('20.5%'), //185
         borderRightColor: 'transparent',
         borderTopColor: mainThemeColor,
         position: 'absolute',
-        left: widthPercentageToDP('0%'),
-        top: heightPercentageToDP('0%')
+        left: wp('0%'),
+        top: hp('0%')
     },
     triangle2: {
-        width: widthPercentageToDP('0%'),
-        height: heightPercentageToDP('0%'),
+        width: wp('0%'),
+        height: hp('0%'),
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderLeftWidth: widthPercentageToDP('270%'), //1200
-        borderTopWidth: heightPercentageToDP('20%'), //180
+        borderLeftWidth: wp('270%'), //1200
+        borderTopWidth: hp('20%'), //180
         borderLeftColor: 'transparent',
         borderTopColor: mainThemeColor,
         position: 'absolute',
-        right: widthPercentageToDP('0%'),
-        top: heightPercentageToDP('0%')
+        right: wp('0%'),
+        top: hp('0%')
     },
     triangle3: {
-        width: widthPercentageToDP('0%'),
-        height: heightPercentageToDP('0%'),
+        width: wp('0%'),
+        height: hp('0%'),
         backgroundColor: 'transparent',
         borderStyle: 'solid',
-        borderLeftWidth: widthPercentageToDP('310%'), //1500
-        borderTopWidth: heightPercentageToDP('30.5%'), //275
+        borderLeftWidth: wp('310%'), //1500
+        borderTopWidth: hp('30.5%'), //275
         borderLeftColor: 'transparent',
         borderTopColor: mainThemeColor,
         borderStyle: 'solid',
         position: 'absolute',
-        //left: widthPercentageToDP('0%'),
-        bottom: heightPercentageToDP('-100%'),//-740,
+        //left: wp('0%'),
+        bottom: hp('-100%'),//-740,
         transform: [
             {rotate: '180deg'}
           ]

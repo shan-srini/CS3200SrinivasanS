@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
 import { Platform } from '@unimodules/core';
 import HomeScreenFormat from './components/HomeScreenFormat';
 import InputBar from './components/InputBar';
@@ -35,13 +35,13 @@ export default class HomeScreen extends React.Component {
       this.setState({loading: true})
       this.callApi()
       const {navigate} = this.props.navigation;
-      if(this.state.jsonResponse.player_name==this.state.searchInput) {
-        this.setState({loading: false})
+      // if(this.state.jsonResponse.player_name==this.state.searchInput) {
+      //   this.setState({loading: false})
         navigate('Player', {name: this.state.searchInput})
-      }
-      else {
-        alert("Not valid Player Name")
-      }
+      // }
+      // else {
+      //   alert("Not valid Player Name")
+      // }
   }
 
     static navigationOptions = {
@@ -56,12 +56,13 @@ export default class HomeScreen extends React.Component {
         const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View> </View>
 
       return (
+
         <View style={styles.container}>
         {statusbar}
+        <StatusBar barStyle="light-content" />
 
         
-        <HomeScreenFormat title="scrutinyFB"/> 
-        {/* version="1.0.0" /> */}
+        <HomeScreenFormat title="scrutinyFB" version="1.0.0"/> 
 
       {/* <Text> {loading} </Text> */}
 
@@ -75,13 +76,11 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  const mainBackgroundColor = '#7b8894';
-  const statusBarColor = '#2a4b69';
+  const mainBackgroundColor = '#8E8E8E';
+  const statusBarColor = '#566347';
 
   const styles = StyleSheet.create({
     container: {
-      // width: scale(20),
-      // height: verticalScale(50),
       backgroundColor: mainBackgroundColor,
       flex: 1
     },
@@ -89,11 +88,4 @@ export default class HomeScreen extends React.Component {
       backgroundColor: statusBarColor,
       height: hp('5%')
     },
-    version: {
-      top: 630,
-      left: 340,
-      color: 'white',
-      fontSize: 15,
-      fontWeight: '500'
-    }
   });

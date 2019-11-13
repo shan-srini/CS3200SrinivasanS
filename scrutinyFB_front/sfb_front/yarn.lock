@@ -4323,6 +4323,28 @@ react-native-gesture-handler@~1.3.0:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
+react-native-hpicker@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/react-native-hpicker/-/react-native-hpicker-1.0.5.tgz#05df272f4c5dad263a24bfb638b83d2c18407b50"
+  integrity sha1-Bd8nL0xdrSY6JL+2OLg9LBhAe1A=
+
+react-native-iphone-x-helper@^1.0.2:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-iphone-x-helper/-/react-native-iphone-x-helper-1.2.1.tgz#645e2ffbbb49e80844bb4cbbe34a126fda1e6772"
+  integrity sha512-/VbpIEp8tSNNHIvstuA3Swx610whci1Zpc9mqNkqn14DkMbw+ORviln2u0XyHG1kPvvwTNGZY6QpeFwxYaSdbQ==
+
+react-native-responsive-fontsize@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-fontsize/-/react-native-responsive-fontsize-0.3.0.tgz#62c80dfb35b481986513d85693668e408652f6ce"
+  integrity sha512-Hs0rR1AXKdZNTv8L7jg7C4ynt4C+9XxpPT/wFT5nUiDKXawjMH9zYEktFq73srEVq8pQQZNiYRJXYcj4X26w+w==
+  dependencies:
+    react-native-iphone-x-helper "^1.0.2"
+
+react-native-responsive-screen@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-responsive-screen/-/react-native-responsive-screen-1.3.0.tgz#3e81d266fe9d1212b4acedf9eeb2b3cb64cacce4"
+  integrity sha512-9ltQQZGYTClbzcXEkUHVHcSOzLoEOti/xLMjhDQCx9K5D1TwjswNe4b/cfiwF8Bwal+3Wscsb3FJTDR/tPORag==
+
 react-native-safe-area-view@^0.14.1:
   version "0.14.8"
   resolved "https://registry.yarnpkg.com/react-native-safe-area-view/-/react-native-safe-area-view-0.14.8.tgz#ef33c46ff8164ae77acad48c3039ec9c34873e5b"
@@ -4336,6 +4358,11 @@ react-native-safe-area-view@^0.14.1:
   integrity sha512-tOxHGQUN83MTmQB4ghoQkibqOdGiX4JQEmeyEv96MKWO/x8T2PJv84ECUos9hD3blPRQwVwSpAid1PPPhrVEaw==
   dependencies:
     debounce "^1.2.0"
+
+react-native-size-matters@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/react-native-size-matters/-/react-native-size-matters-0.2.1.tgz#036a139eb4257682a412cf33bb2089726fe636f3"
+  integrity sha512-u3XlYOt15SRjZtFdwiVIejp/X+gHj/uL6DcStNh4R8/7wGr2WkzpaG4C9YYPuZTJ0SwBJOCI4E1yCdQAOIi6fA==
 
 react-native-view-shot@2.6.0:
   version "2.6.0"

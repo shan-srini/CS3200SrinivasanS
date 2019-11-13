@@ -2,8 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
  
-const InputBar = (props) => {
-    
+const InputBar2 = (props) => {
     return (
         <View style={[styles.inputBarContainer]}>
             <View style={styles.inputContainer}>
@@ -11,17 +10,9 @@ const InputBar = (props) => {
                     placeholder='Select a player...' 
                     style={styles.input}
                     onChangeText={(searchInput) => props.textChange(searchInput)}
-                    onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}
+                    //onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}
                     value={props.searchInput}
                 />
-                <TouchableOpacity style={styles.searchButton}
-                onPress={(submitRequestButton) => props.changePageFromButton(submitRequestButton)}>
-                    <Text style={styles.searchButtonText}>GO</Text>
-                    {/* <Image
-                      style={{width: 50, height: 50}}
-                      source={{uri: 'https://imgur.com/9An5ON3'}}
-                    /> */}
-                </TouchableOpacity>
             </View>
         </View>
     )  
@@ -35,7 +26,7 @@ const styles = StyleSheet.create({
         width: wp('100%'),
         height: hp('10%'),
         backgroundColor: 'transparent',
-        top: hp('40%')
+        top: hp('48.5%')
     },
     inputContainer: {
         position: 'absolute',
@@ -79,4 +70,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default InputBar;
+export default InputBar2;

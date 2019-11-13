@@ -1,5 +1,5 @@
 # CS3200SrinivasanS
-CS3200 Database Design Project
+ScrutinyFB CS3200 Database Design Project
 
 
 <h3> A general description of the data domain of the project. As well as the capabilities the project will provide. </h3>

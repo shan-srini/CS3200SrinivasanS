@@ -58,9 +58,15 @@ const PlayerScreenFormat = (props) => {
             <Text style={[styles.comparisonTypeTitle]}>Comparison Type</Text>
             <View style={styles.backButtonSquare}/>
             <View style={styles.backButtonCircle}/>
+            <View style={styles.goButtonSquare}/>
+            <View style={styles.goButtonCircle}/>
             <TouchableOpacity style={styles.backButton}
                 onPress={(backButtonPressed) => props.goBackHome(backButtonPressed)}>
                     <Text style={styles.backButtonText}>Back</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.goButton}
+                onPress={(goButton) => props.goToStats(goButtonPressed)}>
+                    <Text style={styles.goButtonText}>Go</Text>
             </TouchableOpacity>
         </View>
     )
@@ -359,7 +365,40 @@ const styles = StyleSheet.create({
     backButtonText: {
         color: 'white',
         fontSize: wp('7.4'),
-        top: hp('1.6')
+        top: hp('1.6'),
+    },
+    goButton : {
+        alignContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: wp('30'),
+        height: hp('8'),
+        backgroundColor: 'transparent',
+        left: wp('70'),
+        top: hp('85'),
+    },
+    goButtonSquare: {
+        position: 'absolute',
+        width: wp('21'),
+        height: hp('8'),
+        backgroundColor: lightGray,
+        left: wp('82'),
+        top: hp('85'),
+    },
+    goButtonCircle: {
+        position: 'absolute',
+        width: wp('21'),
+        height: hp('8'),
+        borderRadius: 100/2,
+        backgroundColor: lightGray,
+        top: hp('85'),
+        left: wp('73'),
+    },
+    goButtonText: {
+        color: 'white',
+        fontSize: wp('9'),
+        top: hp('1.4'),
+        left: wp('3.5')
     }
 });
 

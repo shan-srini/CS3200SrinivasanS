@@ -85,9 +85,8 @@ export default class PlayerScreen extends React.Component {
               
               itemStyle={styles.yearStyle}
             >
-                    <Picker.Item label="2019" value="2017" />
+                    <Picker.Item label="2019" value="2019" />
                     <Picker.Item label="2018" value="2018" />
-                    <Picker.Item label="2017" value="2019" />
             </Picker>
             <Picker
               

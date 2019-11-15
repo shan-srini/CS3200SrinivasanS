@@ -65,7 +65,7 @@ const PlayerScreenFormat = (props) => {
                     <Text style={styles.backButtonText}>Back</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.goButton}
-                onPress={(goButton) => props.goToStats(goButtonPressed)}>
+                onPress={(goButtonPressed) => props.goStatPage(goButtonPressed)}>
                     <Text style={styles.goButtonText}>Go</Text>
             </TouchableOpacity>
         </View>

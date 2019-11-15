@@ -15,6 +15,7 @@ export default class PlayerScreen extends React.Component {
       nameState : '',
       jsonResponse: [],
       searchInput : "",
+      compareOnePlayer: true,
     };
 
     updateYear = (year) => {
@@ -49,6 +50,18 @@ export default class PlayerScreen extends React.Component {
       navigate('Home');
     }
 
+    goToStats() {
+      const {navigate} = this.props.navigation;
+      if(this.state.compareOnePlayer)
+      navigate('StatPage', {player1: this.state.jsonResponse, logStatus: 'full'});
+    }
+
+    // return age given a Date of birth string
+    calcAge(dateString) {
+      var birthday = +new Date(dateString);
+      return ~~((Date.now() - birthday) / (31557600000));
+    }
+
     render() {
 
         //const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View> </View>
@@ -64,12 +77,13 @@ export default class PlayerScreen extends React.Component {
             <PlayerScreenFormat 
               displayPlayerName={this.state.jsonResponse.player_name}
               p_team={this.state.jsonResponse.current_team}
-              p_age='69'
+              p_age={this.calcAge(this.state.jsonResponse.player_dob)}
               p_weight={this.state.jsonResponse.player_weight}
               p_height={this.state.jsonResponse.player_height}
               p_pos={this.state.jsonResponse.player_position}
 
               goBackHome={goBackRequest => {this.goHome()}}
+              goStatPage={goStatPageRequest => {this.goToStats()}}
             />
 
             <InputBar2 

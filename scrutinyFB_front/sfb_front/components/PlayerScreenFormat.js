@@ -79,9 +79,9 @@ const PlayerScreenFormat = (props) => {
     )
 }
 
-const color1 = '#566347';
+const color1 = '#6C8FCA'; //this is the main one
 const color2 = '#4B4A49';
-const color3 = '#A4C2A5';
+const color3 = '#577AAE'; //this is the other main one hehe
 
 const lightGray = '#8E8E8E';
 
@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
     triangleBG: {
         alignContent: 'center',
         alignItems: 'center',
+        top: hp(0.1)
     },
     tri1: {
         width: wp('0%'),
@@ -316,7 +317,6 @@ const styles = StyleSheet.create({
     },
     dropTitleHeaders: {
         color: 'white',
-        // fontSize: 12,
         top: hp('0.5'),
         fontSize: wp('5'),
         fontWeight: ('500')
@@ -404,7 +404,7 @@ const styles = StyleSheet.create({
     goButtonText: {
         color: 'white',
         fontSize: wp('9'),
-        top: hp('1.4'),
+        top: hp('1'),
         left: wp('3.5')
     }
 });

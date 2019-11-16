@@ -29,11 +29,11 @@ const HomeScreenFormat = (props) => {
                     <View style={[styles.rectangleDesign3]}/>
                     <View style={[styles.rectangleDesign4]}/>
                 </View>
-                <View style={[styles.titleBox]}>
+                {/* <View style={[styles.titleBox]}>
                     <Text style={styles.title}>{ props.title }</Text>
-                </View>
-                <Text style={styles.version}>{ props.version }</Text>
-            
+                </View> */}
+                {/* <Text style={styles.version}>{ props.version }</Text> */}
+                <Text style={styles.version}>v 1.0.0</Text>
         </View>
         
     )
@@ -165,6 +165,14 @@ const styles = StyleSheet.create({
         top: hp('46.75'),
         left: wp('94'),
     },
+    version: {
+        position: 'absolute',
+        fontSize: wp('4'),
+        color: '#3b3a3a',
+        top: hp('96'),
+        left: wp('80')
+
+    }
 });
 
 export default HomeScreenFormat;

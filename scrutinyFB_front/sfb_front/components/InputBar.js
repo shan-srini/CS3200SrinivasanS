@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
- 
+import Constants from 'expo-constants';
+
 const InputBar = (props) => {
     
     const boltHeight = hp('5')
@@ -28,7 +29,8 @@ const InputBar = (props) => {
         </View>
     )  
 }
-
+isXR = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone xr')
+fontInput = isXR ? wp('4') : wp('5.75%')
 const styles = StyleSheet.create({
     inputBarContainer: {
         justifyContent: 'center',
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#F3F3F3',
         flex: 1,
-        fontSize: wp('5.75%'), //30
+        fontSize: fontInput, //30
         left: wp('2'),
         top: hp('0.25%'),
         height: hp('5%'), //44

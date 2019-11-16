@@ -17,7 +17,7 @@ export default class PlayerScreen extends React.Component {
       jsonResponse: [],
       searchInput : "",
       compareOnePlayer: true,
-      fullLog : false,
+      fullLog : true,
       homeLog : false,
       awayLog : false,
     };

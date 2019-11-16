@@ -96,7 +96,8 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  const mainBackgroundColor = 'white';
+  const mainBackgroundColor = '#c2c2c2';
+  // const mainBackgroundColor = 'black';
 
   const styles = StyleSheet.create({
     container: {

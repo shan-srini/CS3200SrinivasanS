@@ -13,10 +13,10 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
+      "image": "./assets/backSplashDesign2.png",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff"
-    },
+    }, 
     "updates": {
       "fallbackToCacheTimeout": 0
     },

@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Picker } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { RFPercentage as rf, RFValue } from "react-native-responsive-fontsize";
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 const PlayerScreenFormat = (props) => {
@@ -35,23 +36,29 @@ const PlayerScreenFormat = (props) => {
                      <Text style={styles.statNames}>Wt: </Text>
                      <Text style={styles.wtPlayerStat}>{props.p_weight}</Text>
                 </View>
-                <View style={styles.wholeButtonContainer}>
+                {/* <View style={styles.wholeButtonContainer}>
                     <View style={styles.fullLogContainer}>
-                        <TouchableOpacity style={[styles.fullLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>Full Game Log</Text> 
-                        </TouchableOpacity>
+                        <TouchableHighlight onPress={()=>alert('pressed')} underlayColor='red' style={[styles.fullLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Full Game Log
+                                </Text> 
+                        </TouchableHighlight>
                     </View>
                     <View style={styles.homeLogContainer}>
-                        <TouchableOpacity style={[styles.homeLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>Home Game Log</Text> 
-                        </TouchableOpacity>
+                        <TouchableHighlight style={[styles.homeLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Home Game Log
+                                </Text> 
+                        </TouchableHighlight>
                     </View>
                     <View style={styles.awayLogContainer}>
-                        <TouchableOpacity style={[styles.awayLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>Away Game Log</Text> 
-                        </TouchableOpacity>
+                        <TouchableHighlight style={[styles.awayLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Away Game Log
+                            </Text> 
+                        </TouchableHighlight>
                     </View>
-                </View>
+                </View> */}
             </View>
             <Text style={[styles.compareTitle]}>Compare</Text>
             <Text style={[styles.yearTitle]}>Year</Text>
@@ -240,7 +247,7 @@ const styles = StyleSheet.create({
         left: wp('11.5')
     },
     wtPlayerStat: {
-        fontSize: rf(3.4),
+        fontSize: rf(3.2),
         color: 'white',
         fontWeight: '400',
         bottom: wp('5'),
@@ -258,7 +265,7 @@ const styles = StyleSheet.create({
     },
     fullLogContainer: {
         position: 'absolute',
-        backgroundColor: lightGray,
+        backgroundColor: 'transparent',
         height: hp('4.6'),
         width: wp('98.4'),
         top: hp('0.2'),
@@ -268,7 +275,7 @@ const styles = StyleSheet.create({
     },
     homeLogContainer: {
         position: 'absolute',
-        backgroundColor: lightGray,
+        backgroundColor: 'transparent',
         height: hp('4.6'),
         width: wp('49'),
         bottom: hp('0.2'),
@@ -278,7 +285,7 @@ const styles = StyleSheet.create({
     },
     awayLogContainer: {
         position: 'absolute',
-        backgroundColor: lightGray,
+        backgroundColor: 'transparent',
         height: hp('4.6'),
         width: wp('49'),
         bottom: hp('0.2'),
@@ -291,25 +298,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: wp('98'),
         height: hp('4.4'),
-        backgroundColor: 'transparent'
+        backgroundColor: 'lightGray'
     },
     homeLog: {
         alignContent: 'center',
         alignItems: 'center',
         width: wp('49'),
         height: hp('4.4'),
-        backgroundColor: 'transparent'
+        backgroundColor: 'lightGray'
     },
     awayLog: {
         alignContent: 'center',
         alignItems: 'center',
         width: wp('49'),
         height: hp('4.4'),
-        backgroundColor: 'transparent'
+        backgroundColor: 'lightGray'
     },
     dropTitleHeaders: {
         color: 'white',
-        fontSize: 12,
+        // fontSize: 12,
         top: hp('0.5'),
         fontSize: wp('5'),
         fontWeight: ('500')

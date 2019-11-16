@@ -1,10 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar, Image } from 'react-native';
 import { Platform } from '@unimodules/core';
 import HomeScreenFormat from './components/HomeScreenFormat';
 import InputBar from './components/InputBar';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
+import { AppLoading } from 'expo';
+
+const headerWidth = wp('150')
+const headerHeight = hp('52')
 
 export default class HomeScreen extends React.Component {
 
@@ -13,7 +17,8 @@ export default class HomeScreen extends React.Component {
         this.state= { 
           searchInput : "",
           jsonResponse: [],
-          loading: false
+          loading: false,
+          isReady: false,
         };
       }
     
@@ -48,21 +53,28 @@ export default class HomeScreen extends React.Component {
       header: null
     };
     render() {
-      
-        const {navigate} = this.props.navigation;
-
-        const loading = this.state.loading ? <Text> LOADING </Text> : <Text> </Text>
-        
-        const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View> </View>
+      if (!this.state.isReady) {
+        return (
+          <AppLoading
+            startAsync={this._cacheResourcesAsync}
+            onFinish={() => this.setState({ isReady: true })}
+            onError={console.warn}
+          />
+        ); }
+    
 
       return (
 
         <View style={styles.container}>
-        {statusbar}
-        <StatusBar barStyle="light-content" />
 
+      <View style={[styles.headerContainer]}>
+        <Image 
+          source={require('./components/MainHeader.png')} 
+          style={{ width: headerWidth, height: headerHeight  }}
+        />
+      </View>
         
-        <HomeScreenFormat title="scrutinyFB" version="1.0.0"/> 
+        <HomeScreenFormat /> 
 
       {/* <Text> {loading} </Text> */}
 
@@ -74,18 +86,32 @@ export default class HomeScreen extends React.Component {
       </View>
       );
     }
+    async _cacheResourcesAsync() {
+      const images = [require('./components/MainHeader.png')];
+  
+      const cacheImages = images.map(image => {
+        return asset.fromModule(image).downloadAsync();
+      }); 
+      return Promise.all(cacheImages);
+    }
   }
 
-  const mainBackgroundColor = '#8E8E8E';
-  const statusBarColor = '#566347';
+  const mainBackgroundColor = 'white';
 
   const styles = StyleSheet.create({
     container: {
       backgroundColor: mainBackgroundColor,
       flex: 1
     },
-    statusbar: {
-      backgroundColor: statusBarColor,
-      height: hp('5%')
-    },
+    headerContainer: {
+      position: 'absolute',
+      alignContent: 'center',
+      alignItems: 'center',
+      top:hp('-15'),
+      left:wp('-3.5'),
+      width: wp('100%'),
+      height: hp('30'),
+      backgroundColor: ('transparent')
+  },
   });
+

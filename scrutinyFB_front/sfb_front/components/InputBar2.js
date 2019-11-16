@@ -7,7 +7,7 @@ const InputBar2 = (props) => {
         <View style={[styles.inputBarContainer]}>
             <View style={styles.inputContainer}>
                 <TextInput 
-                    placeholder='Select a player...' 
+                    placeholder='Select a player or team ...' 
                     style={styles.input}
                     onChangeText={(searchInput) => props.textChange(searchInput)}
                     //onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}

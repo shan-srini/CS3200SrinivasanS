@@ -12,7 +12,16 @@ hemletWidth = (is7) ? wp('20.5') : hemletWidth
 hemletHeight = (is7) ? hp('10.4') : hemletHeight
 logoContainerHeight = (isX) ? hp('2') : hp('2%') 
 logoContainerHeight = (is7) ? hp('1') : logoContainerHeight
-fontSpecs = isXR ? wp('4') : wp('5.75%')
+fontStatNames = isXR ? wp('5') : wp(7)
+fontAgeStat = isXR ? wp('5') : wp(6.5)
+fontPosStat = isXR ? wp('5') : wp(6.5)
+fontHtStat = isXR ? wp('5') : wp(6.5)
+fontWtStat = isXR ? wp('4.8') : wp(6.4)
+fontYrTitle = isXR ? wp('6') : wp('7')
+fontComparisonTypeTitle = isXR ? wp('5') : wp('6')
+leftMesYearTitle = isXR ? wp('14.5') : wp('15.5')
+leftComparisonTypeTitle = isXR ? wp('43') : wp('45')
+
 
 const PlayerScreenFormat = (props) => {
     return (
@@ -216,7 +225,7 @@ const styles = (props) => StyleSheet.create({
         borderWidth: 0
     },
     statNames: {
-        fontSize:wp(7),
+        fontSize:fontStatNames,
         color: '#D2D2D1',
         fontWeight: '400',
         top: wp('3'),
@@ -224,28 +233,28 @@ const styles = (props) => StyleSheet.create({
     },
     agePlayerStat: {
         //fontSize: wp('6.5'),
-        fontSize: wp(6.5),
+        fontSize: fontAgeStat,
         color: 'white',
         fontWeight: '400',
         bottom: wp('5'),
         left: wp('16.2')
     },
     posPlayerStat: {
-        fontSize: wp(6.5),
+        fontSize: fontPosStat,
         color: 'white',
         fontWeight: '400',
         bottom: wp('5'),
         left: wp('15.5')
     },
     htPlayerStat: {
-        fontSize: wp(6.5),
+        fontSize: fontHtStat,
         color: 'white',
         fontWeight: '400',
         bottom: wp('4.9'),
         left: wp('11.5')
     },
     wtPlayerStat: {
-        fontSize: wp(6.4),
+        fontSize: fontWtStat,
         color: 'white',
         fontWeight: '400',
         bottom: wp('5'),
@@ -329,17 +338,17 @@ const styles = (props) => StyleSheet.create({
     yearTitle: {
         position: 'absolute',
         color: 'white',
-        fontSize: wp('7'),
+        fontSize: fontYrTitle,
         top: hp('61'),
-        left: wp('15.5'),
+        left: leftMesYearTitle,
         fontWeight: '500'
     },
     comparisonTypeTitle: {
         position: 'absolute',
         color: 'white',
-        fontSize: wp('6'),
+        fontSize: fontComparisonTypeTitle,
         top: hp('61.5'),
-        left: wp('45'), 
+        left: leftComparisonTypeTitle, 
         fontWeight: '500'
     },
     backButton : {

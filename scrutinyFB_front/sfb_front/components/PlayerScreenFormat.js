@@ -20,7 +20,7 @@ fontWtStat = isXR ? wp('4.8') : wp(6.4)
 fontYrTitle = isXR ? wp('6') : wp('7')
 fontComparisonTypeTitle = isXR ? wp('5') : wp('6')
 leftMesYearTitle = isXR ? wp('14.5') : wp('15.5')
-leftComparisonTypeTitle = isXR ? wp('43') : wp('45')
+leftComparisonTypeTitle = isXR ? wp('42') : wp('45')
 
 
 const PlayerScreenFormat = (props) => {

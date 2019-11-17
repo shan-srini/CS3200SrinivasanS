@@ -109,8 +109,8 @@ export default class HomeScreen extends React.Component {
         />
           <View style={styles.playerListContainer}>
             <ScrollView >
-              { this.state.playerOptionList.map((player) => (
-               <TouchableOpacity style={styles.playerOption} onPress={() => this.handleSubmitEditing(player)}>
+              { this.state.playerOptionList.map((player, playerIndex) => (
+               <TouchableOpacity key={playerIndex} style={styles.playerOption} onPress={() => this.handleSubmitEditing(player)}>
                   <Text style={styles.playerText}> {player} </Text>
              </TouchableOpacity>
               ))
@@ -159,7 +159,6 @@ export default class HomeScreen extends React.Component {
     height: hp("5"),
     width: wp("79.25"),
     backgroundColor: "white",
-    border: 3,
     alignContent: "center",
     backgroundColor: ('transparent')
     // backgroundColor: "",

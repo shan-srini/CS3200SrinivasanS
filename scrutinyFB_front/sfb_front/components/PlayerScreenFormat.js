@@ -1,86 +1,101 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Picker } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Picker, Image } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { RFPercentage as rf, RFValue } from "react-native-responsive-fontsize";
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
-
+const hemletWidth = wp('22');
+const hemletHeight = hp('9');
 const PlayerScreenFormat = (props) => {
-
     return (
-        <View style={styles.page}>
-            <View style={styles.teamNameBox}> 
-                <Text style={styles.teamName}>{props.displayPlayerName}</Text> 
+        <View style={styles(props).page}>
+            <View style={styles(props).teamNameBox}> 
+                <Text style={styles(props).teamName}>{props.displayPlayerName}</Text> 
             </View>    
-            <View style={styles.triangleBG}>
-                <View style={styles.tri1}/>
-                <View style={styles.tri2}/>   
+            <View style={styles(props).triangleBG}>
+                <View style={styles(props).tri1}/>
+                <View style={styles(props).tri2}/>   
             </View>
-            <View style={styles.teamLogoContainer}>
-                <View style={styles.teamLogo}/>
+            <View style={styles(props).boxAroundLogoContainer}>
+                <View style={styles(props).teamLogoContainer}>
+                    <View style ={styles(props).logoContainer}>
+                        <Image 
+                            source={props.helmetImage} 
+                            style={{ width: hemletWidth, height: hemletHeight }}
+                        />
+                    </View>
+                </View>
             </View>
-            <View style={styles.statBoxContainer}>
-                <View style={styles.ageContainer}> 
-                    <Text style={styles.statNames}>Age: </Text>
-                    <Text style={styles.agePlayerStat}>{props.p_age}</Text>
+            <View style={styles(props).statBoxContainer}>
+                <View style={styles(props).ageContainer}> 
+                    <Text style={styles(props).statNames}>Age: </Text>
+                    <Text style={styles(props).agePlayerStat}>{props.p_age}</Text>
                 </View>
-                <View style={styles.posContainer}>
-                    <Text style={styles.statNames}>Pos: </Text>
-                    <Text style={styles.posPlayerStat}>{props.p_pos}</Text>
+                <View style={styles(props).posContainer}>
+                    <Text style={styles(props).statNames}>Pos: </Text>
+                    <Text style={styles(props).posPlayerStat}>{props.p_pos}</Text>
                 </View>
-                <View style={styles.htContainer}>
-                    <Text style={styles.statNames}>Ht: </Text>
-                    <Text style={styles.htPlayerStat}>{props.p_height}</Text>
+                <View style={styles(props).htContainer}>
+                    <Text style={styles(props).statNames}>Ht: </Text>
+                    <Text style={styles(props).htPlayerStat}>{props.p_height}</Text>
                 </View>
-                <View style={styles.wtContainer}>
-                     <Text style={styles.statNames}>Wt: </Text>
-                     <Text style={styles.wtPlayerStat}>{props.p_weight}</Text>
+                <View style={styles(props).wtContainer}>
+                     <Text style={styles(props).statNames}>Wt: </Text>
+                     <Text style={styles(props).wtPlayerStat}>{props.p_weight}</Text>
                 </View>
-                <View style={styles.wholeButtonContainer}>
+                {/* <View style={styles.wholeButtonContainer}>
                     <View style={styles.fullLogContainer}>
-                        <TouchableOpacity style={[styles.fullLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>Full Game Log</Text> 
-                        </TouchableOpacity>
+                        <TouchableHighlight onPress={()=>alert('pressed')} underlayColor='red' style={[styles.fullLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Full Game Log
+                                </Text> 
+                        </TouchableHighlight>
                     </View>
                     <View style={styles.homeLogContainer}>
-                        <TouchableOpacity style={[styles.homeLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>Home Game Log</Text> 
-                        </TouchableOpacity>
+                        <TouchableHighlight style={[styles.homeLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Home Game Log
+                                </Text> 
+                        </TouchableHighlight>
                     </View>
                     <View style={styles.awayLogContainer}>
-                        <TouchableOpacity style={[styles.awayLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>Away Game Log</Text> 
-                        </TouchableOpacity>
+                        <TouchableHighlight style={[styles.awayLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Away Game Log
+                            </Text> 
+                        </TouchableHighlight>
                     </View>
-                </View>
+                </View> */}
             </View>
-            <Text style={[styles.compareTitle]}>Compare</Text>
-            <Text style={[styles.yearTitle]}>Year</Text>
-            <Text style={[styles.comparisonTypeTitle]}>Comparison Type</Text>
-            <View style={styles.backButtonSquare}/>
-            <View style={styles.backButtonCircle}/>
-            <View style={styles.goButtonSquare}/>
-            <View style={styles.goButtonCircle}/>
-            <TouchableOpacity style={styles.backButton}
+            <Text style={[styles(props).compareTitle]}>Compare</Text>
+            <Text style={[styles(props).yearTitle]}>Year</Text>
+            <Text style={[styles(props).comparisonTypeTitle]}>Comparison Type</Text>
+            <View style={styles(props).backButtonSquare}/>
+            <View style={styles(props).backButtonCircle}/>
+            <View style={styles(props).goButtonSquare}/>
+            <View style={styles(props).goButtonCircle}/>
+            <TouchableOpacity style={styles(props).backButton}
                 onPress={(backButtonPressed) => props.goBackHome(backButtonPressed)}>
-                    <Text style={styles.backButtonText}>Back</Text>
+                    <Text style={styles(props).backButtonText}>Back</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.goButton}
+            <TouchableOpacity style={styles(props).goButton}
                 onPress={(goButtonPressed) => props.goStatPage(goButtonPressed)}>
-                    <Text style={styles.goButtonText}>Go</Text>
+                    <Text style={styles(props).goButtonText}>Go</Text>
             </TouchableOpacity>
         </View>
     )
 }
 
-const color1 = '#566347';
+// const color1 = '#6C8FCA'; //this is the main one
+// const color1 = '#0A2343'; //this is the main one
 const color2 = '#4B4A49';
-const color3 = '#A4C2A5';
+// const color3 = '#577AAE'; //this is the other main one hehe
+const color3 = '#C62032'; //this is the other main one hehe
 
 const lightGray = '#8E8E8E';
 
-const styles = StyleSheet.create({ 
+const styles = (props) => StyleSheet.create({ 
     page: {
-        backgroundColor: color1,
+        backgroundColor: props.color1,
         width: wp('100%'),
         height: hp('100%'),
     },
@@ -106,6 +121,7 @@ const styles = StyleSheet.create({
     triangleBG: {
         alignContent: 'center',
         alignItems: 'center',
+        top: hp(0.1)
     },
     tri1: {
         width: wp('0%'),
@@ -115,7 +131,7 @@ const styles = StyleSheet.create({
         borderLeftWidth: wp('100%'), //1500
         borderTopWidth: hp('20.5%'), //275
         borderLeftColor: 'transparent',
-        borderTopColor: color3,
+        borderTopColor: props.color3,
         position: 'absolute',
         top: hp('11.6%'),
         transform: [
@@ -130,31 +146,9 @@ const styles = StyleSheet.create({
         borderLeftWidth: wp('100%'), //1500
         borderTopWidth: hp('20.5%'), //275
         borderLeftColor: 'transparent',
-        borderTopColor: color1,
+        borderTopColor: props.color1,
         position: 'absolute',
         top: hp('11.5%'),
-    },
-    teamLogoContainer: {
-        alignContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        width: wp('28.5'),
-        height: hp('13.5'),
-        backgroundColor: lightGray,
-        top: hp('15'),
-        left: wp('4'),
-        borderColor: 'black',
-        borderWidth: 1,
-    },
-    teamLogo: {
-        position: 'absolute',
-        alignSelf: 'center', 
-        width: wp('26'),
-        height: hp('12.5'),
-        backgroundColor: color2,
-        top: hp('0.37'),
-        borderColor: 'black',
-        borderWidth: 1,
     },
     statBoxContainer: {
         position: 'absolute',
@@ -211,7 +205,7 @@ const styles = StyleSheet.create({
         borderWidth: 0
     },
     statNames: {
-        fontSize: rf(3.5),
+        fontSize:wp(7),
         color: '#D2D2D1',
         fontWeight: '400',
         top: wp('3'),
@@ -219,28 +213,28 @@ const styles = StyleSheet.create({
     },
     agePlayerStat: {
         //fontSize: wp('6.5'),
-        fontSize: rf(3.4),
+        fontSize: wp(6.5),
         color: 'white',
         fontWeight: '400',
         bottom: wp('5'),
         left: wp('16.2')
     },
     posPlayerStat: {
-        fontSize: rf(3.4),
+        fontSize: wp(6.5),
         color: 'white',
         fontWeight: '400',
         bottom: wp('5'),
         left: wp('15.5')
     },
     htPlayerStat: {
-        fontSize: rf(3.4),
+        fontSize: wp(6.5),
         color: 'white',
         fontWeight: '400',
         bottom: wp('4.9'),
         left: wp('11.5')
     },
     wtPlayerStat: {
-        fontSize: rf(3.4),
+        fontSize: wp(6.4),
         color: 'white',
         fontWeight: '400',
         bottom: wp('5'),
@@ -258,7 +252,7 @@ const styles = StyleSheet.create({
     },
     fullLogContainer: {
         position: 'absolute',
-        backgroundColor: lightGray,
+        backgroundColor: 'transparent',
         height: hp('4.6'),
         width: wp('98.4'),
         top: hp('0.2'),
@@ -268,7 +262,7 @@ const styles = StyleSheet.create({
     },
     homeLogContainer: {
         position: 'absolute',
-        backgroundColor: lightGray,
+        backgroundColor: 'transparent',
         height: hp('4.6'),
         width: wp('49'),
         bottom: hp('0.2'),
@@ -278,7 +272,7 @@ const styles = StyleSheet.create({
     },
     awayLogContainer: {
         position: 'absolute',
-        backgroundColor: lightGray,
+        backgroundColor: 'transparent',
         height: hp('4.6'),
         width: wp('49'),
         bottom: hp('0.2'),
@@ -291,25 +285,24 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: wp('98'),
         height: hp('4.4'),
-        backgroundColor: 'transparent'
+        backgroundColor: lightGray
     },
     homeLog: {
         alignContent: 'center',
         alignItems: 'center',
         width: wp('49'),
         height: hp('4.4'),
-        backgroundColor: 'transparent'
+        backgroundColor: lightGray
     },
     awayLog: {
         alignContent: 'center',
         alignItems: 'center',
         width: wp('49'),
         height: hp('4.4'),
-        backgroundColor: 'transparent'
+        backgroundColor: lightGray
     },
     dropTitleHeaders: {
         color: 'white',
-        fontSize: 12,
         top: hp('0.5'),
         fontSize: wp('5'),
         fontWeight: ('500')
@@ -397,8 +390,47 @@ const styles = StyleSheet.create({
     goButtonText: {
         color: 'white',
         fontSize: wp('9'),
-        top: hp('1.4'),
+        top: hp('1'),
         left: wp('3.5')
+    },
+    teamLogoContainer: {
+        alignContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: wp('27'),
+        height: hp('12.67'),
+        backgroundColor: lightGray,
+        top: hp('0.55'),
+        left: wp('1.25'),
+        borderColor: 'black',
+        borderWidth: 1,
+    },
+    teamLogo: {
+        position: 'absolute',
+        alignSelf: 'center', 
+        width: wp('26'),
+        height: hp('12.5'),
+        backgroundColor: color2,
+        top: hp('0.37'),
+        borderColor: 'black',
+        borderWidth: 1,
+    },
+    boxAroundLogoContainer: {
+        alignContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: wp('30'),
+        height: hp('14'),
+        backgroundColor: color2,
+        top: hp('14.75'),
+        left: wp('3'),
+        borderColor: 'black',
+        borderWidth: 1,
+    },
+    logoContainer: {
+        alignContent: 'center',
+        alignItems: 'center',
+        top: wp('4.5')
     }
 });
 

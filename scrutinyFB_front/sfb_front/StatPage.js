@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar, ScrollView } from 'react-native';
 import { Platform } from '@unimodules/core';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
@@ -71,18 +71,23 @@ export default class statTableScreen extends React.Component {
 
       render() {
         return (
+            
             <View>
-                <Table>
-                    <Row data={this.state.tableHeaders}> </Row>
-                    <TableWrapper>
-                        {
-                            this.state.tableData.map((cellData, cellIndex) => (
-                                <Row data={cellData} key={`${cellIndex}+${cellData}`}>  </Row>
-                            ))
-                        }
-                     </TableWrapper>
-                </Table>
-            </View>
+                <ScrollView  horizontal={true}>
+                    <ScrollView>      
+                        <Table>
+                            <Row data={this.state.tableHeaders}> </Row>
+                            <TableWrapper>
+                                {
+                                    this.state.tableData.map((cellData, cellIndex) => (
+                                        <Row data={cellData} key={`${cellIndex}+${cellData}`}>  </Row>
+                                    ))
+                                }
+                            </TableWrapper>
+                        </Table>
+                 </ScrollView>
+                </ScrollView>    
+            </View>  
         )}}
 
 const styles = StyleSheet.create({

@@ -4,6 +4,7 @@ import PlayerScreenFormat from './components/PlayerScreenFormat';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { Platform } from '@unimodules/core';
 import InputBar2 from './components/InputBar2';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default class PlayerScreen extends React.Component {
   
@@ -16,6 +17,9 @@ export default class PlayerScreen extends React.Component {
       jsonResponse: [],
       searchInput : "",
       compareOnePlayer: true,
+      fullLog : true,
+      homeLog : false,
+      awayLog : false,
     };
 
     updateYear = (year) => {
@@ -24,6 +28,21 @@ export default class PlayerScreen extends React.Component {
 
     updateComparisonType = (comparisonType) => {
       this.setState({ comparisonType: comparisonType })
+    }
+  }
+
+  updateLog(buttonType) {
+    this.setState({homeLog: false, 
+      awayLog: false, 
+      fullLog: false})
+    if(buttonType == 'full') {
+      this.setState({fullLog: true})
+    }
+    if(buttonType == 'away') {
+      this.setState({awayLog: true})
+    }
+    if(buttonType == 'home') {
+      this.setState({homeLog: true})
     }
   }
 
@@ -62,17 +81,128 @@ export default class PlayerScreen extends React.Component {
       return ~~((Date.now() - birthday) / (31557600000));
     }
 
+    pickHelmet(team) {
+      const helmets = {
+          "Los Angeles Rams": require("./components/Helmets/RamsHelmet.png"),
+          "New York Giants": require("./components/Helmets/GiantsHelmet.png"),
+          "Carolina Panthers": require("./components/Helmets/PanthersHelmet.png"),
+          "New Orleans Saints": require("./components/Helmets/SaintsHelmet.png"),
+          "Kansas City Chiefs": require("./components/Helmets/ChiefsHelmet.png"),
+          "Dallas Cowboys": require("./components/Helmets/CowboysHelmet.png"),
+          "Green Bay Packers": require("./components/Helmets/PackersHelmet.png"),
+          "Houston Texans": require("./components/Helmets/TexansHelmet.png"),
+          "Atlanta Falcons": require("./components/Helmets/FalconsHelmet.png"),
+          "Los Angeles Chargers": require("./components/Helmets/ChargersHelmet.png"),
+          "Pittsburgh Steelers": require("./components/Helmets/SteelersHelmet.png"),
+          "San Francisco 49ers": require("./components/Helmets/49ersHelmet.png"),
+          "Tampa Bay Buccaneers": require("./components/Helmets/BucsHelmet.png"),
+          "Philadelphia Eagles": require("./components/Helmets/EaglesHelmet.png"),
+          "Minnesota Vikings": require("./components/Helmets/VikingsHelmet.png"),
+          "Indianapolis Colts": require("./components/Helmets/ColtsHelmet.png"),
+          "Cleveland Browns": require("./components/Helmets/BrownsHelmet.png"),
+          "Cincinnati Bengals": require("./components/Helmets/BengalsHelmet.png"),
+          "Arizona Cardinals": require("./components/Helmets/CardinalsHelmet.png"),
+          "New England Patriots": require("./components/Helmets/PatriotsHelmet.png"),
+          "Denver Broncos": require("./components/Helmets/BroncosHelmet.png"),
+          "Tennessee Titans": require("./components/Helmets/TitansHelmet.png"),
+          "Seattle Seahawks": require("./components/Helmets/SeahawksHelmet.png"),
+          "Washington Redskins": require("./components/Helmets/RedskinsHelmet.png"),
+          "Chicago Bears": require("./components/Helmets/BearsHelmet.png"),
+          "Detroit Lions": require("./components/Helmets/LionsHelmet.png"),
+          "Oakland Raiders": require("./components/Helmets/RaidersHelmet.png"),
+          "Buffalo Bills": require("./components/Helmets/BillsHelmet.png"),
+          "New York Jets": require("./components/Helmets/JetsHelmet.png"),
+          "Miami Dolphins": require("./components/Helmets/DolphinsHelmet.png"),
+          "Baltimore Ravens": require("./components/Helmets/RavensHelmet.png"),
+          "Jacksonville Jaguars": require("./components/Helmets/JaguarsHelmet.png"),
+        };
+      return helmets[team]
+    }
+
+    getColor1(team) {
+      const colors = {
+          "Los Angeles Rams": '#002A5E',
+          "New York Giants": '#0B2265',
+          "Carolina Panthers": '#0085CA',
+          "New Orleans Saints": '#D3BC8D',
+          "Kansas City Chiefs": '#E31837',
+          "Dallas Cowboys": '#869397',
+          "Green Bay Packers": '#203731',
+          "Houston Texans": '#03202F',
+          "Atlanta Falcons": '#A71930',
+          "Los Angeles Chargers": '#002A5E',
+          "Pittsburgh Steelers": '#FFB612',
+          "San Francisco 49ers": '#AA0000',
+          "Tampa Bay Buccaneers": '#D50A0A',
+          "Philadelphia Eagles": '#004C54',
+          "Minnesota Vikings": '#4F2683',
+          "Indianapolis Colts": '#002C5F',
+          "Cleveland Browns": '#311D00',
+          "Cincinnati Bengals": '#FB4F14',
+          "Arizona Cardinals": '#97233F',
+          "New England Patriots": '#002244',
+          "Denver Broncos": '#002244',
+          "Tennessee Titans": '#0C2340',
+          "Seattle Seahawks": '#002244',
+          "Washington Redskins": '#773141',
+          "Chicago Bears": '#0B162A',
+          "Detroit Lions": '#0076B6',
+          "Oakland Raiders": '#000000',
+          "Buffalo Bills": '#00338D',
+          "New York Jets": '#125740',
+          "Miami Dolphins": '#008E97',
+          "Baltimore Ravens": '#241773',
+          "Jacksonville Jaguars": '#D7A22A',
+        };
+      return colors[team]
+    }
+
+    getColor3(team) {
+      const colors = {
+          "Los Angeles Rams": '#FFFFFF',
+          "New York Giants": '#A71930',
+          "Carolina Panthers": '#101820',
+          "New Orleans Saints": '#101820',
+          "Kansas City Chiefs": '#FFB81C',
+          "Dallas Cowboys": '#041E42',
+          "Green Bay Packers": '#FFB612',
+          "Houston Texans": '#A71930',
+          "Atlanta Falcons": '#000000',
+          "Los Angeles Chargers": '#FFC20E',
+          "Pittsburgh Steelers": '#101820',
+          "San Francisco 49ers": '#B3995D',
+          "Tampa Bay Buccaneers": '#34302B',
+          "Philadelphia Eagles": '#ACC0C6',
+          "Minnesota Vikings": '#FFC62F',
+          "Indianapolis Colts": '#A2AAAD',
+          "Cleveland Browns": '#FF3C00',
+          "Cincinnati Bengals": '#000000',
+          "Arizona Cardinals": '#FFB612',
+          "New England Patriots": '#C60C30',
+          "Denver Broncos": '#FB4F14',
+          "Tennessee Titans": '#418FDE',
+          "Seattle Seahawks": '#69BE28',
+          "Washington Redskins": '#FFB612',
+          "Chicago Bears": '#C83803',
+          "Detroit Lions": '#B0B7BC',
+          "Oakland Raiders": '#A5ACAF',
+          "Buffalo Bills": '#C60C30',
+          "New York Jets": '#000000',
+          "Miami Dolphins": '#FC4C02',
+          "Baltimore Ravens": '#9E7C0C',
+          "Jacksonville Jaguars": '#101820',
+        };
+      return colors[team]
+    }
+
     render() {
 
-        //const statusbar = (Platform.OS == 'ios') ? <View style={styles.statusbar}></View> : <View> </View>
         var {params} = this.props.navigation.state;
 
 
         return (
 
         <View style={styles.container}>
-          <StatusBar barStyle="light-content" />
-
 
             <PlayerScreenFormat 
               displayPlayerName={this.state.jsonResponse.player_name}
@@ -84,6 +214,9 @@ export default class PlayerScreen extends React.Component {
 
               goBackHome={goBackRequest => {this.goHome()}}
               goStatPage={goStatPageRequest => {this.goToStats()}}
+              helmetImage={this.pickHelmet(this.state.jsonResponse.current_team)}
+              color1={this.getColor1(this.state.jsonResponse.current_team)}
+              color3={this.getColor3(this.state.jsonResponse.current_team)}
             />
 
             <InputBar2 
@@ -114,14 +247,40 @@ export default class PlayerScreen extends React.Component {
                     <Picker.Item label="Direct Comparison" value="Direct Comparison" />
                     <Picker.Item label="Player Split" value="Player Split" />
                     <Picker.Item label="Against Team" value="Against Team" />
-            </Picker>       
+            </Picker>
+            <View style={styles.wholeButtonContainer}>
+                    <View style={styles.fullLogContainer}>
+                        <TouchableHighlight onPress={()=>this.updateLog('full')} underlayColor='#6e6e6e' style={(this.state.fullLog) ? [styles.fullLogHighlighted] : [styles.fullLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Full Game Log
+                                </Text> 
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.homeLogContainer}>
+                        <TouchableHighlight onPress={() => this.updateLog('home')} underlayColor='#6e6e6e' style={(this.state.homeLog) ? [styles.homeLogHighlighted] : [styles.homeLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Home Game Log
+                                </Text> 
+                        </TouchableHighlight>
+                    </View>
+                    <View style={styles.awayLogContainer}>
+                        <TouchableHighlight onPress={()=>this.updateLog('away')} underlayColor='#6e6e6e' style={(this.state.awayLog) ? [styles.awayLogHighlighted] : [styles.awayLog]}>
+                            <Text style={[styles.dropTitleHeaders]}>
+                                Away Game Log
+                            </Text> 
+                        </TouchableHighlight>
+                    </View>
+                </View>
         </View>
       );
     }
   }
 
   const statusBarColor = '#F1F2EB';
-
+  const color1 = '#566347';
+  const color2 = '#4B4A49';
+  const color3 = '#A4C2A5';
+  const lightGray = '#8E8E8E';
   const styles = StyleSheet.create({
     statusbar: {
       backgroundColor: statusBarColor,
@@ -156,5 +315,93 @@ export default class PlayerScreen extends React.Component {
       fontWeight: '600',
       borderColor: '#a9a9a9',
       borderWidth: 3
-    }
+    },
+    wholeButtonContainer: {
+      position: 'absolute',
+      backgroundColor: color2,
+      height: hp('10'),
+      width: wp('100'),
+      top: hp('32.2'),
+      borderColor: 'black',
+      borderWidth: 1,
+  },
+  fullLogContainer: {
+      position: 'absolute',
+      backgroundColor: lightGray,
+      height: hp('4.6'),
+      width: wp('98.4'),
+      top: hp('0.2'),
+      left: wp('0.6'),
+      borderColor: 'black',
+      borderWidth: 1,
+  },
+  homeLogContainer: {
+      position: 'absolute',
+      backgroundColor: lightGray,
+      height: hp('4.6'),
+      width: wp('49'),
+      bottom: hp('0.2'),
+      left: wp('0.6'),
+      borderColor: 'black',
+      borderWidth: 1,
+  },
+  awayLogContainer: {
+      position: 'absolute',
+      backgroundColor: lightGray,
+      height: hp('4.6'),
+      width: wp('49'),
+      bottom: hp('0.2'),
+      left: wp('50'),
+      borderColor: 'black',
+      borderWidth: 1,
+  },
+  fullLog: {
+      alignContent: 'center',
+      alignItems: 'center',
+      width: wp('98'),
+      height: hp('4.4'),
+      backgroundColor: lightGray
+  },
+  fullLogHighlighted: {
+    alignContent: 'center',
+    alignItems: 'center',
+    width: wp('98'),
+    height: hp('4.4'),
+    backgroundColor: '#6A6A6A'
+},
+  homeLog: {
+      alignContent: 'center',
+      alignItems: 'center',
+      width: wp('49'),
+      height: hp('4.4'),
+      backgroundColor: lightGray
+  },
+  homeLogHighlighted: {
+    alignContent: 'center',
+    alignItems: 'center',
+    width: wp('49'),
+    height: hp('4.4'),
+    backgroundColor: '#6A6A6A'
+},
+  awayLog: {
+      alignContent: 'center',
+      alignItems: 'center',
+      width: wp('49'),
+      height: hp('4.4'),
+      backgroundColor: lightGray
+  },
+  awayLogHighlighted: {
+    alignContent: 'center',
+    alignItems: 'center',
+    width: wp('49'),
+    height: hp('4.4'),
+    backgroundColor: '#6A6A6A'
+},
+  dropTitleHeaders: {
+      color: 'white',
+      fontSize: 12,
+      top: hp('0.5'),
+      fontSize: wp('5'),
+      fontWeight: ('500')
+  },
   });

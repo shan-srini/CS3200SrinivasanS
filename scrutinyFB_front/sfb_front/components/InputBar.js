@@ -1,14 +1,19 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
- 
+import Constants from 'expo-constants';
+import { Platform } from '@unimodules/core';
+
+
 const InputBar = (props) => {
     
+    const boltHeight = hp('5')
+    const boltWidth = wp('5')
     return (
         <View style={[styles.inputBarContainer]}>
             <View style={styles.inputContainer}>
                 <TextInput 
-                    placeholder='Select a player...' 
+                    placeholder='Select a player or team ...' 
                     style={styles.input}
                     onChangeText={(searchInput) => props.textChange(searchInput)}
                     onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}
@@ -16,17 +21,18 @@ const InputBar = (props) => {
                 />
                 <TouchableOpacity style={styles.searchButton}
                 onPress={(submitRequestButton) => props.changePageFromButton(submitRequestButton)}>
-                    <Text style={styles.searchButtonText}>GO</Text>
-                    {/* <Image
-                      style={{width: 50, height: 50}}
-                      source={{uri: 'https://imgur.com/9An5ON3'}}
-                    /> */}
+                    <Image
+                        source={require('./lightningBoltLogo.png')}  
+                        style={{ width: boltWidth, height: boltHeight  }}
+                    />
                 </TouchableOpacity>
+                    
             </View>
         </View>
     )  
 }
-
+isXR = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone xr')
+fontInput = isXR ? wp('4') : wp('5.75%')
 const styles = StyleSheet.create({
     inputBarContainer: {
         justifyContent: 'center',
@@ -39,8 +45,8 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         position: 'absolute',
-        left: wp('8%'), //35
-        top: hp('2%'), //180
+        left: wp('9.5%'), //35
+        top: hp('0'), //180
         backgroundColor: '#F3F3F3',
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -48,21 +54,22 @@ const styles = StyleSheet.create({
         shadowColor: '#171717',
         shadowOpacity: .1,
         borderWidth: 3,
-        borderColor: '#a9a9a9',
+        borderColor: 'black',
         height: hp('6%'), //50
-        width: wp('85%') //340
+        width: wp('81%') //340
     },
     input: {
         backgroundColor: '#F3F3F3',
         flex: 1,
-        fontSize: wp('7.5%'), //30
+        fontSize: fontInput, //30
+        left: wp('2'),
         top: hp('0.25%'),
         height: hp('5%'), //44
         width: wp('90') //370
     },
     searchButton: {
         width: wp('13%'), //50
-        borderLeftColor: '#a9a9a9',
+        borderLeftColor: 'black',
         borderRightColor: 'transparent',
         borderTopColor: 'transparent',
         borderBottomColor: 'transparent',
@@ -71,12 +78,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
-    searchButtonText: {
-        color: '#228C22',
-        left: wp('0.5'), //3
-        fontSize: wp('6.5'), //25
-        fontWeight: '500'
-    }
 })
 
 export default InputBar;

@@ -280,6 +280,8 @@ export default class PlayerScreen extends React.Component {
   const color2 = '#4B4A49';
   const color3 = '#A4C2A5';
   const lightGray = '#8E8E8E';
+  isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
+  fontDropTitleHeaders = isX ? wp('4') : wp('5')
   const styles = StyleSheet.create({
     statusbar: {
       backgroundColor: statusBarColor,
@@ -398,9 +400,9 @@ export default class PlayerScreen extends React.Component {
 },
   dropTitleHeaders: {
       color: 'white',
-      fontSize: 12,
+      fontSize: fontDropTitleHeaders,
       top: hp('0.5'),
-      fontSize: wp('5'),
+      // fontSize: wp('5'),
       fontWeight: ('500')
   },
   });

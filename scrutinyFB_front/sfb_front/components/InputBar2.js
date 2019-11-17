@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
- 
+import { Platform } from '@unimodules/core'; 
+
 const InputBar2 = (props) => {
     return (
         <View style={[styles.inputBarContainer]}>
@@ -17,6 +18,9 @@ const InputBar2 = (props) => {
         </View>
     )  
 }
+
+fontInput = isXR ? wp('5.5') : wp('7.5%')
+fontSearchButtonText = isXR ? wp('5') : wp('6.5')
 
 const styles = StyleSheet.create({
     inputBarContainer: {
@@ -46,7 +50,7 @@ const styles = StyleSheet.create({
     input: {
         backgroundColor: '#F3F3F3',
         flex: 1,
-        fontSize: wp('7.5%'), //30
+        fontSize: fontInput, //30
         top: hp('0.25%'),
         height: hp('5%'), //44
         width: wp('90') //370

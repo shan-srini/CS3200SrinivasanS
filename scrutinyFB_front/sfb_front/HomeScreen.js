@@ -6,6 +6,7 @@ import InputBar from './components/InputBar';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { AppLoading } from 'expo';
+import { FlatList, TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
 const headerWidth = wp('150')
 const headerHeight = hp('52')
@@ -19,6 +20,8 @@ export default class HomeScreen extends React.Component {
           jsonResponse: [],
           loading: false,
           isReady: false,
+          allPlayerNames: [],
+          playerOptionList: [],
         };
       }
     
@@ -32,22 +35,43 @@ export default class HomeScreen extends React.Component {
         loading: false})
       })
       .catch((error) => {
-        console.log("error")
+        console.log(error)
       })
     }
 
-    handleSubmitEditing() { 
+    handleSubmitEditing(name) { 
+      playerName = name
       this.setState({loading: true})
       this.callApi()
       const {navigate} = this.props.navigation;
-      // if(this.state.jsonResponse.player_name==this.state.searchInput) {
-      //   this.setState({loading: false})
-        navigate('Player', {name: this.state.searchInput})
-      // }
-      // else {
-      //   alert("Not valid Player Name")
-      // }
+      name == null ?
+      navigate('Player', {name: this.state.searchInput})
+      :
+      navigate('Player', {name: playerName})
   }
+
+  
+
+    componentDidMount() {
+      fetch('https://scrutiny-fb-api.herokuapp.com/getAllPlayerNames')
+      .then(res => res.json())
+      .then(playerNames => {
+        this.setState({allPlayerNames: playerNames})
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+    }
+
+    filterPlayerOptionList(searchInput) {
+      allList = this.state.allPlayerNames
+      toReturn = allList.filter(name => (name[0].toLowerCase().search(searchInput.toLowerCase()) == -1) ? false : true )
+      console.log(toReturn) // works as expected
+      // (this.state.searchInput == "") ? 
+      // this.setState({playerOptionList: []}) 
+      // : 
+      this.state.searchInput == "" ? this.setState({playerOptionList: []}) : this.setState({playerOptionList: toReturn})
+    }
 
     static navigationOptions = {
       header: null
@@ -79,10 +103,22 @@ export default class HomeScreen extends React.Component {
       {/* <Text> {loading} </Text> */}
 
         <InputBar 
-            textChange={searchInput => this.setState({ searchInput })}
+            textChange={searchInput => {this.setState({ searchInput }); this.filterPlayerOptionList(searchInput)}}
             changePageSubmitted={submitRequest => {this.callApi(); this.handleSubmitEditing()}}
             changePageFromButton={submitRequestButton => {this.callApi(); this.handleSubmitEditing()}}
         />
+          <View style={styles.playerListContainer}>
+            <ScrollView >
+              { this.state.playerOptionList.map((player) => (
+               <TouchableOpacity style={styles.playerOption} onPress={() => this.handleSubmitEditing(player)}>
+                  <Text style={styles.playerText}> {player} </Text>
+             </TouchableOpacity>
+              ))
+              }
+              </ScrollView>
+            </View>
+           
+
       </View>
       );
     }
@@ -113,6 +149,24 @@ export default class HomeScreen extends React.Component {
       width: wp('100%'),
       height: hp('30'),
       backgroundColor: ('transparent')
+  },
+  playerListContainer: {
+    top: hp('47'),
+    left: wp('10.5'),
+    height: hp('45%'),
+  },
+  playerOption: {
+    height: hp("5"),
+    width: wp("79.25"),
+    backgroundColor: "white",
+    alignContent: "center",
+    backgroundColor: ('transparent')
+    // backgroundColor: "",
+    // alignItems: "center"
+  },
+  playerText: {
+    top: hp(1),
+    color: "white"
   },
   });
 

@@ -203,7 +203,6 @@ export default class PlayerScreen extends React.Component {
         return (
 
         <View style={styles.container}>
-
             <PlayerScreenFormat 
               displayPlayerName={this.state.jsonResponse.player_name}
               p_team={this.state.jsonResponse.current_team}

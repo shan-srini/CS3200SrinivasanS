@@ -2,14 +2,24 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Picker, Image } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { Platform } from '@unimodules/core';
 
-const hemletWidth = wp('22');
-const hemletHeight = hp('9');
+isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
+is7 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone 7')
+hemletWidth = (isX) ? wp('20.5') : wp('20.5')
+hemletHeight = (isX) ? hp('8.5') : hp('8.5')
+hemletWidth = (is7) ? wp('20.5') : hemletWidth
+hemletHeight = (is7) ? hp('10.4') : hemletHeight
+logoContainerHeight = (isX) ? hp('2') : hp('2%') 
+logoContainerHeight = (is7) ? hp('1') : logoContainerHeight
+fontSpecs = isXR ? wp('4') : wp('5.75%')
+
 const PlayerScreenFormat = (props) => {
     return (
+        
         <View style={styles(props).page}>
-            <View style={styles(props).teamNameBox}> 
-                <Text style={styles(props).teamName}>{props.displayPlayerName}</Text> 
+            <View style={styles(props).playerNameBox}> 
+                <Text style={styles(props).playerName}>{props.displayPlayerName}</Text> 
             </View>    
             <View style={styles(props).triangleBG}>
                 <View style={styles(props).tri1}/>
@@ -93,13 +103,14 @@ const color3 = '#C62032'; //this is the other main one hehe
 
 const lightGray = '#8E8E8E';
 
+
 const styles = (props) => StyleSheet.create({ 
     page: {
         backgroundColor: props.color1,
         width: wp('100%'),
         height: hp('100%'),
     },
-    teamNameBox: {
+    playerNameBox: {
         alignContent: 'center',
         alignItems: 'center',
         position: 'absolute',
@@ -111,7 +122,7 @@ const styles = (props) => StyleSheet.create({
         height: hp('11.5%'),
         backgroundColor: color2
     },
-    teamName: {
+    playerName: {
         position: 'absolute',
         fontSize: wp('7.5%'),
         color: 'white',//'#8E8E8E',
@@ -428,9 +439,10 @@ const styles = (props) => StyleSheet.create({
         borderWidth: 1,
     },
     logoContainer: {
-        alignContent: 'center',
+        position: 'relative',
+        display: "flex",
         alignItems: 'center',
-        top: wp('4.5')
+        top: logoContainerHeight
     }
 });
 

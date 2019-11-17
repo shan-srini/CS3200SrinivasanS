@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Constants from 'expo-constants';
+import { Platform } from '@unimodules/core';
+
 
 const InputBar = (props) => {
     

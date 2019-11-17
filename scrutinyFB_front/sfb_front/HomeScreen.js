@@ -53,14 +53,14 @@ export default class HomeScreen extends React.Component {
       header: null
     };
     render() {
-      if (!this.state.isReady) {
-        return (
-          <AppLoading
-            startAsync={this._cacheResourcesAsync}
-            onFinish={() => this.setState({ isReady: true })}
-            onError={console.warn}
-          />
-        ); }
+      // if (!this.state.isReady) {
+      //   return (
+      //     <AppLoading
+      //       startAsync={this._cacheResourcesAsync}
+      //       onFinish={() => this.setState({ isReady: true })}
+      //       onError={console.warn}
+      //     />
+      //   ); }
     
 
       return (
@@ -86,14 +86,14 @@ export default class HomeScreen extends React.Component {
       </View>
       );
     }
-    async _cacheResourcesAsync() {
-      const images = [require('./components/MainHeader.png')];
+    // async _cacheResourcesAsync() {
+    //   const images = [require('./components/MainHeader.png')];
   
-      const cacheImages = images.map(image => {
-        return asset.fromModule(image).downloadAsync();
-      }); 
-      return Promise.all(cacheImages);
-    }
+    //   const cacheImages = images.map(image => {
+    //     return asset.fromModule(image).downloadAsync();
+    //   }); 
+    //   return Promise.all(cacheImages);
+    // }
   }
 
   const mainBackgroundColor = '#c2c2c2';

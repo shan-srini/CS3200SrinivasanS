@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         left: wp('9.5%'), //35
         top: hp('0'), //180
-        backgroundColor: '#F3F3F3',
+        backgroundColor: 'white',
         flexDirection: 'row',
         justifyContent: 'space-between',
         shadowOffset: { width: 0, height: 3 },
@@ -59,11 +59,11 @@ const styles = StyleSheet.create({
         width: wp('81%') //340
     },
     input: {
-        backgroundColor: '#F3F3F3',
+        backgroundColor: 'white',
         flex: 1,
         fontSize: fontInput, //30
         left: wp('2'),
-        top: hp('0.25%'),
+        top: hp('0.09%'),
         height: hp('5%'), //44
         width: wp('90') //370
     },

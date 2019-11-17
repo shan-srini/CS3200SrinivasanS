@@ -178,7 +178,7 @@ const styles = (props) => StyleSheet.create({
         left: wp('0'),
         top: hp('0'),
         borderColor: 'black',
-        borderRightWidth: 1,
+        borderRightWidth: 0,
         borderTopWidth: 0,
         borderBottomWidth: 1,
         borderLeftWidth: 0
@@ -196,22 +196,22 @@ const styles = (props) => StyleSheet.create({
         borderLeftWidth: 0
     },
     htContainer: {
-        width: wp('30.25'),
-        height: hp('6.90'),
+        width: wp('30.75'),
+        height: hp('6.85'),
         backgroundColor: color2,
-        left: wp('27.7'),
+        left: wp('27.25'),
         bottom: hp('13.75'),
         borderColor: 'black',
         borderRightWidth: 0,
         borderTopWidth: 0,
         borderBottomWidth: 1,
-        borderLeftWidth: 0
+        borderLeftWidth: 1
     },
     wtContainer: {
-        width: wp('30.25'),
+        width: wp('30'),
         height: hp('6.90'),
-        backgroundColor: color2,
-        left: wp('27.7'),
+        backgroundColor: color2, 
+        left: wp('27.6'),
         bottom: hp('13.75'),
         borderWidth: 0
     },
@@ -253,7 +253,7 @@ const styles = (props) => StyleSheet.create({
     },
     wholeButtonContainer: {
         position: 'absolute',
-        backgroundColor: color2,
+        backgroundColor: 'red',
         height: hp('10'),
         width: wp('100'),
         top: hp('17.25'),

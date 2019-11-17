@@ -320,7 +320,7 @@ export default class PlayerScreen extends React.Component {
       backgroundColor: color2,
       height: hp('10'),
       width: wp('100'),
-      top: hp('32.2'),
+      top: hp('32'),
       borderColor: 'black',
       borderWidth: 1,
   },

@@ -27,7 +27,34 @@ export default class statTableScreen extends React.Component {
         //             comparisonType: tparams.comparisonType,
         //             nameState: params.comparisonType});
 
-        fetch('https://scrutiny-fb-api.herokuapp.com/getStatsById?playerID='+params.player1.player_id)
+        if(params.logStatus == 'full')
+        fetch('https://scrutiny-fb-api.herokuapp.com/getStatsById?playerID='+params.player.player_id)
+        .then((response) => response.json())
+        .then(stats => {
+          this.setState({jsonResponse: JSON.parse(stats),})
+                        // tableHeaders: JSON.parse(stats).keys()})
+                        this.chooseKeys()
+                        this.setData()
+                        //  console.log((JSON.parse(stats)[0])["rushing_yds"])
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+        if(params.logStatus == 'away')
+        fetch('https://scrutiny-fb-api.herokuapp.com/getStatsByIdAway?playerID='+params.player.player_id)
+        .then((response) => response.json())
+        .then(stats => {
+          this.setState({jsonResponse: JSON.parse(stats),})
+                        // tableHeaders: JSON.parse(stats).keys()})
+                        this.chooseKeys()
+                        this.setData()
+                        //  console.log((JSON.parse(stats)[0])["rushing_yds"])
+        })
+        .catch((error) => {
+          console.log(error)
+        });
+        if(params.logStatus == 'home')
+        fetch('https://scrutiny-fb-api.herokuapp.com/getStatsByIdHome?playerID='+params.player.player_id)
         .then((response) => response.json())
         .then(stats => {
           this.setState({jsonResponse: JSON.parse(stats),})
@@ -44,9 +71,17 @@ export default class statTableScreen extends React.Component {
       // Chooses keys order depending on position
       chooseKeys() {
         var {params} = this.props.navigation.state;
-        if(params.player1.player_position == 'RB') {
-            this.setState({tableKeys: [`week`, 'game_num', 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td'],
-        tableHeaders: ["Week", "Game number", "Rushing Yards", "Rushing Attempts", "Yards/attempt", "Rushing TDs"]})
+        if(params.player.player_position == 'RB') {
+            this.setState({tableKeys: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'receiving_targets', 'catch_percentage', 'receiving_yds_per_tgt'],
+        tableHeaders: ["Week", "Rushing Yards", "Rushing Attempts", "Yards/attempt", "Rushing TDs", "Targets", "Catch %", 'Yds/Tgt']})
+        }
+        if(params.player.player_position == 'WR' || params.player.player_position == 'TE') {
+            this.setState({tableKeys: [`week`, 'receiving_yds', 'receiving_targets', 'catch_percentage', 'receiving_tds'],
+        tableHeaders: ["Week", "Receiving Yards", "Targets", "Catch %", "Receiving TDs"]})
+        }
+        if(params.player.player_position == 'QB') {
+            this.setState({tableKeys: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
+        tableHeaders: ["Week", "Passing Yards", "Passing Completions", "Passing Yards/attempt", "Passing TDs", "Rushing Yards", "Rushing Attempts", "Rushing TDs"]})
         }
       }
 
@@ -54,7 +89,6 @@ export default class statTableScreen extends React.Component {
       setData() {
         var {params} = this.props.navigation.state;
         toReturn = []
-        if(params.player1.player_position == 'RB') {
             // this.state.jsonResponse.forEach((dataRow) => 
             for (i in this.state.jsonResponse) {
                 // console.log(this.state.jsonResponse[i]["rushing_yds"]) // working correctly
@@ -64,7 +98,6 @@ export default class statTableScreen extends React.Component {
                 })
                 toReturn.push(innerAppend)
             }
-        }
         this.setState({tableData: toReturn})
         console.log(this.state.tableData)  //Working correctly
       }

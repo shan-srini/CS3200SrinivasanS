@@ -6,6 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './HomeScreen';
 import PlayerScreen from './PlayerScreen';
 import StatPage from './StatPage.js';
+import LoginPage from './LoginPage'
 import { AppLoading } from 'expo';
 
 <StatusBar barStyle="default"/>
@@ -13,7 +14,8 @@ import { AppLoading } from 'expo';
 const MainNavigator = createStackNavigator({
   Home: {screen: HomeScreen},
   Player: {screen: PlayerScreen},
-  StatPage: {screen: StatPage}
+  StatPage: {screen: StatPage},
+  LoginPage: {screen: LoginPage}
 });
 
 const App = createAppContainer(MainNavigator);

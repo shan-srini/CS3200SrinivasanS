@@ -78,6 +78,11 @@ export default class HomeScreen extends React.Component {
       this.state.searchInput == "" ? this.setState({playerOptionList: []}) : this.setState({playerOptionList: toReturn})
     }
 
+    handleChangeToLogin() {
+      const {navigate} = this.props.navigation;
+      navigate('LoginPage')
+    }
+
     static navigationOptions = {
       header: null
     };
@@ -105,8 +110,6 @@ export default class HomeScreen extends React.Component {
         
         <HomeScreenFormat /> 
 
-      {/* <Text> {loading} </Text> */}
-
         <InputBar 
             textChange={searchInput => {this.setState({ searchInput }); this.filterPlayerOptionList(searchInput)}}
             changePageSubmitted={submitRequest => {this.callApi(); this.handleSubmitEditing()}}
@@ -121,9 +124,10 @@ export default class HomeScreen extends React.Component {
               ))
               }
               </ScrollView>
+            <TouchableOpacity onPress={() => this.handleChangeToLogin()}><Text> login </Text></TouchableOpacity>
             </View>
            
-
+              {/* <View> <TouchableOpacity onPress={() => this.handleChangeToLogin()} > <Text> login </Text>  </TouchableOpacity> </View> */}
       </View>
       );
     }

@@ -18,7 +18,9 @@ export default class statTableScreen extends React.Component {
         };
     }
 
-    
+    static navigationOptions = {
+        header: null
+      };
 
     // fetches one players full game log data
     componentDidMount() {
@@ -46,7 +48,7 @@ export default class statTableScreen extends React.Component {
         var {params} = this.props.navigation.state;
         if(params.player1.player_position == 'RB') {
             this.setState({tableKeys: [`week`, 'game_num', 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td'],
-        tableHeaders: ["Week", "Game number", "Rushing Yards", "Rushing Attempts", "Yards/attempt", "Rushing TDs"]})
+        tableHeaders: ["Week", "Game #", "Rush Yrds", "Rush Attempts", "Yrds/attempt", "Rush TDs"]})
         }
       }
 
@@ -70,31 +72,87 @@ export default class statTableScreen extends React.Component {
       }
 
       render() {
+        var {params} = this.props.navigation.state;
         return (
-            
             <View>
-                <ScrollView  horizontal={true}>
-                    <ScrollView>      
-                        <Table>
-                            <Row data={this.state.tableHeaders}> </Row>
-                            <TableWrapper>
-                                {
-                                    this.state.tableData.map((cellData, cellIndex) => (
-                                        <Row data={cellData} key={`${cellIndex}+${cellData}`}>  </Row>
-                                    ))
-                                }
-                            </TableWrapper>
-                        </Table>
-                 </ScrollView>
-                </ScrollView>    
-            </View>  
+                <View style={styles.tableContainer}>
+                    <ScrollView horizontal={true}>
+                        <ScrollView >      
+                            <Table borderStyle={{borderWidth: 2, borderColor: 'black'}}>
+                                <Row data={this.state.tableHeaders} style={styles.columnConfig} textStyle={styles.columnText}/>
+                                <TableWrapper>
+                                    {
+                                        this.state.tableData.map((cellData, cellIndex) => (
+                                            <Row data={cellData} style={styles.dataConfig} textStyle={styles.dataText} key={`${cellIndex}+${cellData}`}/>
+                                        ))
+                                    }
+                                </TableWrapper>
+                            </Table>
+                    </ScrollView>
+                    </ScrollView>    
+                </View>
+                <View style={styles.header}>
+                    {/* <Text style={styles.playerName}>{params.player1.playerName}</Text> */}
+                    <Text style={styles.playerName}>Saquon Barkley</Text>
+                </View>  
+            </View>
         )}}
 
+const columnHeaderColor = '#d3d3d3';
+const columnHeaderHeight = hp('4');
+const headerTextColor = 'black';
+const columnFontSize = wp('3.5');
+const dataBackgroundColor = 'white';
+const columnWidth = wp('170');
+const dataTextColor = 'black';
+const dataFontSize = wp('5');
+
+
+
 const styles = StyleSheet.create({
-    container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff' },
-    head: {  height: 40,  backgroundColor: '#f1f8ff'  },
-    wrapper: { flexDirection: 'row' },
-    title: { flex: 1, backgroundColor: '#f6f8fa' },
-    row: {  height: 28  },
-    text: { textAlign: 'center' }
+    tableContainer: { 
+        position: 'absolute',
+        top: hp('10'),
+        flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff',
+        height: hp('80')
+        // flex: 1, 
+        // padding: 16, 
+        // paddingTop: 30, 
+        // backgroundColor: '#c2c2c2',
+        // head: {  height: 40,  backgroundColor: '#f1f8ff'  },
+        // wrapper: { flexDirection: 'row' },
+        // title: { flex: 1, backgroundColor: '#f6f8fa' },
+        // row: {  height: 28  },
+        // text: { textAlign: 'center' 
+    },
+    columnConfig: { 
+        height: columnHeaderHeight,
+        width: columnWidth,
+        backgroundColor: columnHeaderColor,
+    },
+    columnText: {
+        fontWeight: '500',
+        fontSize: columnFontSize,
+        color: headerTextColor,
+        textAlign: 'center'
+    },
+    dataConfig: {
+        width: columnWidth,
+        backgroundColor: dataBackgroundColor,
+    },
+    dataText: {
+        fontSize: dataFontSize,
+        color: dataTextColor,
+        textAlign: 'center'
+    },
+    playerName: {
+        position: 'absolute',
+        fontSize: wp('10'),
+        top: hp('3'),
+    },
+    header: {
+        top: hp('4'),
+        alignItems: 'center',
+        alignContent: 'center'
+    }
     });

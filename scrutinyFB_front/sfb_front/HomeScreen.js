@@ -104,14 +104,11 @@ export default class HomeScreen extends React.Component {
       </View>
         
         <HomeScreenFormat /> 
-
-      {/* <Text> {loading} </Text> */}
-
-        <InputBar 
+          <InputBar 
             textChange={searchInput => {this.setState({ searchInput }); this.filterPlayerOptionList(searchInput)}}
             changePageSubmitted={submitRequest => {this.callApi(); this.handleSubmitEditing()}}
             changePageFromButton={submitRequestButton => {this.callApi(); this.handleSubmitEditing()}}
-        />
+          />
           <View style={styles.playerListContainer}>
             <ScrollView >
               { this.state.playerOptionList.map((player, playerIndex) => (

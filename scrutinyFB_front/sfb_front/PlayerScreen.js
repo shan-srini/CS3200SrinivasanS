@@ -80,8 +80,12 @@ export default class PlayerScreen extends React.Component {
 
     goToStats() {
       const {navigate} = this.props.navigation;
-      if(this.state.compareOnePlayer)
-      navigate('StatPage', {player : this.state.jsonResponse, logStatus: this.chooseLog()});
+      if(this.state.compareOnePlayer) {
+        navigate('StatPage', {player : this.state.jsonResponse, logStatus: this.chooseLog()});
+      }
+      else {
+        navigate('FullStatPage', {player: this.state.jsonResponse, logStatus: this.chooseLog()})
+      }
     }
 
     // return age given a Date of birth string

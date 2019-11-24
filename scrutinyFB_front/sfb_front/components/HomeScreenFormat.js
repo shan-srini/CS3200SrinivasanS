@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 
 const headerWidth = wp('150')
 const headerHeight = hp('52')

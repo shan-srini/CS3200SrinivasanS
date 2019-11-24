@@ -69,10 +69,23 @@ export default class PlayerScreen extends React.Component {
       navigate('Home');
     }
 
+    chooseLog() {
+      if(this.state.fullLog)
+      return 'full'
+      if(this.state.awayLog)
+      return 'away'
+      if(this.state.homeLog)
+      return 'home'
+    }
+
     goToStats() {
       const {navigate} = this.props.navigation;
-      if(this.state.compareOnePlayer)
-      navigate('FullStatPage', {player1: this.state.jsonResponse, logStatus: 'full'});
+      if(this.state.compareOnePlayer) {
+        navigate('StatPage', {player : this.state.jsonResponse, logStatus: this.chooseLog()});
+      }
+      else {
+        navigate('FullStatPage', {player: this.state.jsonResponse, logStatus: this.chooseLog()})
+      }
     }
 
     // return age given a Date of birth string
@@ -195,6 +208,8 @@ export default class PlayerScreen extends React.Component {
       return colors[team]
     }
 
+     
+
     render() {
 
         var {params} = this.props.navigation.state;
@@ -243,6 +258,7 @@ export default class PlayerScreen extends React.Component {
               
               itemStyle={styles.comparisonTypeStyle}
             >
+                    <Picker.Item label="Current Player Stats" value="Current Player Stats" />
                     <Picker.Item label="Direct Comparison" value="Direct Comparison" />
                     <Picker.Item label="Player Split" value="Player Split" />
                     <Picker.Item label="Against Team" value="Against Team" />

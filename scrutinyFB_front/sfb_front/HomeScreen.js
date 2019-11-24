@@ -4,7 +4,6 @@ import { Platform } from '@unimodules/core';
 import HomeScreenFormat from './components/HomeScreenFormat';
 import InputBar from './components/InputBar';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
 import { AppLoading } from 'expo';
 import { FlatList, TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
@@ -23,6 +22,15 @@ export default class HomeScreen extends React.Component {
           allPlayerNames: [],
           playerOptionList: [],
         };
+      }
+
+      componentDidMount() {
+        fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName')
+        .then(res => res.json())
+        .then(player => {})
+        .catch((error) => {
+          console.log(error)
+        })
       }
     
 
@@ -66,10 +74,7 @@ export default class HomeScreen extends React.Component {
     filterPlayerOptionList(searchInput) {
       allList = this.state.allPlayerNames
       toReturn = allList.filter(name => (name[0].toLowerCase().search(searchInput.toLowerCase()) == -1) ? false : true )
-      console.log(toReturn) // works as expected
-      // (this.state.searchInput == "") ? 
-      // this.setState({playerOptionList: []}) 
-      // : 
+      // console.log(toReturn) // works as expected
       this.state.searchInput == "" ? this.setState({playerOptionList: []}) : this.setState({playerOptionList: toReturn})
     }
 

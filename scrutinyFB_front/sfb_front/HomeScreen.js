@@ -4,8 +4,7 @@ import { Platform } from '@unimodules/core';
 import HomeScreenFormat from './components/HomeScreenFormat';
 import InputBar from './components/InputBar';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { AppLoading } from 'expo';
-import { FlatList, TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
 const headerWidth = wp('150')
 const headerHeight = hp('52')
@@ -24,33 +23,9 @@ export default class HomeScreen extends React.Component {
         };
       }
 
-      componentDidMount() {
-        fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName')
-        .then(res => res.json())
-        .then(player => {})
-        .catch((error) => {
-          console.log(error)
-        })
-      }
-    
-
-    callApi() {
-      this.setState({loading: true})
-      fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName='+this.state.searchInput)
-      .then(res => res.json())
-      .then(player => {
-        this.setState({jsonResponse: JSON.parse(player),
-        loading: false})
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-    }
-
     handleSubmitEditing(name) { 
       playerName = name
       this.setState({loading: true})
-      this.callApi()
       const {navigate} = this.props.navigation;
       name == null ?
       navigate('Player', {name: this.state.searchInput})
@@ -112,9 +87,9 @@ export default class HomeScreen extends React.Component {
 
         <InputBar 
             textChange={searchInput => {this.setState({ searchInput }); this.filterPlayerOptionList(searchInput)}}
-            changePageSubmitted={submitRequest => {this.callApi(); this.handleSubmitEditing()}}
-            changePageFromButton={submitRequestButton => {this.callApi(); this.handleSubmitEditing()}}
-        />
+            changePageSubmitted={submitRequest => {this.handleSubmitEditing()}}
+            changePageFromButton={submitRequestButton => {this.handleSubmitEditing()}}
+          />
           <View style={styles.playerListContainer}>
             <ScrollView >
               { this.state.playerOptionList.map((player, playerIndex) => (

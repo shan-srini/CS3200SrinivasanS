@@ -6,6 +6,7 @@ import { createStackNavigator } from 'react-navigation-stack';
 import HomeScreen from './HomeScreen';
 import PlayerScreen from './PlayerScreen';
 import StatPage from './StatPage.js';
+import FullStatPage from './FullStatPage.js';
 import LoginPage from './LoginPage';
 import FavoritesPage from './FavoritesPage.js';
 
@@ -14,6 +15,7 @@ import FavoritesPage from './FavoritesPage.js';
 const MainNavigator = createStackNavigator({
   Home: {screen: HomeScreen},
   Player: {screen: PlayerScreen},
+  FullStatPage: {screen: FullStatPage},
   StatPage: {screen: StatPage},
   LoginPage: {screen: LoginPage},
   FavoritesPage: {screen: FavoritesPage}

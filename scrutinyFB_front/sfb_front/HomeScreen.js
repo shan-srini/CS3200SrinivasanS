@@ -124,7 +124,13 @@ export default class HomeScreen extends React.Component {
               ))
               }
               </ScrollView>
-            <TouchableOpacity onPress={() => this.handleChangeToLogin()}><Text> login </Text></TouchableOpacity>
+              <View style={styles.buttonContainer}>
+                <TouchableOpacity onPress={() => this.handleChangeToLogin()} style={styles.loginButton}>
+                  <Text style={styles.loginButtonText}> 
+                    Login 
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
            
               {/* <View> <TouchableOpacity onPress={() => this.handleChangeToLogin()} > <Text> login </Text>  </TouchableOpacity> </View> */}
@@ -177,5 +183,17 @@ export default class HomeScreen extends React.Component {
     top: hp(1),
     color: "white"
   },
+  loginButton: {
+    
+  },
+  buttonContainer: {
+    position: 'absolute',
+    top: hp('42'),
+    left: wp('66')
+  },
+  loginButtonText: {
+    color: 'white',
+    fontSize: wp('5')
+  }
   });
 

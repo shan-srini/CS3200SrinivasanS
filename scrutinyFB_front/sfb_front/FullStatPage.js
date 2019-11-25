@@ -1,12 +1,10 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button, StatusBar, Image } from 'react-native';
 import { Platform } from '@unimodules/core';
-import HomeScreenFormat from './components/HomeScreenFormat';
-import InputBar from './components/InputBar';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { scale, verticalScale, moderateScale } from 'react-native-size-matters';
-import { AppLoading } from 'expo';
 import { FlatList, TouchableOpacity, TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
+import StatTableComponent from './StatTableComponent';
+
 
 const headerWidth = wp('150')
 const headerHeight = hp('52')
@@ -17,6 +15,10 @@ export default class FullStatPage extends React.Component {
 
     constructor () {
         super();
+        this.state = {
+          displayPlayerSwitch: true,
+          player2: [],
+        }
     }
 
     static navigationOptions = {
@@ -27,10 +29,22 @@ export default class FullStatPage extends React.Component {
         const {navigate} = this.props.navigation;
         navigate('Player');
     }
+
+    componentDidMount() {
+      var {params} = this.props.navigation.state;
+      fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName='+params.player2Name)
+      .then((response) => response.json())
+      .then(player => {
+        this.setState({player2: JSON.parse(player)})
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    }
     
     render() {
+      var {params} = this.props.navigation.state;
         return (
-
         <View style={styles.container}>
           <View style={styles.backButtonContainer}>
             <TouchableOpacity style={styles.backButton}
@@ -41,15 +55,22 @@ export default class FullStatPage extends React.Component {
                     />
             </TouchableOpacity>
           </View>
+
+          { this.state.displayPlayerSwitch ?
+          <StatTableComponent player={params.player1} logStatus={params.logStatus}/>
+          :
+          <StatTableComponent player={this.state.player2} logStatus={params.logStatus} />
+          }
+
           <View style={styles.playerButtonContainer}>
-            <TouchableHighlight style={styles.playerNameBox1}>
+            <TouchableHighlight style={styles.playerNameBox1} onPress={() => this.setState((prevState) => { return {displayPlayerSwitch: !prevState.displayPlayerSwitch}})}>
               <Text style={[styles.playerNameBoxText]}>
-                   Player1
+                   {params.player1.player_name}
               </Text> 
             </TouchableHighlight>
-            <TouchableHighlight style={styles.playerNameBox2}>
+            <TouchableHighlight style={styles.playerNameBox2} onPress={() => this.setState((prevState) => { return {displayPlayerSwitch: !prevState.displayPlayerSwitch}})}>
               <Text style={[styles.playerNameBoxText]}>
-                  Player2
+                  {params.player2Name}
                </Text> 
              </TouchableHighlight>
           </View>

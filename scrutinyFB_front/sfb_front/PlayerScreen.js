@@ -14,9 +14,9 @@ export default class PlayerScreen extends React.Component {
       year : '',
       comparisonType : '',
       nameState : '',
-      jsonResponse: [],
-      searchInput : "",
-      compareOnePlayer: true,
+      curPlayerInfo: [],
+      player2: [],
+      selectP2Input : "",
       fullLog : true,
       homeLog : false,
       awayLog : false,
@@ -52,12 +52,11 @@ export default class PlayerScreen extends React.Component {
 
     componentDidMount() {
       var {params} = this.props.navigation.state;
-
       this.setState({nameState : params.name});
-      fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName='+params.name)
+      fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName='+playerName)
       .then((response) => response.json())
       .then(player => {
-        this.setState({jsonResponse: JSON.parse(player)})
+        this.setState({curPlayerInfo: JSON.parse(player)})
       })
       .catch((error) => {
         console.log(error)
@@ -80,12 +79,11 @@ export default class PlayerScreen extends React.Component {
 
     goToStats() {
       const {navigate} = this.props.navigation;
-      if(this.state.compareOnePlayer) {
-        navigate('StatPage', {player : this.state.jsonResponse, logStatus: this.chooseLog()});
-      }
-      else {
-        navigate('FullStatPage', {player: this.state.jsonResponse, logStatus: this.chooseLog()})
-      }
+        if(this.state.selectP2Input != "") {
+          navigate('FullStatPage', {player1: this.state.curPlayerInfo, player2Name: this.state.selectP2Input, logStatus: this.chooseLog()})
+        }
+        else
+        navigate('StatPage', {player : this.state.curPlayerInfo, logStatus: this.chooseLog()});
     }
 
     // return age given a Date of birth string
@@ -219,22 +217,22 @@ export default class PlayerScreen extends React.Component {
 
         <View style={styles.container}>
             <PlayerScreenFormat 
-              displayPlayerName={this.state.jsonResponse.player_name}
-              p_team={this.state.jsonResponse.current_team}
-              p_age={this.calcAge(this.state.jsonResponse.player_dob)}
-              p_weight={this.state.jsonResponse.player_weight}
-              p_height={this.state.jsonResponse.player_height}
-              p_pos={this.state.jsonResponse.player_position}
+              displayPlayerName={this.state.curPlayerInfo.player_name}
+              p_team={this.state.curPlayerInfo.current_team}
+              p_age={this.calcAge(this.state.curPlayerInfo.player_dob)}
+              p_weight={this.state.curPlayerInfo.player_weight}
+              p_height={this.state.curPlayerInfo.player_height}
+              p_pos={this.state.curPlayerInfo.player_position}
 
               goBackHome={goBackRequest => {this.goHome()}}
               goStatPage={goStatPageRequest => {this.goToStats()}}
-              helmetImage={this.pickHelmet(this.state.jsonResponse.current_team)}
-              color1={this.getColor1(this.state.jsonResponse.current_team)}
-              color3={this.getColor3(this.state.jsonResponse.current_team)}
+              helmetImage={this.pickHelmet(this.state.curPlayerInfo.current_team)}
+              color1={this.getColor1(this.state.curPlayerInfo.current_team)}
+              color3={this.getColor3(this.state.curPlayerInfo.current_team)}
             />
 
             <InputBar2 
-              textChange={searchInput => this.setState({ searchInput })}
+              textChange={searchInput => this.setState({ selectP2Input: searchInput })}
            />
 
           <Picker

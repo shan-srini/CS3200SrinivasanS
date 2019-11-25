@@ -9,103 +9,11 @@ import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-ta
 export default class StatTableComponent extends React.PureComponent {
     constructor (props) {
         super(props);
-        this.state= { 
-          year : '',
-          comparisonType : '',
-          nameState : '',
-          tableKeys: [],
-          tableHeaders: [],
-          tableData: [],
-          jsonResponse: []
-        };
     }
 
-    static navigationOptions = {
-        header: null
-      };
-
-    // fetches one players game log data
-    componentDidMount() {
-        this.fetchData()
-      }
-
-      fetchData() {
-        if(this.props.logStatus == 'full')
-        fetch('https://scrutiny-fb-api.herokuapp.com/getStatsById?playerID='+this.props.player.player_id)
-        .then((response) => response.json())
-        .then(stats => {
-          this.setState({jsonResponse: JSON.parse(stats),})
-                        // tableHeaders: JSON.parse(stats).keys()})
-                        this.chooseKeys()
-                        this.setData()
-                        //  console.log((JSON.parse(stats)[0])["rushing_yds"])
-        })
-        .catch((error) => {
-          console.log(error)
-        });
-        if(this.props.logStatus == 'away')
-        fetch('https://scrutiny-fb-api.herokuapp.com/getStatsByIdAway?playerID='+this.props.player.player_id)
-        .then((response) => response.json())
-        .then(stats => {
-          this.setState({jsonResponse: JSON.parse(stats),})
-                        // tableHeaders: JSON.parse(stats).keys()})
-                        this.chooseKeys()
-                        this.setData()
-                        //  console.log((JSON.parse(stats)[0])["rushing_yds"])
-        })
-        .catch((error) => {
-          console.log(error)
-        });
-        if(this.props.logStatus == 'home')
-        fetch('https://scrutiny-fb-api.herokuapp.com/getStatsByIdHome?playerID='+this.props.player.player_id)
-        .then((response) => response.json())
-        .then(stats => {
-          this.setState({jsonResponse: JSON.parse(stats),})
-                        // tableHeaders: JSON.parse(stats).keys()})
-                        this.chooseKeys()
-                        this.setData()
-                        //  console.log((JSON.parse(stats)[0])["rushing_yds"])
-        })
-        .catch((error) => {
-          console.log(error)
-        });
-      }
-
-      // Chooses keys order depending on position
-      chooseKeys() {
-        if(this.props.player.player_position == 'RB') {
-            this.setState({tableKeys: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'receiving_targets', 'catch_percentage', 'receiving_yds_per_tgt'],
-        tableHeaders: ["Week", "Rushing Yards", "Rushing Attempts", "Yards/attempt", "Rushing TDs", "Targets", "Catch %", 'Yds/Tgt']})
-        }
-        if(this.props.player.player_position == 'WR' || this.props.player.player_position == 'TE') {
-            this.setState({tableKeys: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds'],
-        tableHeaders: ["Week", "Receiving Yards", "Targets", "Catch %", "Receiving TDs"]})
-        }
-        if(this.props.player.player_position == 'QB') {
-            this.setState({tableKeys: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
-        tableHeaders: ["Week", "Passing Yards", "Passing Completions", "Passing Yards/attempt", "Passing TDs", "Rushing Yards", "Rushing Attempts", "Rushing TDs"]})
-        }
-      }
-
-      // sets the data according to the keys
-      setData() {
-        toReturn = []
-            // this.state.jsonResponse.forEach((dataRow) => 
-            for (i in this.state.jsonResponse) {
-                // console.log(this.state.jsonResponse[i]["rushing_yds"]) // working correctly
-                innerAppend = [];
-                this.state.tableKeys.map((header) => {
-                    innerAppend.push(this.state.jsonResponse[i][header])
-                })
-                toReturn.push(innerAppend)
-            }
-        this.setState({tableData: toReturn})
-        // console.log(this.state.tableData)  //Working correctly
-      }
-
       componentDidUpdate(prevProps) {
-          if (prevProps.player.player_id != this.props.player.player_id) {
-            this.fetchData()
+          if (prevProps.tableData != this.props.tableData) {
+            // this.fetchData()
             // this.chooseKeys()
             // this.setData()
           }
@@ -118,10 +26,10 @@ export default class StatTableComponent extends React.PureComponent {
                     <ScrollView horizontal={true}>
                         <ScrollView >      
                             <Table borderStyle={{borderWidth: 2, borderColor: 'black'}}>
-                                <Row data={this.state.tableHeaders} style={styles.columnConfig} textStyle={styles.columnText}/>
+                                <Row data={this.props.tableHeaders} style={styles.columnConfig} textStyle={styles.columnText}/>
                                 <TableWrapper>
                                     {
-                                        this.state.tableData.map((cellData, cellIndex) => (
+                                        this.props.tableData.map((cellData, cellIndex) => (
                                             <Row data={cellData} style={styles.dataConfig} textStyle={styles.dataText} key={`${cellIndex}+${cellData}`}/>
                                         ))
                                     }
@@ -153,15 +61,6 @@ const styles = StyleSheet.create({
         top: hp('10'),
         flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff',
         height: hp('80')
-        // flex: 1, 
-        // padding: 16, 
-        // paddingTop: 30, 
-        // backgroundColor: '#c2c2c2',
-        // head: {  height: 40,  backgroundColor: '#f1f8ff'  },
-        // wrapper: { flexDirection: 'row' },
-        // title: { flex: 1, backgroundColor: '#f6f8fa' },
-        // row: {  height: 28  },
-        // text: { textAlign: 'center' 
     },
     columnConfig: { 
         height: columnHeaderHeight,

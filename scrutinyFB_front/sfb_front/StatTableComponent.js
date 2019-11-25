@@ -21,6 +21,9 @@ export default class StatTableComponent extends React.PureComponent {
 
       render() {
         return (
+            this.props.tableData.length < 1 ?
+            <Text style={{top: hp(50), left: wp(40)}}> Loading </Text>
+            :
             <View>
                 <View style={styles.tableContainer}>
                     <ScrollView horizontal={true}>

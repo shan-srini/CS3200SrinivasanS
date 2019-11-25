@@ -214,7 +214,9 @@ export default class PlayerScreen extends React.Component {
 
 
         return (
-
+        this.state.curPlayerInfo.player_name == null ?
+        <Text style={{top: hp(50), left: wp(40)}}> Loading </Text>
+        :
         <View style={styles.container}>
             <PlayerScreenFormat 
               displayPlayerName={this.state.curPlayerInfo.player_name}

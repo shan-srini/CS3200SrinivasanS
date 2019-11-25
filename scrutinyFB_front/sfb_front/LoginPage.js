@@ -13,16 +13,17 @@ export default class LoginPage extends React.Component {
     }
 
     submitLogin() {
+        //Learn more about this, looks like you're creating a new object of HTML formdata and then just putting things
+        //in that body
+        var formData = new FormData()
+        formData.append('username', this.state.userName)
+        formData.append('password', this.state.password)
         fetch('https://scrutiny-fb-api.herokuapp.com/login', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-              },
-            body: JSON.stringify({
-                'userName': this.state.userName,
-                'password': this.state.password
-            })
+            body: formData
         })
+        .then(res => {})
+        .then(content => {})
         .catch((error) => {
             console.log(error)
           })

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Platform } from '@unimodules/core';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
@@ -8,14 +8,45 @@ export default class FavoritesPage extends React.Component {
     constructor () {
         super();
         this.state= { 
-
+            favPlayerNames: [],
         };
+    }
+
+    componentDidMount() {
+        var {params} = this.props.navigation.state
+        fetch("https://scrutiny-fb-api.herokuapp.com/getFavPlayerNames?userName="+params.userName)
+        .then(res => res.json())
+        .then(playerNames => {
+            this.setState({favPlayerNames: playerNames[0],})
+          })
+          .catch((error) => {
+            console.log(error)
+          })
     }
 
     goToLogin() {
         const {navigate} = this.props.navigation;
         navigate('LoginPage');
-      }
+    }
+
+    handlePlayerClick(playerName) {
+        const {navigate} = this.props.navigation;
+        pname = playerName[0]
+        navigate('Player', {name: pname})
+    }
+
+    deletePlayer(playerName) {
+        var {params} = this.props.navigation.state
+        fetch("https://scrutiny-fb-api.herokuapp.com/deleteFavPlayer?playerName="+playerName+"&userName="+params.userName)
+        .then(res => res.json())
+        .then(message => {})
+        .catch((error) => {
+            // console.log(error)
+        })
+        allList = this.state.favPlayerNames
+        toReturn = allList.filter(name => {name[0]!=playerName})
+        this.setState({favPlayerNames: toReturn})
+    }
 
     static navigationOptions = {
         header: null
@@ -35,6 +66,18 @@ export default class FavoritesPage extends React.Component {
                     onPress={() => this.goToLogin()}>
                         <Text style={styles.backButtonText}>Back</Text>
                 </TouchableOpacity>
+
+                <ScrollView >
+              { this.state.favPlayerNames.map((player, playerIndex) => (
+                <View>
+               <TouchableOpacity key={playerIndex} onPress={() => this.handlePlayerClick(player)}>
+                  <Text> {player} </Text>
+                </TouchableOpacity>
+                <Text onPress={() => this.deletePlayer(player)}> DELETE </Text>
+                </View>
+              ))
+              }
+              </ScrollView>
             </View>
         )
     }

@@ -53,7 +53,7 @@ export default class PlayerScreen extends React.Component {
     componentDidMount() {
       var {params} = this.props.navigation.state;
       this.setState({nameState : params.name});
-      fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName='+playerName)
+      fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName='+params.name)
       .then((response) => response.json())
       .then(player => {
         this.setState({curPlayerInfo: JSON.parse(player)})

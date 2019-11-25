@@ -13,8 +13,20 @@ export default class LoginPage extends React.Component {
     }
 
     submitLogin() {
-        
-    }
+        fetch('https://scrutiny-fb-api.herokuapp.com/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+              },
+            body: JSON.stringify({
+                'userName': this.state.userName,
+                'password': this.state.password
+            })
+        })
+        .catch((error) => {
+            console.log(error)
+          })
+        }
 
     goHome() {
         const {navigate} = this.props.navigation;
@@ -23,7 +35,7 @@ export default class LoginPage extends React.Component {
 
     goToFavorites() {
         const {navigate} = this.props.navigation;
-        navigate('FavoritesPage');
+        navigate('FavoritesPage', {userName: this.state.userName});
       }
 
     static navigationOptions = {
@@ -69,7 +81,7 @@ export default class LoginPage extends React.Component {
                     />
                 </View>
                 <View style={styles.button}>
-                    <TouchableOpacity style={styles.submitButton} onPress={() => this.goToFavorites()}>
+                    <TouchableOpacity style={styles.submitButton} onPress={() => {this.goToFavorites(); this.submitLogin()}}>
                             <Text style={styles.submitText}>Submit</Text>
                     </TouchableOpacity>
                 </View>

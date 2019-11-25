@@ -5,7 +5,6 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { FlatList, TouchableOpacity, TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
 import StatTableComponent from './StatTableComponent';
 
-
 const headerWidth = wp('150')
 const headerHeight = hp('52')
 const backButtonHeight = hp('4')

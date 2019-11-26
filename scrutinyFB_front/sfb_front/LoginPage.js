@@ -13,8 +13,21 @@ export default class LoginPage extends React.Component {
     }
 
     submitLogin() {
-        
-    }
+        //Learn more about this, looks like you're creating a new object of HTML formdata and then just putting things
+        //in that body
+        var formData = new FormData()
+        formData.append('username', this.state.userName)
+        formData.append('password', this.state.password)
+        fetch('https://scrutiny-fb-api.herokuapp.com/login', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => {})
+        .then(content => {})
+        .catch((error) => {
+            console.log(error)
+          })
+        }
 
     goHome() {
         const {navigate} = this.props.navigation;
@@ -24,7 +37,7 @@ export default class LoginPage extends React.Component {
     goToFavorites() {
         const {navigate} = this.props.navigation;
         const {params} = this.props.navigation.state
-        navigate('FavoritesPage', {allPlayerNames: params.allPlayerNames});
+        navigate('FavoritesPage', {userName: this.state.userName, allPlayerNames: params.allPlayerNames});
       }
 
     static navigationOptions = {
@@ -70,7 +83,7 @@ export default class LoginPage extends React.Component {
                     />
                 </View>
                 <View style={styles.button}>
-                    <TouchableOpacity style={styles.submitButton} onPress={() => this.goToFavorites()}>
+                    <TouchableOpacity style={styles.submitButton} onPress={() => {this.goToFavorites(); this.submitLogin()}}>
                             <Text style={styles.submitText}>Submit</Text>
                     </TouchableOpacity>
                 </View>

@@ -8,7 +8,7 @@ import PlayerScreen from './PlayerScreen';
 import StatPage from './StatPage.js';
 import FullStatPage from './FullStatPage.js';
 import LoginPage from './LoginPage';
-import FavoritesPage from './components/FavoritesPage.js';
+import FavoritesPage from './FavoritesPage.js';
 import AddFavoritesPage from './components/AddFavoritesPage.js';
 import { AppLoading } from 'expo';
 

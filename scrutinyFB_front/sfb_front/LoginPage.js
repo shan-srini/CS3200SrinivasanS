@@ -23,7 +23,8 @@ export default class LoginPage extends React.Component {
 
     goToFavorites() {
         const {navigate} = this.props.navigation;
-        navigate('FavoritesPage');
+        const {params} = this.props.navigation.state
+        navigate('FavoritesPage', {allPlayerNames: params.allPlayerNames});
       }
 
     static navigationOptions = {

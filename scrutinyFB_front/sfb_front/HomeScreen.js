@@ -55,7 +55,7 @@ export default class HomeScreen extends React.Component {
 
     handleChangeToLogin() {
       const {navigate} = this.props.navigation;
-      navigate('LoginPage')
+      navigate('LoginPage', {allPlayerNames: this.state.allPlayerNames})
     }
 
     static navigationOptions = {

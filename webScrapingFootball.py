@@ -89,7 +89,7 @@ def getPlayer():
 # Get Table of Team - schema attributes to scrape are
 # team_name, current_head_coach, division, 
 
-teamList = ['/teams/nwe', '/teams/car']
+teamList = ['/teams/nwe', '/teams/car', '/teams/crd', '/teams/atl', '/teams/rav', '/teams/buf', '/teams/chi', '/teams/cin', '/teams/cle', '/teams/dal', '/teams/den', '/teams/det', '/teams/gnb', '/teams/htx', '/teams/clt', '/teams/jax', '/teams/kan', '/teams/sdg', '/teams/ram', '/teams/mia', '/teams/min', '/teams/nor', '/teams/nyg', '/teams/nyj', '/teams/rai', '/teams/phi', '/teams/pit', '/teams/sfo', '/teams/sea', '/teams/tam', '/teams/oti', '/teams/was']
 
 ### Team Dict, key is year(season), value is teamID    
 teamDict = {}
@@ -157,13 +157,13 @@ def getStatisticTable():
     
 # Executes executeGetPlayerIds. playerIdsDict will contain lists of ids from years
 # specified in this call below after this function is executed
-playerIdsDict = executeGetPlayerIds(2018, 2019)
+#playerIdsDict = executeGetPlayerIds(2018, 2019)
 
 # Unique playerIdList from years specified in executeGetPlayerIds call above
-finalPlayerIdList = makePlayerUnique()
+#finalPlayerIdList = makePlayerUnique()
 
 # Get the playerTable using finalPlayerIdList
-playerInfoTable = getPlayer()
+#playerInfoTable = getPlayer()
 
 ### initTeamDict(int startYear, int endYear INCLUSIVE)
 ### Start at the first szn to eventually get teamInfo about
@@ -173,12 +173,12 @@ initTeamDict(2018, 2019)
 teamTable = getTeamTable()
 
 # Gets the weak entity Statistic Table and inherently enough info for Game Table as well
-statisticTable = getStatisticTable()
+#statisticTable = getStatisticTable()
 ##############################################################################
 
 # To export DataFrame to csv
 # playerInfoTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/playerInfoTable.csv', index = None)
-# teamTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/teamTable.csv', index = None)
+teamTable.to_csv('/Users/ryandoucette/Desktop/teamTable.csv', index = None)
 # statisticTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/statisticTable.csv', index = None)
  
     

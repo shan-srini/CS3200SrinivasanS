@@ -156,7 +156,8 @@ export default class HomeScreen extends React.Component {
   },
   playerText: {
     top: hp(1),
-    color: "white"
+    color: "white",
+    fontSize: wp('4.5')
   },
   loginButton: {
     

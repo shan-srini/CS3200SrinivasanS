@@ -63,7 +63,7 @@ export default class FavoritesPage extends React.Component {
             // console.log(error)
         })
         allList = this.state.favPlayerNames
-        toReturn = allList.filter(name => {name[0]!=playerName})
+        toReturn = allList.filter(name => (name==playerName) ? false : true)
         this.setState({favPlayerNames: toReturn})
     }
 
@@ -95,11 +95,13 @@ export default class FavoritesPage extends React.Component {
                 <View style={styles.containerPlayerNames}>
                 <ScrollView>
               { this.state.favPlayerNames.map((player, playerIndex) => (
-                <View>
+                <View key={`${playerIndex}key`}>
                <TouchableOpacity key={playerIndex} onPress={() => this.handlePlayerClick(player)}>
                   <Text style={styles.playerText}> {player} </Text>
                 </TouchableOpacity>
-                <Text onPress={() => this.deletePlayer(player)}> DELETE </Text>
+                    <Text onPress={() => this.deletePlayer(player)} style={styles.deleteButtonText}> 
+                        X 
+                    </Text>
                 </View>
               ))
               }
@@ -201,5 +203,12 @@ const styles = StyleSheet.create({
         fontSize: wp('7'),
         alignSelf: 'center',
         color: 'black',
+    },
+    deleteButtonText: {
+        color: 'red',
+        fontWeight: '500',
+        fontSize: wp('7'),
+        top: hp('-3.7'),
+        left: wp('85')
     }
 })

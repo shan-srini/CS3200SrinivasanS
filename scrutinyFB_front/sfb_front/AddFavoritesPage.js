@@ -73,7 +73,7 @@ export default class AddFavorites extends React.Component {
               }
                 </ScrollView>
             </View>
-            </View>
+        </View>
         )
     }
 }
@@ -128,4 +128,23 @@ const styles = StyleSheet.create({
         fontSize: wp('9'),
         fontWeight: '500'
     },
+    playerListContainer: {
+        top: hp('40'),
+        left: wp('10.5'),
+        height: hp('33%'),
+      },
+      playerOption: {
+        height: hp("5"),
+        width: wp("79.25"),
+        backgroundColor: "white",
+        alignContent: "center",
+        backgroundColor: ('transparent')
+        // backgroundColor: "",
+        // alignItems: "center"
+      },
+      playerText: {
+        top: hp(1),
+        color: "black",
+        fontSize: wp('6')
+      },
 })

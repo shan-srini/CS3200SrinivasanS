@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { Platform } from '@unimodules/core';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import InputBar from './components/InputBar'
 
 export default class AddFavorites extends React.Component {
     constructor () {
         super();
         this.state= { 
-
+            playerOptionList: []
         };
     }
 
@@ -15,6 +16,27 @@ export default class AddFavorites extends React.Component {
         const {navigate} = this.props.navigation;
         navigate('FavoritesPage');
       }
+
+    filterPlayerOptionList(searchInput) {
+        var {params} = this.props.navigation.state
+        allList = params.allPlayerNames
+        toReturn = allList.filter(name => (name[0].toLowerCase().search(searchInput.toLowerCase()) == -1) ? false : true )
+        // console.log(toReturn) // works as expected
+        this.state.searchInput == "" ? this.setState({playerOptionList: []}) : this.setState({playerOptionList: toReturn})
+    }
+
+    addFavPlayer(playerName) {
+        var {params} = this.props.navigation.state
+        var {navigate} = this.props.navigation
+        fetch("https://scrutiny-fb-api.herokuapp.com/addPlayerForUser?userName="+params.userName+"&playerName="+playerName)
+        .then(res => {})
+        .catch((error) => {
+            console.log(error)
+        })
+        //THIS NEEDS TO BE THE BACK PAGE THING
+        navigate('FavoritesPage', {userName: params.userName, allPlayerNames: params.allPlayerNames, addedPlayer: playerName})
+        
+    }
 
     static navigationOptions = {
         header: null
@@ -34,6 +56,23 @@ export default class AddFavorites extends React.Component {
                     onPress={() => this.goToFavoritesPage()}>
                         <Text style={styles.backButtonText}>Back</Text>
                 </TouchableOpacity>
+                
+
+                <InputBar 
+            textChange={searchInput => {this.setState({ searchInput }); this.filterPlayerOptionList(searchInput)}}
+            changePageSubmitted={submitRequest => {this.addFavPlayer()}}
+            changePageFromButton={submitRequestButton => {this.addFavPlayer()}}
+          />
+          <View style={styles.playerListContainer}>
+                <ScrollView >
+                { this.state.playerOptionList.map((player, playerIndex) => (
+                <TouchableOpacity key={playerIndex} style={styles.playerOption} onPress={() => this.addFavPlayer(player)}>
+                   <Text style={styles.playerText}> {player} </Text>
+                 </TouchableOpacity>
+              ))
+              }
+                </ScrollView>
+            </View>
             </View>
         )
     }

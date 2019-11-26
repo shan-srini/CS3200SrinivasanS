@@ -9,6 +9,7 @@ export default class FavoritesPage extends React.Component {
         super();
         this.state= { 
             favPlayerNames: [],
+            updateFavPlayerList: true
         };
     }
 
@@ -24,6 +25,17 @@ export default class FavoritesPage extends React.Component {
           })
     }
 
+    componentDidUpdate() {
+        var {params} = this.props.navigation.state;
+        if(params.addedPlayer != null && this.state.updateFavPlayerList) {
+            playerArray = []
+            playerArray.push(params.addedPlayer)
+            newFavPlayerNames = this.state.favPlayerNames
+            newFavPlayerNames.push(playerArray)
+            this.setState({favPlayerNames: newFavPlayerNames, updateFavPlayerList: false})
+        }
+    }
+
     goToLogin() {
         const {navigate} = this.props.navigation;
         navigate('LoginPage');
@@ -31,7 +43,9 @@ export default class FavoritesPage extends React.Component {
 
     goToAddFavoritesPage() {
         const {navigate} = this.props.navigation;
-        navigate('AddFavoritesPage');
+        const {params} = this.props.navigation.state;
+        this.setState({updateFavPlayerList: true})
+        navigate('AddFavoritesPage', {allPlayerNames: params.allPlayerNames, userName: params.userName});
     }
     
     handlePlayerClick(playerName) {
@@ -78,17 +92,19 @@ export default class FavoritesPage extends React.Component {
                     <Text style={styles.addButtonText}>Add</Text>
                 </TouchableOpacity>
 
-                <ScrollView >
+                <View style={styles.containerPlayerNames}>
+                <ScrollView>
               { this.state.favPlayerNames.map((player, playerIndex) => (
                 <View>
                <TouchableOpacity key={playerIndex} onPress={() => this.handlePlayerClick(player)}>
-                  <Text> {player} </Text>
+                  <Text style={styles.playerText}> {player} </Text>
                 </TouchableOpacity>
                 <Text onPress={() => this.deletePlayer(player)}> DELETE </Text>
                 </View>
               ))
               }
               </ScrollView>
+              </View>
             </View>
         )
     }
@@ -162,7 +178,7 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: wp('9'),
         top: hp('1'),
-        left: wp('3.5')
+        left: wp('3.5'),
     },
     header: {
         position: 'absolute',
@@ -177,4 +193,13 @@ const styles = StyleSheet.create({
         fontSize: wp('14'),
         fontWeight: '500'
     },
+    containerPlayerNames: {
+        top: hp(15),
+        height: hp(55),
+    },
+    playerText: {
+        fontSize: wp('7'),
+        alignSelf: 'center',
+        color: 'black',
+    }
 })

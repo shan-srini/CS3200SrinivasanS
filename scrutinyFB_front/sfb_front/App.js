@@ -9,7 +9,7 @@ import StatPage from './StatPage.js';
 import FullStatPage from './FullStatPage.js';
 import LoginPage from './LoginPage';
 import FavoritesPage from './FavoritesPage.js';
-import AddFavoritesPage from './components/AddFavoritesPage.js';
+import AddFavoritesPage from './AddFavoritesPage.js';
 import { AppLoading } from 'expo';
 
 <StatusBar barStyle="default"/>

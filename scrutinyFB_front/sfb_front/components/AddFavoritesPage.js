@@ -4,7 +4,7 @@ import { Platform } from '@unimodules/core';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
-export default class FavoritesPage extends React.Component {
+export default class AddFavorites extends React.Component {
     constructor () {
         super();
         this.state= { 
@@ -12,39 +12,28 @@ export default class FavoritesPage extends React.Component {
         };
     }
 
-    goToLogin() {
+    goToFavoritesPage() {
         const {navigate} = this.props.navigation;
-        navigate('LoginPage');
-    }
-
-    goToAddFavoritesPage() {
-        const {navigate} = this.props.navigation;
-        navigate('AddFavoritesPage');
-    }
+        navigate('FavoritesPage');
+      }
 
     static navigationOptions = {
         header: null
-    };
+      };
 
     render() {
         return(
             <View style={styles.container}>
                 <View style={styles.header}>
                     <Text style={styles.favoritesTitle}>
-                        Favorites
+                        Add Favorites
                     </Text>
                 </View>
                 <View style={styles.backButtonSquare}/>
                 <View style={styles.backButtonCircle}/>
-                <View style={styles.addButtonSquare}/>
-                <View style={styles.addButtonCircle}/>
                 <TouchableOpacity style={styles.backButton}
-                    onPress={() => this.goToLogin()}>
+                    onPress={() => this.goToFavoritesPage()}>
                         <Text style={styles.backButtonText}>Back</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.addButton}
-                    onPress={() => this.goToAddFavoritesPage()}>
-                    <Text style={styles.addButtonText}>Add</Text>
                 </TouchableOpacity>
             </View>
         )
@@ -88,39 +77,6 @@ const styles = StyleSheet.create({
         fontSize: wp('7.4'),
         top: hp('1.6'),
     },
-    addButton : {
-        alignContent: 'center',
-        alignItems: 'center',
-        position: 'absolute',
-        width: wp('30'),
-        height: hp('8'),
-        backgroundColor: 'transparent',
-        left: wp('70'),
-        top: hp('85'),
-    },
-    addButtonSquare: {
-        position: 'absolute',
-        width: wp('21'),
-        height: hp('8'),
-        backgroundColor: lightGray,
-        left: wp('82'),
-        top: hp('85'),
-    },
-    addButtonCircle: {
-        position: 'absolute',
-        width: wp('21'),
-        height: hp('8'),
-        borderRadius: 100/2,
-        backgroundColor: lightGray,
-        top: hp('85'),
-        left: wp('73'),
-    },
-    addButtonText: {
-        color: 'white',
-        fontSize: wp('9'),
-        top: hp('1'),
-        left: wp('3.5')
-    },
     header: {
         position: 'absolute',
         alignItems: 'center',
@@ -131,7 +87,7 @@ const styles = StyleSheet.create({
     },
     favoritesTitle: {
         color: '#608ebf',
-        fontSize: wp('14'),
+        fontSize: wp('9'),
         fontWeight: '500'
     },
 })

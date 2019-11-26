@@ -74,14 +74,14 @@ export default class HomeScreen extends React.Component {
 
       return (
 
-        <View style={styles.container}>
+      <View style={styles.container}>
 
-      <View style={[styles.headerContainer]}>
-        <Image 
-          source={require('./components/MainHeader.png')} 
-          style={{ width: headerWidth, height: headerHeight  }}
-        />
-      </View>
+        <View style={[styles.headerContainer]}>
+          <Image 
+            source={require('./components/MainHeader.png')} 
+            style={{ width: headerWidth, height: headerHeight  }}
+          />
+        </View>
         
         <HomeScreenFormat /> 
 

@@ -8,7 +8,9 @@ import PlayerScreen from './PlayerScreen';
 import StatPage from './StatPage.js';
 import FullStatPage from './FullStatPage.js';
 import LoginPage from './LoginPage';
-import FavoritesPage from './FavoritesPage.js';
+import FavoritesPage from './components/FavoritesPage.js';
+import AddFavoritesPage from './components/AddFavoritesPage.js';
+import { AppLoading } from 'expo';
 
 <StatusBar barStyle="default"/>
 
@@ -18,7 +20,8 @@ const MainNavigator = createStackNavigator({
   FullStatPage: {screen: FullStatPage},
   StatPage: {screen: StatPage},
   LoginPage: {screen: LoginPage},
-  FavoritesPage: {screen: FavoritesPage}
+  FavoritesPage: {screen: FavoritesPage},
+  AddFavoritesPage: {screen: AddFavoritesPage}
 });
 
 const App = createAppContainer(MainNavigator);

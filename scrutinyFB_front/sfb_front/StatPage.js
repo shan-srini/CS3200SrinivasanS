@@ -74,16 +74,16 @@ export default class statTableScreen extends React.PureComponent {
       chooseKeys() {
         var {params} = this.props.navigation.state
         if(params.player.player_position == 'RB') {
-            this.setState({tableKeys: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'receiving_targets', 'catch_percentage', 'receiving_yds_per_tgt'],
-        tableHeaders: ["Week", "Rushing Yards", "Rushing Attempts", "Yards/attempt", "Rushing TDs", "Targets", "Catch %", 'Yds/Tgt']})
+            this.setState({tableKeys: [`week`, 'Opponent', 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'receiving_targets', 'catch_percentage', 'receiving_yds_per_tgt'],
+        tableHeaders: ["Week", "Opponent", "Rushing Yards", "Rushing Attempts", "Yards/attempt", "Rushing TDs", "Targets", "Catch %", 'Yds/Tgt']})
         }
         if(params.player.player_position == 'WR' || params.player.player_position == 'TE') {
-            this.setState({tableKeys: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds'],
-        tableHeaders: ["Week", "Receiving Yards", "Targets", "Catch %", "Receiving TDs"]})
+            this.setState({tableKeys: [`week`, 'Opponent', 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds'],
+        tableHeaders: ["Week", "Opponent", "Receiving Yards", "Targets", "Catch %", "Receiving TDs"]})
         }
         if(params.player.player_position == 'QB') {
-            this.setState({tableKeys: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
-        tableHeaders: ["Week", "Passing Yards", "Passing Completions", "Passing Yards/attempt", "Passing TDs", "Rushing Yards", "Rushing Attempts", "Rushing TDs"]})
+            this.setState({tableKeys: [`week`, "Opponent", 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
+        tableHeaders: ["Week", "Opponent", "Passing Yards", "Passing Completions", "Passing Yards/attempt", "Passing TDs", "Rushing Yards", "Rushing Attempts", "Rushing TDs"]})
         }
       }
 

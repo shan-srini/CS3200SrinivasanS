@@ -32,8 +32,18 @@ export default class LoginPage extends React.Component {
             method: 'POST',
             body: formData
         })
-        .then(res => {})
-        .then(content => {})
+        .then(res => res.text())
+        .then(content => {
+            //if 1 then user exists
+            if(content == "success")
+                this.goToFavorites()
+            else if (content == "wrong password")
+                alert("Wrong password")
+            else if (content == "User added") {
+                alert("New user created")
+                this.goToFavorites()
+            }
+        })
         .catch((error) => {
             console.log(error)
           })
@@ -128,7 +138,7 @@ export default class LoginPage extends React.Component {
                     :
                 null}
                 <View style={styles.button}>
-                    <TouchableOpacity style={styles.submitButton} onPress={() => {this.goToFavorites(); this.submitLogin()}}>
+                    <TouchableOpacity style={styles.submitButton} onPress={() => {this.submitLogin()}}>
                             <Text style={styles.submitText}>Submit</Text>
                     </TouchableOpacity>
                 </View>

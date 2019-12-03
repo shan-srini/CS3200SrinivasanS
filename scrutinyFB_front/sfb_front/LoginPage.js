@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image, TouchableHighlight } from 'react-native';
 import { Platform } from '@unimodules/core';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
@@ -8,13 +8,23 @@ export default class LoginPage extends React.Component {
         super();
         this.state= { 
             userName: '',
-            password: ''
+            password: '',
+            newPassword: '',
+            changePassword: false
         };
+    }
+
+    updatePassword(isPressed) {
+        this.setState({changePassword: false})
+        if(isPressed == 'ChangePassword') {
+          this.setState({changePassword: true})
+        }
     }
 
     submitLogin() {
         //Learn more about this, looks like you're creating a new object of HTML formdata and then just putting things
         //in that body
+        if(this.state.changePassword) {
         var formData = new FormData()
         formData.append('username', this.state.userName)
         formData.append('password', this.state.password)
@@ -27,6 +37,22 @@ export default class LoginPage extends React.Component {
         .catch((error) => {
             console.log(error)
           })
+        }
+        else {
+            var formData = new FormData()
+            formData.append('username', this.state.userName)
+            formData.append('password', this.state.password)
+            formData.append('newPassword', this.state.newPassword)
+            fetch('https://scrutiny-fb-api.herokuapp.com/login', {
+                method: 'POST',
+                body: formData
+            })
+            .then(res => {})
+            .then(content => {})
+            .catch((error) => {
+                console.log(error)
+            })
+        }
         }
 
     goHome() {
@@ -43,7 +69,7 @@ export default class LoginPage extends React.Component {
     static navigationOptions = {
         header: null
       };
-
+  
     render() {
         return(
             <View style={styles.container}>
@@ -82,6 +108,25 @@ export default class LoginPage extends React.Component {
                         // value={props.searchInput}
                     />
                 </View>
+                {this.state.changePassword == true ?
+                <View>
+                     <View style={[styles.newPasswordContainer]}> 
+                        <TextInput 
+                        placeholder='Enter New Password' 
+                        style={styles.newPasswordInput}
+                        onChangeText={(newPasswordInput) => this.setState({newPassword: newPasswordInput})}
+                        value={this.state.newPassword}
+                        />
+                    </View>
+                    <View style={styles.instructionContainer}>
+                        <Text style={styles.instructionText}> 
+                            Enter username and current password in textboxes above, enter new password in textbox below
+                            and hit submit when ready to change password. 
+                        </Text>
+                    </View>
+                </View>
+                    :
+                null}
                 <View style={styles.button}>
                     <TouchableOpacity style={styles.submitButton} onPress={() => {this.goToFavorites(); this.submitLogin()}}>
                             <Text style={styles.submitText}>Submit</Text>
@@ -93,6 +138,14 @@ export default class LoginPage extends React.Component {
                     onPress={() => this.goHome()}>
                         <Text style={styles.backButtonText}>Back</Text>
                 </TouchableOpacity>
+                    <TouchableHighlight 
+                        onPress={()=>this.updatePassword('ChangePassword')} 
+                        underlayColor='#6e6e6e' 
+                        style={(this.state.changePassword) ? [styles.changePasswordHighlight] : [styles.changePasswordContainer]}>
+                        <Text style={[styles.changePasswordText]}>
+                            Change Password
+                        </Text> 
+                    </TouchableHighlight>
             </View>
         )
     }
@@ -115,7 +168,6 @@ const styles = StyleSheet.create({
         height: hp('4%'),
         backgroundColor: 'transparent',
         top: hp('40%'),
-        
     },
     passWordContainer: {
         flex: 1,
@@ -126,7 +178,6 @@ const styles = StyleSheet.create({
         height: hp('4%'),
         backgroundColor: 'transparent',
         top: hp('46%'),
-        
     },
     inputContainer: {
         position: 'absolute',
@@ -235,6 +286,63 @@ const styles = StyleSheet.create({
         alignSelf: 'center'
     },
     paragraphText: {
+        color: '#454545',
+        fontSize: wp('4')
+    },
+    changePasswordContainer: {
+        alignContent: 'center',
+        alignItems: 'center',
+        top: hp('47'),
+        left: wp('53'),
+        width: wp('43'),
+        height: hp('4.4'),
+        backgroundColor: lightGray,
+        borderColor: 'black'
+    },
+    changePasswordHighlight: {
+        alignContent: 'center',
+        alignItems: 'center',
+        top: hp('47'),
+        left: wp('53'),
+        width: wp('43'),
+        height: hp('4.4'),
+        backgroundColor: lightGray,
+        borderColor: 'black'
+    },
+    changePasswordText: {
+        color: 'white',
+        fontSize: wp('4.5'),
+        top: hp('0.8'),
+        fontWeight: ('500')
+    },
+    newPasswordContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'absolute',
+        width: wp('96%'),
+        height: hp('4%'),
+        backgroundColor: 'transparent',
+        top: hp('65%'),
+    },
+    newPasswordInput: {
+        backgroundColor: 'white',
+        flex: 1,
+        fontSize: fontInput, //30
+        left: wp('2'),
+        top: hp('0.09%'),
+        height: hp('5%'), //44
+        width: wp('90') //370
+    },
+    instructionContainer: {
+        position: 'absolute',
+        alignItems: 'center',
+        width: wp('68'),
+        height: hp('12'),
+        top: hp('72'),
+        alignSelf: 'center',
+    },
+    instructionText: {
         color: '#454545',
         fontSize: wp('4')
     }

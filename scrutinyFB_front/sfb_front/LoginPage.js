@@ -24,7 +24,7 @@ export default class LoginPage extends React.Component {
     submitLogin() {
         //Learn more about this, looks like you're creating a new object of HTML formdata and then just putting things
         //in that body
-        if(this.state.changePassword) {
+        if(!this.state.changePassword) {
         var formData = new FormData()
         formData.append('username', this.state.userName)
         formData.append('password', this.state.password)
@@ -53,15 +53,25 @@ export default class LoginPage extends React.Component {
             formData.append('username', this.state.userName)
             formData.append('password', this.state.password)
             formData.append('newPassword', this.state.newPassword)
-            fetch('https://scrutiny-fb-api.herokuapp.com/login', {
+            fetch('https://scrutiny-fb-api.herokuapp.com/updatePass', {
                 method: 'POST',
                 body: formData
             })
-            .then(res => {})
-            .then(content => {})
+            .then(res => res.text())
+            .then(content => {
+                //convulted logic here is to run this submit login again and set the password to the new
+                //password... if the password change worked then the login will work
+                //if not the submitLogin() function in the case of changePassword being false
+                //will validate the password and tell user the password was wrong, obviously
+                //indicating that the wrong previous password was inputted
+                this.setState(prevState => ({changePassword: false, password: prevState.newPassword}))
+                this.submitLogin()
+            })
             .catch((error) => {
                 console.log(error)
             })
+
+
         }
         }
 

@@ -16,21 +16,19 @@ export default class HomeScreen extends React.Component {
         this.state= { 
           searchInput : "",
           jsonResponse: [],
-          loading: false,
-          isReady: false,
           allPlayerNames: [],
           playerOptionList: [],
         };
       }
 
     handleSubmitEditing(name) { 
-      playerName = name
-      this.setState({loading: true})
+      // playerName = []
+      // playerName.push(this.state.searchInput)
       const {navigate} = this.props.navigation;
       name == null ?
-      navigate('Player', {name: this.state.searchInput})
-      :
-      navigate('Player', {name: playerName})
+        navigate('Player', {name: this.state.searchInput})
+        :
+        navigate('Player', {name: name})
   }
 
   
@@ -62,14 +60,6 @@ export default class HomeScreen extends React.Component {
       header: null
     };
     render() {
-      // if (!this.state.isReady) {
-      //   return (
-      //     <AppLoading
-      //       startAsync={this._cacheResourcesAsync}
-      //       onFinish={() => this.setState({ isReady: true })}
-      //       onError={console.warn}
-      //     />
-      //   ); }
     
 
       return (
@@ -87,8 +77,8 @@ export default class HomeScreen extends React.Component {
 
         <InputBar 
             textChange={searchInput => {this.setState({ searchInput }); this.filterPlayerOptionList(searchInput)}}
-            changePageSubmitted={submitRequest => {this.handleSubmitEditing()}}
-            changePageFromButton={submitRequestButton => {this.handleSubmitEditing()}}
+            changePageSubmitted={() => {this.handleSubmitEditing()}}
+            changePageFromButton={() => {this.handleSubmitEditing()}}
           />
           <View style={styles.playerListContainer}>
             <ScrollView >
@@ -107,19 +97,9 @@ export default class HomeScreen extends React.Component {
                 </TouchableOpacity>
               </View>
             </View>
-           
-              {/* <View> <TouchableOpacity onPress={() => this.handleChangeToLogin()} > <Text> login </Text>  </TouchableOpacity> </View> */}
       </View>
       );
     }
-    // async _cacheResourcesAsync() {
-    //   const images = [require('./components/MainHeader.png')];
-  
-    //   const cacheImages = images.map(image => {
-    //     return asset.fromModule(image).downloadAsync();
-    //   }); 
-    //   return Promise.all(cacheImages);
-    // }
   }
 
   const mainBackgroundColor = '#c2c2c2';

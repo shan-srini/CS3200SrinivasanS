@@ -52,11 +52,19 @@ export default class PlayerScreen extends React.Component {
 
     componentDidMount() {
       var {params} = this.props.navigation.state;
+      const {navigate} = this.props.navigation;
       this.setState({nameState : params.name});
       fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName='+params.name)
       .then((response) => response.json())
       .then(player => {
-        this.setState({curPlayerInfo: JSON.parse(player)})
+        //Error rises here if response is not valid playerInfo response
+        try {
+          this.setState({curPlayerInfo: JSON.parse(player)})
+        }
+        catch(error) {
+          alert("Unable to find "+params.name)
+          navigate("Home")
+        }
       })
       .catch((error) => {
         console.log(error)

@@ -13,6 +13,8 @@ ENSURE THAT NODEJS & NPM ARE INSTALLED THIS IS ABSOLUTELY CRITICAL TO THIS APPLI
 4. run "npm run start" in the same folder (/scrutinyFB_front/sfb_front)
 5. As long as all dependencies installed correctly, and/or xcode is working properly, this will launch the ios simulator on your macbook to run our app
 
+Scroll through our app query some players (note: most players have stats, but there are a few players who don't play for a team anymore and won't be very useful to use in our app so we haven't really supported them fully, nonetheless our app fully supports over 150 relevant players try Tom Brady, Christian Mccaffrey, Dalvin Cook, Chris Godwin, and basically any other relevant player for the past two seasons! :)  )
+
 IF THE ABOVE DOESNT WORK OR YOU DONT WANT TO INSTALL XCODE BECAUSE IT TAKES UP SPACE OR ANOTHER VALID REASON FOR NOT WANTING XCODE THEN PLEASE FOLLOW INSTRUCTIONS BELOW
 You may also run "expo start" within /scrutinyFB_front/sfb_front folder on terminal after running npm i in the correct folders
 This will launch the expo localhost application server on your web browser

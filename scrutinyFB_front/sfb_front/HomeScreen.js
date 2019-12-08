@@ -26,13 +26,13 @@ export default class HomeScreen extends React.Component {
     playerName = name
     const { navigate } = this.props.navigation;
     name == null ?
-      navigate('Player', { name: this.state.searchInput })
+      navigate('Player', { name: this.state.searchInput, allPlayerNames: this.state.allPlayerNames })
       :
-      navigate('Player', { name: playerName })
+      navigate('Player', { name: playerName, allPlayerNames: this.state.allPlayerNames })
   }
 
-    componentDidMount() {
-      fetch('https://scrutiny-fb-api.herokuapp.com/getAllPlayerNames')
+  componentDidMount() {
+    fetch('https://scrutiny-fb-api.herokuapp.com/getAllPlayerNames')
       .then(res => res.json())
       .then(playerNames => {
         this.setState({ allPlayerNames: playerNames })
@@ -55,6 +55,7 @@ export default class HomeScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="dark-content" />
         <View style={[styles.headerContainer]}>
           <Image
             source={require('./components/MainHeader.png')}
@@ -85,7 +86,6 @@ export default class HomeScreen extends React.Component {
 }
 
 const mainBackgroundColor = '#c2c2c2';
-// const mainBackgroundColor = 'black';
 
 const styles = StyleSheet.create({
   container: {

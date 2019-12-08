@@ -199,6 +199,7 @@ export default class FullStatPage extends React.Component {
       var {params} = this.props.navigation.state;
         return (
         <View style={styles.container}>
+          <StatusBar barStyle="light-content"/>
           { this.state.displayPlayerSwitch ?
           <StatTableComponent 
             player={params.player1} 

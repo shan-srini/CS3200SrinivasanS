@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Image, View} from 'react-native';
+import { StyleSheet, StatusBar, Image, View} from 'react-native';
 import StatTableComponent from './StatTableComponent';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -116,6 +116,7 @@ export default class statTableScreen extends React.PureComponent {
         var {params} = this.props.navigation.state
         return (
           <View style={styles.container}>
+            <StatusBar barStyle="light-content"/>
             <StatTableComponent 
               player={params.player} 
               logStatus={params.logStatus} 
@@ -156,11 +157,4 @@ const mainBackgroundColor = 'white';
       top: hp('5.5'),
       left: wp('5'),
     },
-    bottom: {
-      position: 'absolute',
-      width: wp('100'),
-      height: hp('20'),
-      top: hp('92'),
-      backgroundColor:'#4B4A49'
-    }
   });

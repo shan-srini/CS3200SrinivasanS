@@ -81,25 +81,25 @@ export default class PlayerScreen extends React.Component {
       return 'home'
   }
 
-    goToStats() {
-      const {navigate} = this.props.navigation;
-        if(this.state.selectP2Input != "") {
-          navigate('FullStatPage', {
-            player1: this.state.curPlayerInfo, 
-            player2Name: this.state.selectP2Input, 
-            logStatus: this.chooseLog(),
-            chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
-            chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
-          })
-            
-        }
-        else
-        navigate('StatPage', {
-          player : this.state.curPlayerInfo, 
-          logStatus: this.chooseLog(), 
-          chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
-          chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
-        });
+  goToStats() {
+    const { navigate } = this.props.navigation;
+    if (this.state.selectP2Input != "") {
+      navigate('FullStatPage', {
+        player1: this.state.curPlayerInfo,
+        player2Name: this.state.selectP2Input,
+        logStatus: this.chooseLog(),
+        chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
+        chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
+      })
+
+    }
+    else
+      navigate('StatPage', {
+        player: this.state.curPlayerInfo,
+        logStatus: this.chooseLog(),
+        chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
+        chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
+      });
   }
 
   // return age given a Date of birth string
@@ -223,9 +223,9 @@ export default class PlayerScreen extends React.Component {
   }
 
 
-    render() {
+  render() {
     var { params } = this.props.navigation.state;
-      
+
     return (
       this.state.curPlayerInfo.player_name == null ?
         <Text style={{ top: hp(50), left: wp(40) }}> Loading </Text>
@@ -238,7 +238,6 @@ export default class PlayerScreen extends React.Component {
             p_weight={this.state.curPlayerInfo.player_weight}
             p_height={this.state.curPlayerInfo.player_height}
             p_pos={this.state.curPlayerInfo.player_position}
-
             goBackHome={goBackRequest => { this.goHome() }}
             goStatPage={goStatPageRequest => { this.goToStats() }}
             helmetImage={this.pickHelmet(this.state.curPlayerInfo.current_team)}
@@ -251,112 +250,104 @@ export default class PlayerScreen extends React.Component {
           />
 
           <Picker
-
             selectedValue={this.state.year}
             style={{ position: 'absolute' }}
-
             onValueChange={updateYear}
-
             itemStyle={styles.yearStyle}
           >
             <Picker.Item label="2019" value="2019" />
             <Picker.Item label="2018" value="2018" />
           </Picker>
           <Picker
-
             selectedValue={this.state.comparisonType}
             style={{ position: 'absolute' }}
-
             onValueChange={updateComparisonType}
-
-
-              onValueChange={updateComparisonType}
-              
-              itemStyle={styles.comparisonTypeStyle}
-            >
-                    <Picker.Item label="Current Player Stats" value="Current Player Stats" />
-                    <Picker.Item label="Direct Comparison" value="Direct Comparison" />
-                    <Picker.Item label="Player Split" value="Player Split" />
-                    <Picker.Item label="Against Team" value="Against Team" />
-            </Picker>
-            <View style={styles.wholeButtonContainer}>
-                    <View style={styles.fullLogContainer}>
-                        <TouchableHighlight onPress={()=>this.updateLog('full')} underlayColor='#403f3e' style={(this.state.fullLog) ? [styles.fullLogHighlighted] : [styles.fullLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>
-                                Full Game Log
-                                </Text> 
-                        </TouchableHighlight>
-                    </View>
-                    <View style={styles.homeLogContainer}>
-                        <TouchableHighlight onPress={() => this.updateLog('home')} underlayColor='#403f3e' style={(this.state.homeLog) ? [styles.homeLogHighlighted] : [styles.homeLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>
-                                Home Game Log
-                                </Text> 
-                        </TouchableHighlight>
-                    </View>
-                    <View style={styles.awayLogContainer}>
-                        <TouchableHighlight onPress={()=>this.updateLog('away')} underlayColor='#403f3e' style={(this.state.awayLog) ? [styles.awayLogHighlighted] : [styles.awayLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>
-                                Away Game Log
-                            </Text> 
-                        </TouchableHighlight>
-                    </View>
-                </View>
+            onValueChange={updateComparisonType}
+            itemStyle={styles.comparisonTypeStyle}
+          >
+            <Picker.Item label="Current Player Stats" value="Current Player Stats" />
+            <Picker.Item label="Direct Comparison" value="Direct Comparison" />
+            <Picker.Item label="Player Split" value="Player Split" />
+            {/* <Picker.Item label="Against Team" value="Against Team" /> */}
+          </Picker>
+          <View style={styles.wholeButtonContainer}>
+            <View style={styles.fullLogContainer}>
+              <TouchableHighlight onPress={() => this.updateLog('full')} underlayColor='#403f3e' style={(this.state.fullLog) ? [styles.fullLogHighlighted] : [styles.fullLog]}>
+                <Text style={[styles.dropTitleHeaders]}>
+                  Full Game Log
+                                </Text>
+              </TouchableHighlight>
+            </View>
+            <View style={styles.homeLogContainer}>
+              <TouchableHighlight onPress={() => this.updateLog('home')} underlayColor='#403f3e' style={(this.state.homeLog) ? [styles.homeLogHighlighted] : [styles.homeLog]}>
+                <Text style={[styles.dropTitleHeaders]}>
+                  Home Game Log
+                </Text>
+              </TouchableHighlight>
+            </View>
+            <View style={styles.awayLogContainer}>
+              <TouchableHighlight onPress={() => this.updateLog('away')} underlayColor='#403f3e' style={(this.state.awayLog) ? [styles.awayLogHighlighted] : [styles.awayLog]}>
+                <Text style={[styles.dropTitleHeaders]}>
+                  Away Game Log
+                </Text>
+              </TouchableHighlight>
+            </View>
+          </View>
         </View>
     );
   }
 }
 
-  const statusBarColor = '#F1F2EB';
-  const color1 = '#566347';
-  const color2 = '#4B4A49';
-  const color3 = '#A4C2A5';
-  const lightGray = '#8E8E8E';
-  isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
-  fontDropTitleHeaders = isX ? wp('4') : wp('5')
-  const styles = StyleSheet.create({
-    statusbar: {
-      backgroundColor: statusBarColor,
-      height: hp('5%')
-    },
-    container: {
-      backgroundColor: 'gray',
-      flex: 1
-    },
-    yearStyle: {
-      position: 'absolute',
-      backgroundColor: 'white',
-      top: hp('66.5'),
-      left: wp('8.5'),
-      color: 'black',
-      width: wp('27'),
-      height: hp('12'),
-      fontSize: wp('6.5'),
-      fontWeight: '600',
-      borderColor: '#a9a9a9',
-      borderWidth: 3
-    },
-    comparisonTypeStyle: {
-      position: 'absolute',
-      backgroundColor: 'white',
-      top: hp('66.5'),
-      left: wp('45'),
-      color: 'black',
-      width: wp('47'),
-      height: hp('12'),
-      fontSize: wp('4.5'),
-      fontWeight: '600',
-      borderColor: '#a9a9a9',
-      borderWidth: 3
-    },
-    wholeButtonContainer: {
-      position: 'absolute',
-      backgroundColor: color2,
-      height: hp('10'),
-      width: wp('100'),
-      top: hp('32'),
-      borderColor: 'black',
-      borderWidth: 1,
+const statusBarColor = '#F1F2EB';
+const color1 = '#566347';
+const color2 = '#4B4A49';
+const color3 = '#A4C2A5';
+const lightGray = '#8E8E8E';
+isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
+fontDropTitleHeaders = isX ? wp('4') : wp('5')
+const styles = StyleSheet.create({
+  statusbar: {
+    backgroundColor: statusBarColor,
+    height: hp('5%')
+  },
+  container: {
+    backgroundColor: 'gray',
+    flex: 1
+  },
+  yearStyle: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    top: hp('66.5'),
+    left: wp('8.5'),
+    color: 'black',
+    width: wp('27'),
+    height: hp('12'),
+    fontSize: wp('6.5'),
+    fontWeight: '600',
+    borderColor: '#a9a9a9',
+    borderWidth: 3
+  },
+  comparisonTypeStyle: {
+    position: 'absolute',
+    backgroundColor: 'white',
+    top: hp('66.5'),
+    left: wp('45'),
+    color: 'black',
+    width: wp('47'),
+    height: hp('12'),
+    fontSize: wp('4'),
+    fontWeight: '700',
+    borderColor: '#a9a9a9',
+    borderWidth: 3
+  },
+  wholeButtonContainer: {
+    position: 'absolute',
+    backgroundColor: color2,
+    height: hp('10'),
+    width: wp('100'),
+    top: hp('32'),
+    borderColor: 'black',
+    borderWidth: 1,
   },
   fullLogContainer: {
     position: 'absolute',
@@ -401,7 +392,7 @@ export default class PlayerScreen extends React.Component {
     width: wp('98'),
     height: hp('4.4'),
     backgroundColor: '#4B4A49'
-},
+  },
   homeLog: {
     alignContent: 'center',
     alignItems: 'center',
@@ -415,7 +406,7 @@ export default class PlayerScreen extends React.Component {
     width: wp('49'),
     height: hp('4.4'),
     backgroundColor: '#4B4A49'
-},
+  },
   awayLog: {
     alignContent: 'center',
     alignItems: 'center',
@@ -428,8 +419,8 @@ export default class PlayerScreen extends React.Component {
     alignItems: 'center',
     width: wp('49'),
     height: hp('4.4'),
-    backgroundColor:'#4B4A49'
-},
+    backgroundColor: '#4B4A49'
+  },
   dropTitleHeaders: {
     color: 'white',
     fontSize: fontDropTitleHeaders,

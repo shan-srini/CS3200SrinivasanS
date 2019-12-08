@@ -31,10 +31,8 @@ export default class HomeScreen extends React.Component {
       navigate('Player', { name: playerName })
   }
 
-
-
-  componentDidMount() {
-    fetch('https://scrutiny-fb-api.herokuapp.com/getAllPlayerNames')
+    componentDidMount() {
+      fetch('https://scrutiny-fb-api.herokuapp.com/getAllPlayerNames')
       .then(res => res.json())
       .then(playerNames => {
         this.setState({ allPlayerNames: playerNames })
@@ -120,7 +118,8 @@ const styles = StyleSheet.create({
   },
   playerText: {
     top: hp(1),
-    color: "white"
+    color: "white",
+    fontSize: wp('5')
   },
 });
 

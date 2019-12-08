@@ -1,9 +1,13 @@
 import React from 'react';
-import {View} from 'react-native'
-import StatTableComponent from './StatTableComponent'
+import { StyleSheet, Image, View} from 'react-native';
+import StatTableComponent from './StatTableComponent';
+import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+
+const backButtonHeight = hp('4')
+const backButtonWidth = wp('5.2')
 
 // This screen is an actual independent screen verses another StatPage which is a component
-
 export default class statTableScreen extends React.PureComponent {
     constructor (props) {
         super(props);
@@ -16,6 +20,11 @@ export default class statTableScreen extends React.PureComponent {
           tableData: [],
           jsonResponse: []
         };
+    }
+
+    goBackToPlayer() {
+      const {navigate} = this.props.navigation;
+      navigate('Player');
     }
 
     static navigationOptions = {
@@ -74,16 +83,16 @@ export default class statTableScreen extends React.PureComponent {
       chooseKeys() {
         var {params} = this.props.navigation.state
         if(params.player.player_position == 'RB') {
-            this.setState({tableKeys: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'receiving_targets', 'catch_percentage', 'receiving_yds_per_tgt'],
-        tableHeaders: ["Week", "Rushing Yards", "Rushing Attempts", "Yards/attempt", "Rushing TDs", "Targets", "Catch %", 'Yds/Tgt']})
+            this.setState({tableKeys: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'catch_percentage', 'receiving_yds_per_tgt'],
+        tableHeaders: ["Wk", "Rush Yds", "Rush Atts", "Yds/Att", "Rush TDs", "Catch %", 'Yds/Tgt']})
         }
         if(params.player.player_position == 'WR' || params.player.player_position == 'TE') {
-            this.setState({tableKeys: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds'],
-        tableHeaders: ["Week", "Receiving Yards", "Targets", "Catch %", "Receiving TDs"]})
+            this.setState({tableKeys: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds', 'receiving_yds_per_tgt'],
+        tableHeaders: ["Wk", "Rec Yds", "Tgts", "Catch %", "Rec TDs", 'Yds/Tgt']})
         }
         if(params.player.player_position == 'QB') {
             this.setState({tableKeys: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
-        tableHeaders: ["Week", "Passing Yards", "Passing Completions", "Passing Yards/attempt", "Passing TDs", "Rushing Yards", "Rushing Attempts", "Rushing TDs"]})
+        tableHeaders: ["Wk", "Pass Yds", "Pass Comps", "Yds/Att", "Pass TDs", "Rush yds", "Rush atts", "Rush TDs"]})
         }
       }
 
@@ -106,9 +115,52 @@ export default class statTableScreen extends React.PureComponent {
     render() {
         var {params} = this.props.navigation.state
         return (
-            <View>
-                <StatTableComponent player={params.player} logStatus={params.logStatus} tableHeaders={this.state.tableHeaders} tableData={this.state.tableData} />
+          <View style={styles.container}>
+            <StatTableComponent 
+              player={params.player} 
+              logStatus={params.logStatus} 
+              tableHeaders={this.state.tableHeaders} 
+              tableData={this.state.tableData} 
+              chosenColor = {params.chosenColor}
+              chosenColor2 = {params.chosenColor2}
+              chosenColorBottom ={params.chosenColor2}/>
+            <View style={styles.backButtonContainer}>
+              <TouchableOpacity style={styles.backButton}
+                  onPress={() => this.goBackToPlayer()}>
+                      <Image
+                          source={require('./components/backButtonArrow.png')}  
+                          style={{ width: backButtonWidth, height: backButtonHeight  }}
+                      />
+              </TouchableOpacity>
             </View>
+            {/* <View style={styles.bottom}/> */}
+          </View>
         )
     }
 }
+
+const mainBackgroundColor = 'white';
+  // const mainBackgroundColor = 'black';
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: mainBackgroundColor,
+      flex: 1
+    },
+    backButton: {
+      width: wp('8'),
+      height: hp('6'),
+    },
+    backButtonContainer: {
+      position: 'absolute',
+      top: hp('5.5'),
+      left: wp('5'),
+    },
+    bottom: {
+      position: 'absolute',
+      width: wp('100'),
+      height: hp('20'),
+      top: hp('92'),
+      backgroundColor:'#4B4A49'
+    }
+  });

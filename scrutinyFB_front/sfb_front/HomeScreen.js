@@ -26,9 +26,9 @@ export default class HomeScreen extends React.Component {
       playerName = name
       const {navigate} = this.props.navigation;
       name == null ?
-      navigate('Player', {name: this.state.searchInput})
+      navigate('Player', {name: this.state.searchInput, allPlayerNames :this.state.allPlayerNames})
       :
-      navigate('Player', {name: playerName})
+      navigate('Player', {name: playerName, allPlayerNames :this.state.allPlayerNames})
   }
 
     componentDidMount() {
@@ -53,19 +53,11 @@ export default class HomeScreen extends React.Component {
       header: null
     };
     render() {
-      // if (!this.state.isReady) {
-      //   return (
-      //     <AppLoading
-      //       startAsync={this._cacheResourcesAsync}
-      //       onFinish={() => this.setState({ isReady: true })}
-      //       onError={console.warn}
-      //     />
-      //   ); }
-    
-
+  
       return (
 
-        <View style={styles.container}>
+      <View style={styles.container}>
+        <StatusBar barStyle="dark-content"/>
 
       <View style={[styles.headerContainer]}>
         <Image 
@@ -95,18 +87,9 @@ export default class HomeScreen extends React.Component {
       </View>
       );
     }
-    // async _cacheResourcesAsync() {
-    //   const images = [require('./components/MainHeader.png')];
-  
-    //   const cacheImages = images.map(image => {
-    //     return asset.fromModule(image).downloadAsync();
-    //   }); 
-    //   return Promise.all(cacheImages);
-    // }
   }
 
   const mainBackgroundColor = '#c2c2c2';
-  // const mainBackgroundColor = 'black';
 
   const styles = StyleSheet.create({
     container: {

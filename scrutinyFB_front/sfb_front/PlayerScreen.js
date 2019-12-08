@@ -228,6 +228,7 @@ export default class PlayerScreen extends React.Component {
         <Text style={{top: hp(50), left: wp(40)}}> Loading </Text>
         :
         <View style={styles.container}>
+          <StatusBar barStyle="light-content"/>
             <PlayerScreenFormat 
               displayPlayerName={this.state.curPlayerInfo.player_name}
               p_team={this.state.curPlayerInfo.current_team}
@@ -271,7 +272,7 @@ export default class PlayerScreen extends React.Component {
                     <Picker.Item label="Current Player Stats" value="Current Player Stats" />
                     <Picker.Item label="Direct Comparison" value="Direct Comparison" />
                     <Picker.Item label="Player Split" value="Player Split" />
-                    <Picker.Item label="Against Team" value="Against Team" />
+                    {/* <Picker.Item label="Against Team" value="Against Team" /> */}
             </Picker>
             <View style={styles.wholeButtonContainer}>
                     <View style={styles.fullLogContainer}>
@@ -338,8 +339,8 @@ export default class PlayerScreen extends React.Component {
       color: 'black',
       width: wp('47'),
       height: hp('12'),
-      fontSize: wp('4.5'),
-      fontWeight: '600',
+      fontSize: wp('4'),
+      fontWeight: '700',
       borderColor: '#a9a9a9',
       borderWidth: 3
     },

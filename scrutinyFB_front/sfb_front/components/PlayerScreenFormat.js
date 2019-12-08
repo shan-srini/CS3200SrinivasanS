@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Picker, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import { Platform } from '@unimodules/core';
 
 isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
 is7 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone 7')
+playerNameSize = (isX) ? wp('6') : wp('7.5')
 hemletWidth = (isX) ? wp('20.5') : wp('20.5')
 hemletHeight = (isX) ? hp('8.5') : hp('8.5')
 hemletWidth = (is7) ? wp('20.5') : hemletWidth
@@ -39,7 +39,7 @@ const PlayerScreenFormat = (props) => {
                     <View style ={styles(props).logoContainer}>
                         <Image 
                             source={props.helmetImage} 
-                            style={{ width: hemletWidth, height: hemletHeight }}
+                            style={{ flex: 1, resizeMode: 'contain', width: hemletWidth, height: hemletHeight }}
                         />
                     </View>
                 </View>
@@ -61,29 +61,6 @@ const PlayerScreenFormat = (props) => {
                      <Text style={styles(props).statNames}>Wt: </Text>
                      <Text style={styles(props).wtPlayerStat}>{props.p_weight}</Text>
                 </View>
-                {/* <View style={styles.wholeButtonContainer}>
-                    <View style={styles.fullLogContainer}>
-                        <TouchableHighlight onPress={()=>alert('pressed')} underlayColor='red' style={[styles.fullLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>
-                                Full Game Log
-                                </Text> 
-                        </TouchableHighlight>
-                    </View>
-                    <View style={styles.homeLogContainer}>
-                        <TouchableHighlight style={[styles.homeLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>
-                                Home Game Log
-                                </Text> 
-                        </TouchableHighlight>
-                    </View>
-                    <View style={styles.awayLogContainer}>
-                        <TouchableHighlight style={[styles.awayLog]}>
-                            <Text style={[styles.dropTitleHeaders]}>
-                                Away Game Log
-                            </Text> 
-                        </TouchableHighlight>
-                    </View>
-                </View> */}
             </View>
             <Text style={[styles(props).compareTitle]}>Compare</Text>
             <Text style={[styles(props).yearTitle]}>Year</Text>
@@ -104,14 +81,8 @@ const PlayerScreenFormat = (props) => {
     )
 }
 
-// const color1 = '#6C8FCA'; //this is the main one
-// const color1 = '#0A2343'; //this is the main one
 const color2 = '#4B4A49';
-// const color3 = '#577AAE'; //this is the other main one hehe
-const color3 = '#C62032'; //this is the other main one hehe
-
 const lightGray = '#8E8E8E';
-
 
 const styles = (props) => StyleSheet.create({ 
     page: {
@@ -133,7 +104,7 @@ const styles = (props) => StyleSheet.create({
     },
     playerName: {
         position: 'absolute',
-        fontSize: wp('7.5%'),
+        fontSize: playerNameSize,
         color: 'white',//'#8E8E8E',
         alignSelf: 'center',  
         top: hp('5.5%')
@@ -352,6 +323,7 @@ const styles = (props) => StyleSheet.create({
         fontWeight: '500'
     },
     backButton : {
+        justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
         position: 'absolute',
@@ -376,11 +348,12 @@ const styles = (props) => StyleSheet.create({
         left: wp('7.4'),
     },
     backButtonText: {
+        position: 'relative',
         color: 'white',
         fontSize: wp('7.4'),
-        top: hp('1.6'),
     },
     goButton : {
+        justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
         position: 'absolute',
@@ -410,7 +383,6 @@ const styles = (props) => StyleSheet.create({
     goButtonText: {
         color: 'white',
         fontSize: wp('9'),
-        top: hp('1'),
         left: wp('3.5')
     },
     teamLogoContainer: {
@@ -451,7 +423,7 @@ const styles = (props) => StyleSheet.create({
         position: 'relative',
         display: "flex",
         alignItems: 'center',
-        top: logoContainerHeight
+        alignContent: 'center',
     }
 });
 

@@ -10,8 +10,6 @@ import FullStatPage from './FullStatPage.js';
 
 import { AppLoading } from 'expo';
 
-<StatusBar barStyle="default"/>
-
 const MainNavigator = createStackNavigator({
   Home: {screen: HomeScreen},
   Player: {screen: PlayerScreen},

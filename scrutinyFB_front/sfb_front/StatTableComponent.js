@@ -5,7 +5,6 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import { Table, TableWrapper, Row, Rows, Col, Cols, Cell } from 'react-native-table-component';
 
 // This screen is an the component for stat Table, update for future should fix the statPage to call this component
-
 export default class StatTableComponent extends React.PureComponent {
     constructor (props) {
         super(props);
@@ -47,7 +46,9 @@ export default class StatTableComponent extends React.PureComponent {
                     </ScrollView>    
                 </View>  
                 <View style={styles(this.props).header}>
-                    <Text style={styles(this.props).playerName}>{this.props.player.player_name}</Text>
+                    <View style={styles(this.props).titleContainer}>
+                        <Text style={styles(this.props).playerName}>{this.props.player.player_name}</Text>
+                    </View>
                 </View>
                 <View style={styles(this.props).bottom}/>
             </View>
@@ -62,6 +63,9 @@ const dataBackgroundColor = '#4B4A49';
 const dataTextColor = 'white';
 const dataFontSize = wp('5');
 const stickTopHeader = hp('0')
+
+isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
+playerNameSize = (isX) ? wp('5') : wp('7')
 
 const styles = (props) => StyleSheet.create({
     tableContainer: { 
@@ -94,7 +98,8 @@ const styles = (props) => StyleSheet.create({
     },
     playerName: {
         position: 'absolute',
-        fontSize: wp('8.5'),
+        fontSize: playerNameSize,
+        fontWeight: '600',
         top: hp('6'),
         color: 'white',
     },
@@ -106,6 +111,12 @@ const styles = (props) => StyleSheet.create({
         backgroundColor: props.chosenColor,
         width: wp('100'),
         height: hp('14')
+    },
+    titleContainer: {
+        alignItems: 'center',
+        alignContent: 'center',
+        backgroundColor: 'red',
+        top: hp('1')
     },
     triangleBG: {
         position: 'absolute',

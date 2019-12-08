@@ -80,10 +80,22 @@ export default class PlayerScreen extends React.Component {
     goToStats() {
       const {navigate} = this.props.navigation;
         if(this.state.selectP2Input != "") {
-          navigate('FullStatPage', {player1: this.state.curPlayerInfo, player2Name: this.state.selectP2Input, logStatus: this.chooseLog()})
+          navigate('FullStatPage', {
+            player1: this.state.curPlayerInfo, 
+            player2Name: this.state.selectP2Input, 
+            logStatus: this.chooseLog(),
+            chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
+            chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
+          })
+            
         }
         else
-        navigate('StatPage', {player : this.state.curPlayerInfo, logStatus: this.chooseLog()});
+        navigate('StatPage', {
+          player : this.state.curPlayerInfo, 
+          logStatus: this.chooseLog(), 
+          chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
+          chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
+        });
     }
 
     // return age given a Date of birth string
@@ -206,8 +218,6 @@ export default class PlayerScreen extends React.Component {
       return colors[team]
     }
 
-     
-
     render() {
 
         var {params} = this.props.navigation.state;
@@ -265,21 +275,21 @@ export default class PlayerScreen extends React.Component {
             </Picker>
             <View style={styles.wholeButtonContainer}>
                     <View style={styles.fullLogContainer}>
-                        <TouchableHighlight onPress={()=>this.updateLog('full')} underlayColor='#6e6e6e' style={(this.state.fullLog) ? [styles.fullLogHighlighted] : [styles.fullLog]}>
+                        <TouchableHighlight onPress={()=>this.updateLog('full')} underlayColor='#403f3e' style={(this.state.fullLog) ? [styles.fullLogHighlighted] : [styles.fullLog]}>
                             <Text style={[styles.dropTitleHeaders]}>
                                 Full Game Log
                                 </Text> 
                         </TouchableHighlight>
                     </View>
                     <View style={styles.homeLogContainer}>
-                        <TouchableHighlight onPress={() => this.updateLog('home')} underlayColor='#6e6e6e' style={(this.state.homeLog) ? [styles.homeLogHighlighted] : [styles.homeLog]}>
+                        <TouchableHighlight onPress={() => this.updateLog('home')} underlayColor='#403f3e' style={(this.state.homeLog) ? [styles.homeLogHighlighted] : [styles.homeLog]}>
                             <Text style={[styles.dropTitleHeaders]}>
                                 Home Game Log
                                 </Text> 
                         </TouchableHighlight>
                     </View>
                     <View style={styles.awayLogContainer}>
-                        <TouchableHighlight onPress={()=>this.updateLog('away')} underlayColor='#6e6e6e' style={(this.state.awayLog) ? [styles.awayLogHighlighted] : [styles.awayLog]}>
+                        <TouchableHighlight onPress={()=>this.updateLog('away')} underlayColor='#403f3e' style={(this.state.awayLog) ? [styles.awayLogHighlighted] : [styles.awayLog]}>
                             <Text style={[styles.dropTitleHeaders]}>
                                 Away Game Log
                             </Text> 
@@ -328,7 +338,7 @@ export default class PlayerScreen extends React.Component {
       color: 'black',
       width: wp('47'),
       height: hp('12'),
-      fontSize: wp('5'),
+      fontSize: wp('4.5'),
       fontWeight: '600',
       borderColor: '#a9a9a9',
       borderWidth: 3
@@ -384,7 +394,7 @@ export default class PlayerScreen extends React.Component {
     alignItems: 'center',
     width: wp('98'),
     height: hp('4.4'),
-    backgroundColor: '#6A6A6A'
+    backgroundColor: '#4B4A49'
 },
   homeLog: {
       alignContent: 'center',
@@ -398,7 +408,7 @@ export default class PlayerScreen extends React.Component {
     alignItems: 'center',
     width: wp('49'),
     height: hp('4.4'),
-    backgroundColor: '#6A6A6A'
+    backgroundColor: '#4B4A49'
 },
   awayLog: {
       alignContent: 'center',
@@ -412,7 +422,7 @@ export default class PlayerScreen extends React.Component {
     alignItems: 'center',
     width: wp('49'),
     height: hp('4.4'),
-    backgroundColor: '#6A6A6A'
+    backgroundColor:'#4B4A49'
 },
   dropTitleHeaders: {
       color: 'white',

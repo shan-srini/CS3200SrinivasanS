@@ -31,8 +31,6 @@ export default class HomeScreen extends React.Component {
       navigate('Player', {name: playerName})
   }
 
-  
-
     componentDidMount() {
       fetch('https://scrutiny-fb-api.herokuapp.com/getAllPlayerNames')
       .then(res => res.json())
@@ -141,7 +139,8 @@ export default class HomeScreen extends React.Component {
   },
   playerText: {
     top: hp(1),
-    color: "white"
+    color: "white",
+    fontSize: wp('5')
   },
   });
 

@@ -138,8 +138,8 @@ export default class FullStatPage extends React.Component {
     chooseKeys1() {
       var {params} = this.props.navigation.state
       if(params.player1.player_position == 'RB') {
-          this.setState({tableKeys1: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'receiving_targets', 'catch_percentage', 'receiving_yds_per_tgt'],
-      tableHeaders1: ["Wk", "Rushing Yards", "Rushing Attempts", "yds/att", "Rushing TDs", "Tgts", "Catch %", 'Yds/Tgt']})
+          this.setState({tableKeys1: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'catch_percentage', 'receiving_yds_per_tgt'],
+      tableHeaders1: ["Wk", "Rush Yds", "Rush Atts", "Yds/Att", "Rush TDs", "Catch %", 'Yds/Tgt']})
       }
       if(params.player1.player_position == 'WR' || params.player1.player_position == 'TE') {
           this.setState({tableKeys1: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds', 'receiving_yds_per_tgt'],
@@ -147,21 +147,21 @@ export default class FullStatPage extends React.Component {
       }
       if(params.player1.player_position == 'QB') {
           this.setState({tableKeys1: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
-      tableHeaders1: ["Wk", "Passing Yds", "Passing Completions", "Passing yds/att", "Passing TDs", "Rushing yds", "Rushing atts", "Rushing TDs"]})
+      tableHeaders1: ["Wk", "Pass Yds", "Pass Comps", "Yds/Att", "Pass TDs", "Rush yds", "Rush atts", "Rush TDs"]})
       }
     }
     chooseKeys2() {
       if(this.state.player2Info.player_position == 'RB') {
-          this.setState({tableKeys2: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'receiving_targets', 'catch_percentage', 'receiving_yds_per_tgt'],
-      tableHeaders2: ["Wk", "Rushing yds", "Rushing atts", "yds/att", "Rushing TDs", "Targets", "Catch %", 'Yds/Tgt']})
+          this.setState({tableKeys2: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'catch_percentage', 'receiving_yds_per_tgt'],
+      tableHeaders2: ["Wk", "Rush Yds", "Rush Atts", "Yds/Att", "Rush TDs", "Catch %", 'Yds/Tgt']})
       }
       if(this.state.player2Info.player_position == 'WR' || this.state.player2Info.player_position == 'TE') {
           this.setState({tableKeys2: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds', 'receiving_yds_per_tgt'],
-      tableHeaders2: ["Wk", "Receiving yds", "Targets", "Catch %", "Receiving TDs", 'Yds/Tgt']})
+      tableHeaders2: ["Wk", "Rec Yds", "Tgts", "Catch %", "Rec TDs", 'Yds/Tgt']})
       }
       if(this.state.player2Info.player_position == 'QB') {
           this.setState({tableKeys2: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
-      tableHeaders2: ["Wk", "Passing yds", "Passing Completions", "Passing yds/att", "Passing TDs", "Rushing yds", "Rushing atts", "Rushing TDs"]})
+      tableHeaders2: ["Wk", "Pass Yds", "Pass Comps", "Yds/Att", "Pass TDs", "Rush yds", "Rush atts", "Rush TDs"]})
       }
     }
 
@@ -199,6 +199,39 @@ export default class FullStatPage extends React.Component {
       var {params} = this.props.navigation.state;
         return (
         <View style={styles.container}>
+          { this.state.displayPlayerSwitch ?
+          <StatTableComponent 
+            player={params.player1} 
+            logStatus={params.logStatus} 
+            tableHeaders={this.state.tableHeaders1} 
+            chosenColor = {params.chosenColor}
+            chosenColor2 = {params.chosenColor2}
+            chosenColorBottom ={params.chosenColor}
+            tableData={this.state.p1TableData}/>
+          :
+          <StatTableComponent 
+            player={this.state.player2Info} 
+            logStatus={params.logStatus} 
+            tableHeaders={this.state.tableHeaders2} 
+            chosenColor = {params.chosenColor}
+            chosenColor2 = {params.chosenColor2}
+            chosenColorBottom ={params.chosenColor}
+            tableData={this.state.p2TableData}/>
+          }
+
+          {/* <View style={styles.bottom}/> */}
+          <View style={styles.playerButtonContainer}>
+            <TouchableHighlight style={styles.playerNameBox1} underlayColor='#6e6e6e' onPress={() => this.setState({displayPlayerSwitch: true})}>
+              <Text style={[styles.playerNameBoxText]}>
+                   {params.player1.player_name}
+              </Text> 
+            </TouchableHighlight>
+            <TouchableHighlight style={styles.playerNameBox2} underlayColor='#6e6e6e' onPress={() => this.setState({displayPlayerSwitch: false})}>
+              <Text style={[styles.playerNameBoxText]}>
+                  {params.player2Name}
+               </Text> 
+             </TouchableHighlight>
+          </View>
           <View style={styles.backButtonContainer}>
             <TouchableOpacity style={styles.backButton}
                 onPress={() => this.goBackToPlayer()}>
@@ -207,25 +240,6 @@ export default class FullStatPage extends React.Component {
                         style={{ width: backButtonWidth, height: backButtonHeight  }}
                     />
             </TouchableOpacity>
-          </View>
-
-          { this.state.displayPlayerSwitch ?
-          <StatTableComponent player={params.player1} logStatus={params.logStatus} tableHeaders={this.state.tableHeaders1} tableData={this.state.p1TableData}/>
-          :
-          <StatTableComponent player={this.state.player2Info} logStatus={params.logStatus} tableHeaders={this.state.tableHeaders2} tableData={this.state.p2TableData}/>
-          }
-
-          <View style={styles.playerButtonContainer}>
-            <TouchableHighlight style={styles.playerNameBox1} onPress={() => this.setState({displayPlayerSwitch: true})}>
-              <Text style={[styles.playerNameBoxText]}>
-                   {params.player1.player_name}
-              </Text> 
-            </TouchableHighlight>
-            <TouchableHighlight style={styles.playerNameBox2} onPress={() => this.setState({displayPlayerSwitch: false})}>
-              <Text style={[styles.playerNameBoxText]}>
-                  {params.player2Name}
-               </Text> 
-             </TouchableHighlight>
           </View>
         </View>
       );
@@ -280,6 +294,13 @@ export default class FullStatPage extends React.Component {
     playerNameBoxText: {
       fontSize: wp('4'),
       top: hp('1')
-    }
+    },
+    bottom: {
+      position: 'absolute',
+      width: wp('100'),
+      height: hp('20'),
+      top: hp('90'),
+      backgroundColor:'#4B4A49'
+    },
   });
 

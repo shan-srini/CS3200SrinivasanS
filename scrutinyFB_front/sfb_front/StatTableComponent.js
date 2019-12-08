@@ -25,50 +25,55 @@ export default class StatTableComponent extends React.PureComponent {
             <Text style={{top: hp(50), left: wp(40)}}> Loading </Text>
             :
             <View>
-                <View style={styles.tableContainer}>
-                    <ScrollView horizontal={true}>
-                        <ScrollView >      
+                <View style={styles(this.props).triangleBG}/>
+                <View style={styles(this.props).tableContainer}>
+                    <ScrollView horizontal={true} alwaysBounceVertical={false}>
+                        <ScrollView alwaysBounceVertical={false}>      
                             <Table borderStyle={{borderWidth: 2, borderColor: 'black'}}>
-                                <Row data={this.props.tableHeaders} style={styles.columnConfig} textStyle={styles.columnText}/>
+                                <Row data={this.props.tableHeaders} style={styles(this.props).columnConfig} textStyle={styles(this.props).columnText}/>
+                            </Table>
+                            <ScrollView alwaysBounceVertical={false}>
+                            <Table borderStyle={{borderWidth: 2, borderColor: 'black'}}>
                                 <TableWrapper>
                                     {
                                         this.props.tableData.map((cellData, cellIndex) => (
-                                            <Row data={cellData} style={styles.dataConfig} textStyle={styles.dataText} key={`${cellIndex}+${cellData}`}/>
+                                            <Row data={cellData} style={styles(this.props).dataConfig} textStyle={styles(this.props).dataText} key={`${cellIndex}+${cellData}`}/>
                                         ))
                                     }
                                 </TableWrapper>
                             </Table>
-                    </ScrollView>
+                            </ScrollView>
+                        </ScrollView>
                     </ScrollView>    
-                </View>
-                <View style={styles.header}>
-                                <Text style={styles.playerName}>{this.props.player.player_name}</Text>
                 </View>  
+                <View style={styles(this.props).header}>
+                    <Text style={styles(this.props).playerName}>{this.props.player.player_name}</Text>
+                </View>
+                <View style={styles(this.props).bottom}/>
             </View>
         )}}
 
-const columnHeaderColor = '#d3d3d3';
+const columnHeaderColor = '#2e2e2e';
 const columnHeaderHeight = hp('4');
-const headerTextColor = 'black';
+const headerTextColor = 'white';
 const columnFontSize = wp('3.5');
-const dataBackgroundColor = 'white';
-const columnWidth = wp('200');
-const dataTextColor = 'black';
+const columnWidth = wp('24');
+const dataBackgroundColor = '#4B4A49';
+const dataTextColor = 'white';
 const dataFontSize = wp('5');
 const stickTopHeader = hp('0')
 
-
-
-const styles = StyleSheet.create({
+const styles = (props) => StyleSheet.create({
     tableContainer: { 
         position: 'absolute',
-        top: hp('12'),
-        flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff',
-        height: hp('80')
+        top: hp('14'),
+        flex: 1, paddingTop: 0, backgroundColor: '#fff',
+        height: hp('76'),
+        backgroundColor: 'transparent'
     },
     columnConfig: { 
         height: columnHeaderHeight,
-        width: columnWidth,
+        width: props.tableHeaders.length * columnWidth,
         backgroundColor: columnHeaderColor,
         top: stickTopHeader
     },
@@ -79,7 +84,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     dataConfig: {
-        width: columnWidth,
+        width: props.tableHeaders.length * columnWidth,
         backgroundColor: dataBackgroundColor,
     },
     dataText: {
@@ -89,12 +94,34 @@ const styles = StyleSheet.create({
     },
     playerName: {
         position: 'absolute',
-        fontSize: wp('10'),
-        top: hp('3'),
+        fontSize: wp('8.5'),
+        top: hp('6'),
+        color: 'white',
     },
     header: {
-        top: hp('4'),
+        borderBottomColor: 'black',
+        borderWidth: 1,
         alignItems: 'center',
-        alignContent: 'center'
-    }
+        alignContent: 'center',
+        backgroundColor: props.chosenColor,
+        width: wp('100'),
+        height: hp('14')
+    },
+    triangleBG: {
+        position: 'absolute',
+        alignContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'red',
+        top: hp('14'),
+        height: hp('78'),
+        width: wp('100'),
+        backgroundColor: props.chosenColor2
+    },
+    bottom: {
+        position: 'absolute',
+        width: wp('100'),
+        height: hp('20'),
+        top: hp('90'),
+        backgroundColor: props.chosenColorBottom
+      }
     });

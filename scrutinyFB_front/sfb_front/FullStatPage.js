@@ -18,13 +18,7 @@ export default class FullStatPage extends React.Component {
       displayPlayerSwitch: true,
       player2Info: [],
       p1AllData: [],
-      p1TableData: [],
-      tableHeaders1: [],
-      tableKeys1: [],
       p2AllData: [],
-      p2TableData: [],
-      tableHeaders2: [],
-      tableKeys2: [],
     }
   }
 
@@ -70,9 +64,6 @@ export default class FullStatPage extends React.Component {
       .then((response) => response.json())
       .then(stats => {
         this.setState({ p1AllData: JSON.parse(stats), })
-        // tableHeaders: JSON.parse(stats).keys()})
-        this.chooseKeys1()
-        this.setData1()
         //  console.log((JSON.parse(stats)[0])["rushing_yds"])
       })
       .catch((error) => {
@@ -86,89 +77,11 @@ export default class FullStatPage extends React.Component {
       .then((response) => response.json())
       .then(stats => {
         this.setState({ p2AllData: JSON.parse(stats), })
-        // tableHeaders: JSON.parse(stats).keys()})
-        this.chooseKeys2()
-        this.setData2()
         //  console.log((JSON.parse(stats)[0])["rushing_yds"])
       })
       .catch((error) => {
         console.log(error)
       })
-  }
-
-  // Chooses keys order depending on position
-  // I know I should abstract, but this is in a time crunch and needs more state & function reformatting
-  // to do so, for now keeping as 2 different functions for each player
-  chooseKeys1() {
-    var { params } = this.props.navigation.state
-    if (params.player1.player_position == 'RB') {
-      this.setState({
-        tableKeys1: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'catch_percentage', 'receiving_yds_per_tgt'],
-        tableHeaders1: ["Wk", "Rush Yds", "Rush Atts", "Yds/Att", "Rush TDs", "Catch %", 'Yds/Tgt']
-      })
-    }
-    if (params.player1.player_position == 'WR' || params.player1.player_position == 'TE') {
-      this.setState({
-        tableKeys1: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds', 'receiving_yds_per_tgt'],
-        tableHeaders1: ["Wk", "Rec Yds", "Tgts", "Catch %", "Rec TDs", 'Yds/Tgt']
-      })
-    }
-    if (params.player1.player_position == 'QB') {
-      this.setState({
-        tableKeys1: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
-        tableHeaders1: ["Wk", "Pass Yds", "Pass Comps", "Yds/Att", "Pass TDs", "Rush yds", "Rush atts", "Rush TDs"]
-      })
-    }
-  }
-  chooseKeys2() {
-    if (this.state.player2Info.player_position == 'RB') {
-      this.setState({
-        tableKeys2: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'catch_percentage', 'receiving_yds_per_tgt'],
-        tableHeaders2: ["Wk", "Rush Yds", "Rush Atts", "Yds/Att", "Rush TDs", "Catch %", 'Yds/Tgt']
-      })
-    }
-    if (this.state.player2Info.player_position == 'WR' || this.state.player2Info.player_position == 'TE') {
-      this.setState({
-        tableKeys2: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds', 'receiving_yds_per_tgt'],
-        tableHeaders2: ["Wk", "Rec Yds", "Tgts", "Catch %", "Rec TDs", 'Yds/Tgt']
-      })
-    }
-    if (this.state.player2Info.player_position == 'QB') {
-      this.setState({
-        tableKeys2: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
-        tableHeaders2: ["Wk", "Pass Yds", "Pass Comps", "Yds/Att", "Pass TDs", "Rush yds", "Rush atts", "Rush TDs"]
-      })
-    }
-  }
-
-  // sets the data according to the keys
-  setData1() {
-    toReturn = []
-    // this.state.jsonResponse.forEach((dataRow) => 
-    for (i in this.state.p1AllData) {
-      // console.log(this.state.jsonResponse[i]["rushing_yds"]) // working correctly
-      innerAppend = [];
-      this.state.tableKeys1.map((header) => {
-        innerAppend.push(this.state.p1AllData[i][header])
-      })
-      toReturn.push(innerAppend)
-    }
-    this.setState({ p1TableData: toReturn })
-    // console.log(this.state.tableData)  //Working correctly
-  }
-  setData2() {
-    toReturn = []
-    // this.state.jsonResponse.forEach((dataRow) => 
-    for (i in this.state.p2AllData) {
-      // console.log(this.state.jsonResponse[i]["rushing_yds"]) // working correctly
-      innerAppend = [];
-      this.state.tableKeys2.map((header) => {
-        innerAppend.push(this.state.p2AllData[i][header])
-      })
-      toReturn.push(innerAppend)
-    }
-    this.setState({ p2TableData: toReturn })
-    // console.log(this.state.tableData)  //Working correctly
   }
 
   render() {
@@ -179,21 +92,19 @@ export default class FullStatPage extends React.Component {
         {this.state.displayPlayerSwitch ?
           <StatTableComponent
             player={params.player1}
-            logStatus={params.logStatus}
-            tableHeaders={this.state.tableHeaders1}
+            allStats={this.state.p1AllData}
             chosenColor={params.chosenColor}
             chosenColor2={params.chosenColor2}
             chosenColorBottom={params.chosenColor}
-            tableData={this.state.p1TableData} />
+          />
           :
           <StatTableComponent
             player={this.state.player2Info}
-            logStatus={params.logStatus}
-            tableHeaders={this.state.tableHeaders2}
+            allStats={this.state.p2AllData}
             chosenColor={params.chosenColor}
             chosenColor2={params.chosenColor2}
             chosenColorBottom={params.chosenColor}
-            tableData={this.state.p2TableData} />
+          />
         }
 
         {/* <View style={styles.bottom}/> */}

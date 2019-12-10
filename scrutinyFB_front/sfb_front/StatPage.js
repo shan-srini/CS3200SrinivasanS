@@ -38,6 +38,7 @@ export default class statTableScreen extends React.PureComponent {
 
   fetchData() {
     var { params } = this.props.navigation.state
+    const { navigate } = this.props.navigation;
     var formData = new FormData()
     formData.append('playerID', params.player.player_id)
     formData.append('home_or_away', params.logStatus)
@@ -52,7 +53,10 @@ export default class statTableScreen extends React.PureComponent {
       .then(stats => {
         this.setState({ allStats: JSON.parse(stats), })
         // tableHeaders: JSON.parse(stats).keys()})
-        // console.log(JSON.parse(stats))
+        if (this.state.allStats.length < 1) {
+          alert("Unable to find stats for " + params.player.player_name)
+          navigate("Player")
+        }
       })
       .catch((error) => {
         console.log(error)

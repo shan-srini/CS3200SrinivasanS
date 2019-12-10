@@ -52,7 +52,7 @@ export default class statTableScreen extends React.PureComponent {
       .then(stats => {
         this.setState({ allStats: JSON.parse(stats), })
         // tableHeaders: JSON.parse(stats).keys()})
-        //  console.log((JSON.parse(stats)[0])["rushing_yds"])
+        // console.log(JSON.parse(stats))
       })
       .catch((error) => {
         console.log(error)

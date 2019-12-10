@@ -12,7 +12,7 @@ export default class PlayerScreen extends React.Component {
     super();
     this.state = {
       year: 2019,
-      comparisonType: '',
+      comparisonType: "Player",
       nameState: '',
       curPlayerInfo: [],
       player2: [],
@@ -56,7 +56,7 @@ export default class PlayerScreen extends React.Component {
     var { params } = this.props.navigation.state;
     const { navigate } = this.props.navigation;
     this.setState({ nameState: params.name });
-    fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName=' + playerName)
+    fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName=' + params.name)
       .then((response) => response.json())
       .then(player => {
         this.setState({ curPlayerInfo: JSON.parse(player) })
@@ -83,7 +83,15 @@ export default class PlayerScreen extends React.Component {
 
   goToStats() {
     const { navigate } = this.props.navigation;
-    if (this.state.selectP2Input != "") {
+    if (this.state.comparisonType === "Player")
+      navigate('StatPage', {
+        player: this.state.curPlayerInfo,
+        logStatus: this.chooseLog(),
+        year: this.state.year,
+        chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
+        chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
+      });
+    else if (this.state.comparisonType === "Comparison") {
       navigate('FullStatPage', {
         player1: this.state.curPlayerInfo,
         player2Name: this.state.selectP2Input,
@@ -92,11 +100,12 @@ export default class PlayerScreen extends React.Component {
         chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
         chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
       })
-
     }
-    else
-      navigate('StatPage', {
+    else if (this.state.comparisonType === "Splits")
+      navigate('SplitsStatPage', {
         player: this.state.curPlayerInfo,
+        playerName: this.state.curPlayerInfo.player_name,
+        playerSplitName: this.state.selectP2Input,
         logStatus: this.chooseLog(),
         year: this.state.year,
         chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
@@ -267,9 +276,9 @@ export default class PlayerScreen extends React.Component {
             onValueChange={updateComparisonType}
             itemStyle={styles.comparisonTypeStyle}
           >
-            <Picker.Item label="Current Player Stats" value="Current Player Stats" />
-            <Picker.Item label="Direct Comparison" value="Direct Comparison" />
-            <Picker.Item label="Player Split" value="Player Split" />
+            <Picker.Item label="Current Player Stats" value="Player" />
+            <Picker.Item label="Direct Comparison" value="Comparison" />
+            <Picker.Item label="Player Splits" value="Splits" />
             {/* <Picker.Item label="Against Team" value="Against Team" /> */}
           </Picker>
           <View style={styles.wholeButtonContainer}>

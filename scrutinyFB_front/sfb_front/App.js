@@ -7,14 +7,16 @@ import HomeScreen from './HomeScreen';
 import PlayerScreen from './PlayerScreen';
 import StatPage from './StatPage.js';
 import FullStatPage from './FullStatPage.js';
+import SplitsStatPage from './SplitsStatPage'
 
 import { AppLoading } from 'expo';
 
 const MainNavigator = createStackNavigator({
-  Home: {screen: HomeScreen},
-  Player: {screen: PlayerScreen},
-  FullStatPage: {screen: FullStatPage},
-  StatPage: {screen: StatPage}
+  Home: { screen: HomeScreen },
+  Player: { screen: PlayerScreen },
+  FullStatPage: { screen: FullStatPage },
+  StatPage: { screen: StatPage },
+  SplitsStatPage: { screen: SplitsStatPage }
 });
 
 const App = createAppContainer(MainNavigator);

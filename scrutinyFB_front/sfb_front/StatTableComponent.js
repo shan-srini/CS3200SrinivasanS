@@ -22,7 +22,10 @@ export default class StatTableComponent extends React.PureComponent {
     componentDidUpdate(prevProps) {
         if (prevProps.allStats != this.props.allStats) {
             // { console.log(this.props.allStats) }
-            this.setData()
+            this.chooseKeys()
+        }
+        if (prevProps.player.player_name != this.props.player.player_name) {
+            this.chooseKeys()
         }
     }
 
@@ -46,6 +49,7 @@ export default class StatTableComponent extends React.PureComponent {
                 tableHeaders: ["Wk", "Pass Yds", "Pass Comps", "Yds/Att", "Pass TDs", "Rush yds", "Rush atts", "Rush TDs"]
             })
         }
+        // this.setData()
     }
 
     // sets the data according to the keys
@@ -59,7 +63,8 @@ export default class StatTableComponent extends React.PureComponent {
             })
             toReturn.push(innerAppend)
         }
-        this.setState({ tableData: toReturn })
+        // this.setState({ tableData: toReturn })
+        return toReturn
         // console.log(this.state.tableData)  //Working correctly
     }
 
@@ -80,7 +85,7 @@ export default class StatTableComponent extends React.PureComponent {
                                     <Table borderStyle={{ borderWidth: 2, borderColor: 'black' }}>
                                         <TableWrapper>
                                             {
-                                                this.state.tableData.map((cellData, cellIndex) => (
+                                                this.setData().map((cellData, cellIndex) => (
                                                     <Row data={cellData} style={styles(this.props, this.state).dataConfig} textStyle={styles(this.props, this.state).dataText} key={`${cellIndex}+${cellData}`} />
                                                 ))
                                             }

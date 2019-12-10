@@ -11,7 +11,7 @@ export default class PlayerScreen extends React.Component {
   constructor() {
     super();
     this.state = {
-      year: '',
+      year: 2019,
       comparisonType: '',
       nameState: '',
       curPlayerInfo: [],
@@ -87,6 +87,7 @@ export default class PlayerScreen extends React.Component {
       navigate('FullStatPage', {
         player1: this.state.curPlayerInfo,
         player2Name: this.state.selectP2Input,
+        year: this.state.year,
         logStatus: this.chooseLog(),
         chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
         chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
@@ -97,6 +98,7 @@ export default class PlayerScreen extends React.Component {
       navigate('StatPage', {
         player: this.state.curPlayerInfo,
         logStatus: this.chooseLog(),
+        year: this.state.year,
         chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
         chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
       });
@@ -255,8 +257,8 @@ export default class PlayerScreen extends React.Component {
             onValueChange={updateYear}
             itemStyle={styles.yearStyle}
           >
-            <Picker.Item label="2019" value="2019" />
-            <Picker.Item label="2018" value="2018" />
+            <Picker.Item label="2019" value={2019} />
+            <Picker.Item label="2018" value={2018} />
           </Picker>
           <Picker
             selectedValue={this.state.comparisonType}

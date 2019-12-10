@@ -12,8 +12,11 @@ const backButtonWidth = wp('5.2')
 
 export default class FullStatPage extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    var { params } = this.props.navigation.state
+    this.getColor1 = params.getColor1.bind(this)
+    this.getColor2 = params.getColor2.bind(this)
     this.state = {
       displayPlayerSwitch: true,
       player2Info: [],
@@ -32,6 +35,7 @@ export default class FullStatPage extends React.Component {
   }
 
   componentDidMount() {
+    const { navigate } = this.props.navigation;
     var { params } = this.props.navigation.state;
     fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName=' + params.player2Name)
       .then((response) => response.json())
@@ -41,10 +45,13 @@ export default class FullStatPage extends React.Component {
       })
       .catch((error) => {
         console.log(error)
+        alert("Unable to find " + params.player2Name)
+        navigate("Player")
       });
   }
 
   fetchData() {
+    const { navigate } = this.props.navigation;
     var { params } = this.props.navigation.state
     var formData1 = new FormData()
     formData1.append('playerID', params.player1.player_id)
@@ -65,6 +72,10 @@ export default class FullStatPage extends React.Component {
       .then(stats => {
         this.setState({ p1AllData: JSON.parse(stats), })
         //  console.log((JSON.parse(stats)[0])["rushing_yds"])
+        if (this.state.p1AllData.length < 1) {
+          alert("Unable to find stats for " + params.player1.player_name)
+          navigate("Player")
+        }
       })
       .catch((error) => {
         console.log(error)
@@ -78,6 +89,10 @@ export default class FullStatPage extends React.Component {
       .then(stats => {
         this.setState({ p2AllData: JSON.parse(stats), })
         //  console.log((JSON.parse(stats)[0])["rushing_yds"])
+        if (this.state.p2AllData.length < 1) {
+          alert("Unable to find stats for " + this.state.player2Info.player_name)
+          navigate("Player")
+        }
       })
       .catch((error) => {
         console.log(error)
@@ -93,17 +108,17 @@ export default class FullStatPage extends React.Component {
           <StatTableComponent
             player={params.player1}
             allStats={this.state.p1AllData}
-            chosenColor={params.chosenColor}
-            chosenColor2={params.chosenColor2}
-            chosenColorBottom={params.chosenColor}
+            chosenColor={this.getColor1(params.player1.current_team)}
+            chosenColor2={this.getColor2(params.player1.current_team)}
+            chosenColorBottom={this.getColor1(params.player1.current_team)}
           />
           :
           <StatTableComponent
             player={this.state.player2Info}
             allStats={this.state.p2AllData}
-            chosenColor={params.chosenColor}
-            chosenColor2={params.chosenColor2}
-            chosenColorBottom={params.chosenColor}
+            chosenColor={this.getColor1(this.state.player2Info.current_team)}
+            chosenColor2={this.getColor2(this.state.player2Info.current_team)}
+            chosenColorBottom={this.getColor1(this.state.player2Info.current_team)}
           />
         }
 

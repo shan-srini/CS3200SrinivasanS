@@ -89,7 +89,7 @@ export default class PlayerScreen extends React.Component {
         logStatus: this.chooseLog(),
         year: this.state.year,
         chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
-        chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
+        chosenColor2: this.getColor2(this.state.curPlayerInfo.current_team)
       });
     else if (this.state.comparisonType === "Comparison") {
       navigate('FullStatPage', {
@@ -97,8 +97,8 @@ export default class PlayerScreen extends React.Component {
         player2Name: this.state.selectP2Input,
         year: this.state.year,
         logStatus: this.chooseLog(),
-        chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
-        chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
+        getColor1: this.getColor1,
+        getColor2: this.getColor2
       })
     }
     else if (this.state.comparisonType === "Splits")
@@ -108,8 +108,8 @@ export default class PlayerScreen extends React.Component {
         playerSplitName: this.state.selectP2Input,
         logStatus: this.chooseLog(),
         year: this.state.year,
-        chosenColor: this.getColor1(this.state.curPlayerInfo.current_team),
-        chosenColor2: this.getColor3(this.state.curPlayerInfo.current_team)
+        getColor1: this.getColor1,
+        getColor2: this.getColor2
       });
   }
 
@@ -195,7 +195,7 @@ export default class PlayerScreen extends React.Component {
     return colors[team]
   }
 
-  getColor3(team) {
+  getColor2(team) {
     const colors = {
       "Los Angeles Rams": '#FFFFFF',
       "New York Giants": '#A71930',
@@ -253,7 +253,7 @@ export default class PlayerScreen extends React.Component {
             goStatPage={goStatPageRequest => { this.goToStats() }}
             helmetImage={this.pickHelmet(this.state.curPlayerInfo.current_team)}
             color1={this.getColor1(this.state.curPlayerInfo.current_team)}
-            color3={this.getColor3(this.state.curPlayerInfo.current_team)}
+            color3={this.getColor2(this.state.curPlayerInfo.current_team)}
           />
 
           <InputBar2

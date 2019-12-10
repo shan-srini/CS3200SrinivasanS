@@ -13,12 +13,16 @@ const backButtonWidth = wp('5.2')
 
 export default class FullStatPage extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
+        var { params } = this.props.navigation.state
+        this.getColor1 = params.getColor1.bind(this)
+        this.getColor2 = params.getColor2.bind(this)
         this.state = {
             splitsSwitch: true,
             statsWith: [],
             statsWithout: [],
+            player2Info: []
         }
     }
 
@@ -61,6 +65,16 @@ export default class FullStatPage extends React.Component {
             .catch((error) => {
                 console.log(error)
             });
+
+        fetch('https://scrutiny-fb-api.herokuapp.com/getPlayerByName?playerName=' + params.playerSplitName)
+            .then((response) => response.json())
+            .then(player => {
+                this.setState({ player2Info: JSON.parse(player) })
+            })
+            .catch((error) => {
+                alert("Unable to find " + params.playerSplitName)
+                navigate("Player")
+            });
     }
 
     render() {
@@ -72,17 +86,17 @@ export default class FullStatPage extends React.Component {
                     <StatTableComponent
                         player={params.player}
                         allStats={this.state.statsWith}
-                        chosenColor={params.chosenColor}
-                        chosenColor2={params.chosenColor2}
-                        chosenColorBottom={params.chosenColor}
+                        chosenColor={this.getColor1(params.player.current_team)}
+                        chosenColor2={this.getColor2(params.player.current_team)}
+                        chosenColorBottom={this.getColor1(params.player.current_team)}
                     />
                     :
                     <StatTableComponent
                         player={params.player}
                         allStats={this.state.statsWithout}
-                        chosenColor={params.chosenColor}
-                        chosenColor2={params.chosenColor2}
-                        chosenColorBottom={params.chosenColor}
+                        chosenColor={this.getColor1(this.state.player2Info.current_team)}
+                        chosenColor2={this.getColor2(this.state.player2Info.current_team)}
+                        chosenColorBottom={this.getColor1(this.state.player2Info.current_team)}
                     />
                 }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
-import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Platform } from '@unimodules/core';
 
 isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
@@ -10,7 +10,7 @@ hemletWidth = (isX) ? wp('20.5') : wp('20.5')
 hemletHeight = (isX) ? hp('8.5') : hp('8.5')
 hemletWidth = (is7) ? wp('20.5') : hemletWidth
 hemletHeight = (is7) ? hp('10.4') : hemletHeight
-logoContainerHeight = (isX) ? hp('2') : hp('2%') 
+logoContainerHeight = (isX) ? hp('2') : hp('2%')
 logoContainerHeight = (is7) ? hp('1') : logoContainerHeight
 fontStatNames = isXR ? wp('5') : wp(7)
 fontAgeStat = isXR ? wp('5') : wp(6.5)
@@ -25,27 +25,32 @@ leftComparisonTypeTitle = isXR ? wp('42') : wp('45')
 
 const PlayerScreenFormat = (props) => {
     return (
-        
+
         <View style={styles(props).page}>
-            <View style={styles(props).playerNameBox}> 
-                <Text style={styles(props).playerName}>{props.displayPlayerName}</Text> 
-            </View>    
+            <View style={styles(props).playerNameBox}>
+                <Text style={styles(props).playerName}>{props.displayPlayerName}</Text>
+            </View>
             <View style={styles(props).triangleBG}>
-                <View style={styles(props).tri1}/>
-                <View style={styles(props).tri2}/>   
+                <View style={styles(props).tri1} />
+                <View style={styles(props).tri2} />
+                <View style={styles(props).teamNameContainer}>
+                    <Text style={styles(props).teamNameText}>
+                        {props.p_team}
+                    </Text>
+                </View>
             </View>
             <View style={styles(props).boxAroundLogoContainer}>
                 <View style={styles(props).teamLogoContainer}>
-                    <View style ={styles(props).logoContainer}>
-                        <Image 
-                            source={props.helmetImage} 
+                    <View style={styles(props).logoContainer}>
+                        <Image
+                            source={props.helmetImage}
                             style={{ flex: 1, resizeMode: 'contain', width: hemletWidth, height: hemletHeight }}
                         />
                     </View>
                 </View>
             </View>
             <View style={styles(props).statBoxContainer}>
-                <View style={styles(props).ageContainer}> 
+                <View style={styles(props).ageContainer}>
                     <Text style={styles(props).statNames}>Age: </Text>
                     <Text style={styles(props).agePlayerStat}>{props.p_age}</Text>
                 </View>
@@ -58,24 +63,24 @@ const PlayerScreenFormat = (props) => {
                     <Text style={styles(props).htPlayerStat}>{props.p_height}</Text>
                 </View>
                 <View style={styles(props).wtContainer}>
-                     <Text style={styles(props).statNames}>Wt: </Text>
-                     <Text style={styles(props).wtPlayerStat}>{props.p_weight}</Text>
+                    <Text style={styles(props).statNames}>Wt: </Text>
+                    <Text style={styles(props).wtPlayerStat}>{props.p_weight}</Text>
                 </View>
             </View>
             <Text style={[styles(props).compareTitle]}>Compare</Text>
             <Text style={[styles(props).yearTitle]}>Year</Text>
             <Text style={[styles(props).comparisonTypeTitle]}>Comparison Type</Text>
-            <View style={styles(props).backButtonSquare}/>
-            <View style={styles(props).backButtonCircle}/>
-            <View style={styles(props).goButtonSquare}/>
-            <View style={styles(props).goButtonCircle}/>
+            <View style={styles(props).backButtonSquare} />
+            <View style={styles(props).backButtonCircle} />
+            <View style={styles(props).goButtonSquare} />
+            <View style={styles(props).goButtonCircle} />
             <TouchableOpacity style={styles(props).backButton}
                 onPress={(backButtonPressed) => props.goBackHome(backButtonPressed)}>
-                    <Text style={styles(props).backButtonText}>Back</Text>
+                <Text style={styles(props).backButtonText}>Back</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles(props).goButton}
                 onPress={(goButtonPressed) => props.goStatPage(goButtonPressed)}>
-                    <Text style={styles(props).goButtonText}>Go</Text>
+                <Text style={styles(props).goButtonText}>Go</Text>
             </TouchableOpacity>
         </View>
     )
@@ -84,7 +89,7 @@ const PlayerScreenFormat = (props) => {
 const color2 = '#4B4A49';
 const lightGray = '#8E8E8E';
 
-const styles = (props) => StyleSheet.create({ 
+const styles = (props) => StyleSheet.create({
     page: {
         backgroundColor: props.color1,
         width: wp('100%'),
@@ -106,8 +111,19 @@ const styles = (props) => StyleSheet.create({
         position: 'absolute',
         fontSize: playerNameSize,
         color: 'white',//'#8E8E8E',
-        alignSelf: 'center',  
+        alignSelf: 'center',
         top: hp('5.5%')
+    },
+    teamNameContainer: {
+        top: hp('12.25'),
+        height: hp('3.5'),
+        width: wp('70'),
+    },
+    teamNameText: {
+        color: "#E4E4E4",
+        fontSize: wp('5'),
+        fontWeight: '700',
+        alignSelf: 'center'
     },
     triangleBG: {
         alignContent: 'center',
@@ -126,8 +142,8 @@ const styles = (props) => StyleSheet.create({
         position: 'absolute',
         top: hp('11.6%'),
         transform: [
-            {rotate: '180deg'}
-          ]
+            { rotate: '180deg' }
+        ]
     },
     tri2: {
         width: wp('0%'),
@@ -146,7 +162,7 @@ const styles = (props) => StyleSheet.create({
         width: wp('58.5'),
         height: hp('14'),
         backgroundColor: color2,
-        top: hp('14.75'),
+        top: hp('16.5'),
         left: wp('37'),
         borderColor: 'black',
         borderWidth: 1,
@@ -165,7 +181,7 @@ const styles = (props) => StyleSheet.create({
     },
     posContainer: {
         width: wp('27.5'),
-        height: hp('6.90'),
+        height: hp('6.8'),
         backgroundColor: color2,
         left: wp('0'),
         bottom: hp('0'),
@@ -177,7 +193,7 @@ const styles = (props) => StyleSheet.create({
     },
     htContainer: {
         width: wp('30.75'),
-        height: hp('6.85'),
+        height: hp('6.9'),
         backgroundColor: color2,
         left: wp('27.25'),
         bottom: hp('13.75'),
@@ -189,14 +205,14 @@ const styles = (props) => StyleSheet.create({
     },
     wtContainer: {
         width: wp('30'),
-        height: hp('6.90'),
-        backgroundColor: color2, 
+        height: hp('6.7'),
+        backgroundColor: color2,
         left: wp('27.6'),
         bottom: hp('13.75'),
         borderWidth: 0
     },
     statNames: {
-        fontSize:fontStatNames,
+        fontSize: fontStatNames,
         color: '#D2D2D1',
         fontWeight: '400',
         top: wp('3'),
@@ -303,7 +319,7 @@ const styles = (props) => StyleSheet.create({
         color: 'white',
         fontSize: wp('7.5'),
         top: hp('44'),
-        alignSelf: 'center', 
+        alignSelf: 'center',
         fontWeight: '600'
     },
     yearTitle: {
@@ -319,10 +335,10 @@ const styles = (props) => StyleSheet.create({
         color: 'white',
         fontSize: fontComparisonTypeTitle,
         top: hp('61.5'),
-        left: leftComparisonTypeTitle, 
+        left: leftComparisonTypeTitle,
         fontWeight: '500'
     },
-    backButton : {
+    backButton: {
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
@@ -340,9 +356,10 @@ const styles = (props) => StyleSheet.create({
         top: hp('85'),
     },
     backButtonCircle: {
+        position: 'absolute',
         width: wp('21'),
         height: hp('8'),
-        borderRadius: 100/2,
+        borderRadius: 100 / 2,
         backgroundColor: lightGray,
         top: hp('85'),
         left: wp('7.4'),
@@ -352,7 +369,7 @@ const styles = (props) => StyleSheet.create({
         color: 'white',
         fontSize: wp('7.4'),
     },
-    goButton : {
+    goButton: {
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
@@ -375,7 +392,7 @@ const styles = (props) => StyleSheet.create({
         position: 'absolute',
         width: wp('21'),
         height: hp('8'),
-        borderRadius: 100/2,
+        borderRadius: 100 / 2,
         backgroundColor: lightGray,
         top: hp('85'),
         left: wp('73'),
@@ -399,7 +416,7 @@ const styles = (props) => StyleSheet.create({
     },
     teamLogo: {
         position: 'absolute',
-        alignSelf: 'center', 
+        alignSelf: 'center',
         width: wp('26'),
         height: hp('12.5'),
         backgroundColor: color2,
@@ -414,7 +431,7 @@ const styles = (props) => StyleSheet.create({
         width: wp('30'),
         height: hp('14'),
         backgroundColor: color2,
-        top: hp('14.75'),
+        top: hp('16.5'),
         left: wp('3'),
         borderColor: 'black',
         borderWidth: 1,

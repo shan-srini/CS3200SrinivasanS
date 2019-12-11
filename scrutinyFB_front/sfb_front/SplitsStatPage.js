@@ -94,9 +94,9 @@ export default class FullStatPage extends React.Component {
                     <StatTableComponent
                         player={params.player}
                         allStats={this.state.statsWithout}
-                        chosenColor={this.getColor1(this.state.player2Info.current_team)}
-                        chosenColor2={this.getColor2(this.state.player2Info.current_team)}
-                        chosenColorBottom={this.getColor1(this.state.player2Info.current_team)}
+                        chosenColor={this.getColor1(params.player.current_team)}
+                        chosenColor2={this.getColor2(params.player.current_team)}
+                        chosenColorBottom={this.getColor1(params.player.current_team)}
                     />
                 }
 
@@ -104,12 +104,12 @@ export default class FullStatPage extends React.Component {
                 <View style={styles.playerButtonContainer}>
                     <TouchableHighlight style={styles.playerNameBox1} underlayColor='#6e6e6e' onPress={() => this.setState({ splitsSwitch: true })}>
                         <Text style={[styles.playerNameBoxText]}>
-                            Stats With {params.playerSplitName}
+                            Stats With{params.playerSplitName.substring(params.playerSplitName.indexOf(" "))}
                         </Text>
                     </TouchableHighlight>
                     <TouchableHighlight style={styles.playerNameBox2} underlayColor='#6e6e6e' onPress={() => this.setState({ splitsSwitch: false })}>
                         <Text style={[styles.playerNameBoxText]}>
-                            Stats Without {params.playerSplitName}
+                            Stats Without{params.playerSplitName.substring(params.playerSplitName.indexOf(" "))}
                         </Text>
                     </TouchableHighlight>
                 </View>

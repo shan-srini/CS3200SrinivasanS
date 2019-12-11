@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, StatusBar, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar, Image, Alert } from 'react-native';
 import { Platform } from '@unimodules/core';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { FlatList, TouchableOpacity, TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
@@ -41,6 +41,7 @@ export default class FullStatPage extends React.Component {
 
     fetchData() {
         var { params } = this.props.navigation.state
+        const { navigate } = this.props.navigation;
         var formData = new FormData()
         formData.append('playerName', params.playerName)
         formData.append('splitPlayerName', params.playerSplitName)
@@ -58,6 +59,41 @@ export default class FullStatPage extends React.Component {
                     statsWith: JSON.parse((stats)["splitsWith"]),
                     statsWithout: JSON.parse(stats["splitsWithout"])
                 })
+                if (this.state.statsWith.length == 0) {
+                    // alert(`${params.playerName} has played every game WITHOUT ${params.playerSplitName} in ${params.year}`)
+                    Alert.alert("oops!",
+                        `${params.playerName}has played every game WITHOUT ${params.playerSplitName} in ${params.year}`,
+                        [
+                            { text: `Go back`, onPress: () => navigate("Player") },
+                            {
+                                text: `See every ${params.playerName} stat for ${params.year}`, onPress: () => navigate('StatPage', {
+                                    player: params.player,
+                                    logStatus: params.logStatus,
+                                    year: params.year,
+                                    chosenColor: this.getColor1(params.player.current_team),
+                                    chosenColor2: this.getColor2(params.player.current_team)
+                                })
+                            }
+                        ]
+                    )
+                }
+                if (this.state.statsWithout.length == 0) {
+                    Alert.alert("oops!",
+                        `${params.playerName}has played every game WITH ${params.playerSplitName} in ${params.year}`,
+                        [
+                            { text: `Go back`, onPress: () => navigate("Player") },
+                            {
+                                text: `See every ${params.playerName} stat for ${params.year}`, onPress: () => navigate('StatPage', {
+                                    player: params.player,
+                                    logStatus: params.logStatus,
+                                    year: params.year,
+                                    chosenColor: this.getColor1(params.player.current_team),
+                                    chosenColor2: this.getColor2(params.player.current_team)
+                                })
+                            }
+                        ]
+                    )
+                }
                 // console.log((stats)["splitsWithout"]) //works to get splits without or with
                 // tableHeaders: JSON.parse(stats).keys()})
                 //  console.log((JSON.parse(stats)[0])["rushing_yds"])
@@ -70,10 +106,18 @@ export default class FullStatPage extends React.Component {
             .then((response) => response.json())
             .then(player => {
                 this.setState({ player2Info: JSON.parse(player) })
+                if (this.state.player2Info.current_team != params.player.current_team) {
+                    Alert.alert("Hmm...", `${params.playerName} & ${params.playerSplitName} are not on the same team... Are you sure you would like to see how ${params.playerName} performs when ${params.playerSplitName} is on/off the field on a given day?`,
+                        [
+                            { text: `Go back`, onPress: () => navigate("Player") },
+                            { text: 'Stay', onPress: () => { } }
+                        ]
+                    )
+                }
             })
             .catch((error) => {
-                alert("Unable to find " + params.playerSplitName)
-                navigate("Player")
+                // alert("Unable to find " + params.playerSplitName)
+                // navigate("Player")
             });
     }
 

@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "scrutinyFB",
-    "slug": "sfb_front",
+    "slug": "scrutinyFB",
     "privacy": "public",
     "sdkVersion": "35.0.0",
     "platforms": [
@@ -16,7 +16,7 @@
       "image": "./assets/backSplashFinal.png",
       "resizeMode": "cover",
       "backgroundColor": "#ffffff"
-    }, 
+    },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -24,7 +24,7 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": false
     }
   }
 }

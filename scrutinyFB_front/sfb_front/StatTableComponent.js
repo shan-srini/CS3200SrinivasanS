@@ -33,20 +33,20 @@ export default class StatTableComponent extends React.PureComponent {
     chooseKeys() {
         if (this.props.player.player_position == 'RB') {
             this.setState({
-                tableKeys: [`week`, 'rushing_yds', 'rushing_att', 'rushing_yds_per_att', 'rushing_td', 'catch_percentage', 'receiving_yds_per_tgt'],
-                tableHeaders: ["Wk", "Rush Yds", "Rush Atts", "Yds/Att", "Rush TDs", "Catch %", 'Yds/Tgt']
+                tableKeys: [`week`, 'Opponent', 'rushing_att', 'rushing_yds', 'rushing_yds_per_att', 'rushing_td', "fumbles", 'receiving_tgts', 'receptions', 'receiving_yds', 'receiving_tds', 'receiving_yds_per_tgt', 'receiving_yds_per_rec'],
+                tableHeaders: ["Wk", "Opp", "Rush Atts", "Rush Yds", "Yds/Carry", "Rush TDs", "Fumbles", "Rec Tgts", "Receptions", 'Rec Yds', 'Rec TDs', 'Yds/Per Tgt', 'Yds/Per Rec']
             })
         }
         if (this.props.player.player_position == 'WR' || this.props.player.player_position == 'TE') {
             this.setState({
-                tableKeys: [`week`, 'receiving_yds', 'receiving_tgts', 'catch_percentage', 'receiving_tds', 'receiving_yds_per_tgt'],
-                tableHeaders: ["Wk", "Rec Yds", "Tgts", "Catch %", "Rec TDs", 'Yds/Tgt']
+                tableKeys: [`week`, 'Opponent', 'receiving_tgts', 'receptions', 'receiving_yds', 'receiving_tds', 'catch_percentage', 'receiving_yds_per_tgt', 'receiving_yds_per_rec', 'rushing_att', 'rushing_yds'],
+                tableHeaders: ["Wk", "Opp", "Rec Tgts", "Receptions", 'Rec yds', 'Rec tds', 'Catch %', 'Yds/Per Tgt', 'Yds/Per Rec', "Rush Atts", "Rush Yds"]
             })
         }
         if (this.props.player.player_position == 'QB') {
             this.setState({
-                tableKeys: [`week`, 'passing_yds', 'passing_completions', 'passing_yds_per_att', 'passing_tds', 'rushing_yds', 'rushing_att', 'rushing_td'],
-                tableHeaders: ["Wk", "Pass Yds", "Pass Comps", "Yds/Att", "Pass TDs", "Rush yds", "Rush atts", "Rush TDs"]
+                tableKeys: [`week`, 'Opponent', 'passing_atts', 'passing_completions', 'passing_yds', 'passing_yds_per_att', 'passing_tds', 'passing_interceptions', 'rushing_att', 'rushing_yds', 'rushing_td', "fumbles"],
+                tableHeaders: ["Wk", "Opp", "Pass Atts", "Pass Comps", "Pass Yds", "Yds/Att", "Pass TDs", "Int", "Rush atts", "Rush yds", "Rush TDs", "Fumbles"]
             })
         }
         // this.setData()

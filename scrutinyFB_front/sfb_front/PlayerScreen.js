@@ -18,6 +18,7 @@ export default class PlayerScreen extends React.Component {
       curPlayerInfo: [],
       selectP2Input: "",
       displayOptions: false,
+      keyboardVisible: false,
       fullLog: true,
       homeLog: false,
       awayLog: false,
@@ -269,11 +270,11 @@ export default class PlayerScreen extends React.Component {
   }
 
   _keyboardDidShow = () => {
-    this.setState({ displayOptions: true })
+    this.setState({ keyboardVisible: true, displayOptions: true })
   }
 
   _keyboardDidHide = () => {
-    // this.setState({ displayOptions: false })
+    this.setState({ keyboardVisible: false })
   }
 
 
@@ -284,7 +285,7 @@ export default class PlayerScreen extends React.Component {
       this.state.curPlayerInfo.player_name == null ?
         <Text style={{ top: hp(50), left: wp(40) }}> Loading </Text>
         :
-        <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={false} keyboardShouldPersistTaps='always' keyboardDismissMode='on-drag'>
+        <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={false} keyboardShouldPersistTaps='always'>
           <View style={styles.container}>
             <PlayerScreenFormat
               displayPlayerName={this.state.curPlayerInfo.player_name}
@@ -301,8 +302,11 @@ export default class PlayerScreen extends React.Component {
             />
 
             <InputBarPlayer
+              style={styles.inputBar}
               textChange={searchInput => this.setState({ selectP2Input: searchInput })}
               searchInput={this.state.selectP2Input}
+              displayKeyboardDismiss={this.state.keyboardVisible}
+              closeKeyboard={() => Keyboard.dismiss()}
             />
 
             <Picker
@@ -514,4 +518,7 @@ const styles = StyleSheet.create({
     paddingBottom: '1%',
     borderColor: 'black',
   },
+  inputBar: {
+    top: hp(5)
+  }
 });

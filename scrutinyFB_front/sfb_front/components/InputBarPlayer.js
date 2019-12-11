@@ -14,6 +14,17 @@ const InputBar2 = (props) => {
                     //onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}
                     value={props.searchInput}
                 />
+                {props.displayKeyboardDismiss ?
+                    <TouchableOpacity style={styles.searchButton}
+                        onPress={(e) => props.closeKeyboard()}>
+                        <Image
+                            source={require('../assets/keyboardLogo.png')}
+                            style={{ width: 30, height: 30 }}
+                        />
+                    </TouchableOpacity>
+                    :
+                    null
+                }
             </View>
         </View>
     )

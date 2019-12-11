@@ -353,8 +353,8 @@ export default class PlayerScreen extends React.Component {
             {
               this.state.displayOptions ?
                 this.getCompareOptions().map((player, index) =>
-                  <TouchableOpacity key={index} onPress={() => { this.setState({ selectP2Input: player, displayOptions: false }); Keyboard.dismiss() }}>
-                    <Text> {player} </Text>
+                  <TouchableOpacity style={styles.optionsList} key={index} onPress={() => { this.setState({ selectP2Input: player, displayOptions: false }); Keyboard.dismiss() }}>
+                    <Text style={styles.compareOptionsText}> {player} </Text>
                   </TouchableOpacity>
                 )
                 :
@@ -498,9 +498,16 @@ const styles = StyleSheet.create({
   },
   compareOptions: {
     flex: 1,
-    top: hp('47'),
-    left: wp('10.5'),
-    height: hp('45%'),
-    backgroundColor: '#4B4A49',
+    top: hp('7.5'),
+    left: wp('8'),
+    height: hp('5'),
+    backgroundColor: 'red',
   },
+  compareOptionsText: {
+    color: 'white',
+    fontSize: wp('5')
+  },
+  optionsList: {
+    height: hp('7'),
+  }
 });

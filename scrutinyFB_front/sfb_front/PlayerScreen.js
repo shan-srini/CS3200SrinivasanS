@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, View, Picker, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Picker, ScrollView, Keyboard, TouchableOpacity, StatusBar } from 'react-native';
 import PlayerScreenFormat from './components/PlayerScreenFormat';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Platform } from '@unimodules/core';
-import InputBar2 from './components/InputBar2';
+import InputBarPlayer from './components/InputBarPlayer';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default class PlayerScreen extends React.Component {
@@ -15,8 +15,8 @@ export default class PlayerScreen extends React.Component {
       comparisonType: "Player",
       nameState: '',
       curPlayerInfo: [],
-      player2: [],
       selectP2Input: "",
+      displayOptions: false,
       fullLog: true,
       homeLog: false,
       awayLog: false,
@@ -65,6 +65,15 @@ export default class PlayerScreen extends React.Component {
         alert("Unable to find " + params.name)
         navigate("Home")
       });
+    //adding keyboard listener
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this._keyboardDidShow,
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this._keyboardDidHide,
+    );
   }
 
   goHome() {
@@ -233,6 +242,39 @@ export default class PlayerScreen extends React.Component {
     return colors[team]
   }
 
+  getCompareOptions() {
+    const { params } = this.props.navigation.state
+    toReturn = []
+    if (!this.state.displayOptions)
+      return toReturn
+
+    if (this.state.selectP2Input.length >= 2)
+      for (i = 0; i < params.allPlayerNames.length; i++) {
+        //Have to do player[0] because allPlayerNames is an array of arrays containing the names, just the way
+        //it was easiest to send from REST API
+        if (params.allPlayerNames[i][0].toLowerCase().indexOf(this.state.selectP2Input.toLowerCase()) != -1) {
+          toReturn.push(params.allPlayerNames[i][0])
+        }
+        if (toReturn.length >= 3) {
+          return toReturn
+        }
+      }
+    return toReturn
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow = () => {
+    this.setState({ displayOptions: true })
+  }
+
+  _keyboardDidHide = () => {
+    this.setState({ displayOptions: false })
+  }
+
 
   render() {
     var { params } = this.props.navigation.state;
@@ -241,70 +283,85 @@ export default class PlayerScreen extends React.Component {
       this.state.curPlayerInfo.player_name == null ?
         <Text style={{ top: hp(50), left: wp(40) }}> Loading </Text>
         :
-        <View style={styles.container}>
-          <PlayerScreenFormat
-            displayPlayerName={this.state.curPlayerInfo.player_name}
-            p_team={this.state.curPlayerInfo.current_team}
-            p_age={this.calcAge(this.state.curPlayerInfo.player_dob)}
-            p_weight={this.state.curPlayerInfo.player_weight}
-            p_height={this.state.curPlayerInfo.player_height}
-            p_pos={this.state.curPlayerInfo.player_position}
-            goBackHome={goBackRequest => { this.goHome() }}
-            goStatPage={goStatPageRequest => { this.goToStats() }}
-            helmetImage={this.pickHelmet(this.state.curPlayerInfo.current_team)}
-            color1={this.getColor1(this.state.curPlayerInfo.current_team)}
-            color3={this.getColor2(this.state.curPlayerInfo.current_team)}
-          />
+        <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={false} keyboardDismissMode='on-drag'>
+          <View style={styles.container}>
+            <PlayerScreenFormat
+              displayPlayerName={this.state.curPlayerInfo.player_name}
+              p_team={this.state.curPlayerInfo.current_team}
+              p_age={this.calcAge(this.state.curPlayerInfo.player_dob)}
+              p_weight={this.state.curPlayerInfo.player_weight}
+              p_height={this.state.curPlayerInfo.player_height}
+              p_pos={this.state.curPlayerInfo.player_position}
+              goBackHome={goBackRequest => { this.goHome() }}
+              goStatPage={goStatPageRequest => { this.goToStats() }}
+              helmetImage={this.pickHelmet(this.state.curPlayerInfo.current_team)}
+              color1={this.getColor1(this.state.curPlayerInfo.current_team)}
+              color3={this.getColor2(this.state.curPlayerInfo.current_team)}
+            />
 
-          <InputBar2
-            textChange={searchInput => this.setState({ selectP2Input: searchInput })}
-          />
+            <InputBarPlayer
+              textChange={searchInput => this.setState({ selectP2Input: searchInput })}
+              searchInput={this.state.selectP2Input}
+            />
 
-          <Picker
-            selectedValue={this.state.year}
-            style={{ position: 'absolute' }}
-            onValueChange={updateYear}
-            itemStyle={styles.yearStyle}
-          >
-            <Picker.Item label="2019" value={2019} />
-            <Picker.Item label="2018" value={2018} />
-          </Picker>
-          <Picker
-            selectedValue={this.state.comparisonType}
-            style={{ position: 'absolute' }}
-            onValueChange={updateComparisonType}
-            onValueChange={updateComparisonType}
-            itemStyle={styles.comparisonTypeStyle}
-          >
-            <Picker.Item label="Current Player Stats" value="Player" />
-            <Picker.Item label="Direct Comparison" value="Comparison" />
-            <Picker.Item label="Player Splits" value="Splits" />
-            {/* <Picker.Item label="Against Team" value="Against Team" /> */}
-          </Picker>
-          <View style={styles.wholeButtonContainer}>
-            <View style={styles.fullLogContainer}>
-              <TouchableHighlight onPress={() => this.updateLog('full')} underlayColor='#403f3e' style={(this.state.fullLog) ? [styles.fullLogHighlighted] : [styles.fullLog]}>
-                <Text style={[styles.dropTitleHeaders]}>
-                  Full Game Log
+            <Picker
+              selectedValue={this.state.year}
+              style={{ position: 'absolute' }}
+              onValueChange={updateYear}
+              itemStyle={styles.yearStyle}
+            >
+              <Picker.Item label="2019" value={2019} />
+              <Picker.Item label="2018" value={2018} />
+            </Picker>
+            <Picker
+              selectedValue={this.state.comparisonType}
+              style={{ position: 'absolute' }}
+              onValueChange={updateComparisonType}
+              onValueChange={updateComparisonType}
+              itemStyle={styles.comparisonTypeStyle}
+            >
+              <Picker.Item label="Current Player Stats" value="Player" />
+              <Picker.Item label="Direct Comparison" value="Comparison" />
+              <Picker.Item label="Player Splits" value="Splits" />
+              {/* <Picker.Item label="Against Team" value="Against Team" /> */}
+            </Picker>
+            <View style={styles.wholeButtonContainer}>
+              <View style={styles.fullLogContainer}>
+                <TouchableHighlight onPress={() => this.updateLog('full')} underlayColor='#403f3e' style={(this.state.fullLog) ? [styles.fullLogHighlighted] : [styles.fullLog]}>
+                  <Text style={[styles.dropTitleHeaders]}>
+                    Full Game Log
                                 </Text>
-              </TouchableHighlight>
-            </View>
-            <View style={styles.homeLogContainer}>
-              <TouchableHighlight onPress={() => this.updateLog('home')} underlayColor='#403f3e' style={(this.state.homeLog) ? [styles.homeLogHighlighted] : [styles.homeLog]}>
-                <Text style={[styles.dropTitleHeaders]}>
-                  Home Game Log
+                </TouchableHighlight>
+              </View>
+              <View style={styles.homeLogContainer}>
+                <TouchableHighlight onPress={() => this.updateLog('home')} underlayColor='#403f3e' style={(this.state.homeLog) ? [styles.homeLogHighlighted] : [styles.homeLog]}>
+                  <Text style={[styles.dropTitleHeaders]}>
+                    Home Game Log
                 </Text>
-              </TouchableHighlight>
-            </View>
-            <View style={styles.awayLogContainer}>
-              <TouchableHighlight onPress={() => this.updateLog('away')} underlayColor='#403f3e' style={(this.state.awayLog) ? [styles.awayLogHighlighted] : [styles.awayLog]}>
-                <Text style={[styles.dropTitleHeaders]}>
-                  Away Game Log
+                </TouchableHighlight>
+              </View>
+              <View style={styles.awayLogContainer}>
+                <TouchableHighlight onPress={() => this.updateLog('away')} underlayColor='#403f3e' style={(this.state.awayLog) ? [styles.awayLogHighlighted] : [styles.awayLog]}>
+                  <Text style={[styles.dropTitleHeaders]}>
+                    Away Game Log
                 </Text>
-              </TouchableHighlight>
+                </TouchableHighlight>
+              </View>
             </View>
           </View>
-        </View>
+          <View style={styles.compareOptions}>
+            {
+              this.state.displayOptions ?
+                this.getCompareOptions().map((player, index) =>
+                  <TouchableOpacity key={index} onPress={() => { this.setState({ selectP2Input: player, displayOptions: false }); Keyboard.dismiss() }}>
+                    <Text> {player} </Text>
+                  </TouchableOpacity>
+                )
+                :
+                null
+            }
+          </View>
+        </ScrollView>
     );
   }
 }
@@ -438,5 +495,12 @@ const styles = StyleSheet.create({
     top: hp('0.5'),
     // fontSize: wp('5'),
     fontWeight: ('500')
+  },
+  compareOptions: {
+    flex: 1,
+    top: hp('47'),
+    left: wp('10.5'),
+    height: hp('45%'),
+    backgroundColor: '#4B4A49',
   },
 });

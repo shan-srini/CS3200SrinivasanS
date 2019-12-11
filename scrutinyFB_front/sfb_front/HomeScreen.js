@@ -54,33 +54,35 @@ export default class HomeScreen extends React.Component {
   };
   render() {
     return (
-      <View style={styles.container}>
-        <StatusBar barStyle="dark-content" />
-        <View style={[styles.headerContainer]}>
-          <Image
-            source={require('./components/MainHeader.png')}
-            style={{ width: headerWidth, height: headerHeight }}
+      <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={false} keyboardDismissMode='on-drag'>
+        <View style={styles.container}>
+          <StatusBar barStyle="dark-content" />
+          <View style={[styles.headerContainer]}>
+            <Image
+              source={require('./components/MainHeader.png')}
+              style={{ width: headerWidth, height: headerHeight }}
+            />
+          </View>
+
+          <HomeScreenFormat />
+
+          <InputBar
+            textChange={searchInput => { this.setState({ searchInput }); this.filterPlayerOptionList(searchInput) }}
+            changePageSubmitted={submitRequest => { this.handleSubmitEditing() }}
+            changePageFromButton={submitRequestButton => { this.handleSubmitEditing() }}
           />
+          <View style={styles.playerListContainer}>
+            <ScrollView>
+              {this.state.playerOptionList.map((player, playerIndex) => (
+                <TouchableOpacity key={playerIndex} style={styles.playerOption} onPress={() => this.handleSubmitEditing(player)}>
+                  <Text style={styles.playerText}> {player} </Text>
+                </TouchableOpacity>
+              ))
+              }
+            </ScrollView>
+          </View>
         </View>
-
-        <HomeScreenFormat />
-
-        <InputBar
-          textChange={searchInput => { this.setState({ searchInput }); this.filterPlayerOptionList(searchInput) }}
-          changePageSubmitted={submitRequest => { this.handleSubmitEditing() }}
-          changePageFromButton={submitRequestButton => { this.handleSubmitEditing() }}
-        />
-        <View style={styles.playerListContainer}>
-          <ScrollView >
-            {this.state.playerOptionList.map((player, playerIndex) => (
-              <TouchableOpacity key={playerIndex} style={styles.playerOption} onPress={() => this.handleSubmitEditing(player)}>
-                <Text style={styles.playerText}> {player} </Text>
-              </TouchableOpacity>
-            ))
-            }
-          </ScrollView>
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 }

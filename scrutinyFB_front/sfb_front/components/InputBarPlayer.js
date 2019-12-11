@@ -1,14 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Button, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { Platform } from '@unimodules/core'; 
+import { Platform } from '@unimodules/core';
 
 const InputBar2 = (props) => {
     return (
         <View style={[styles.inputBarContainer]}>
             <View style={styles.inputContainer}>
-                <TextInput 
-                    placeholder='Select a player ...' 
+                <TextInput
+                    placeholder='Select a player ...'
                     style={styles.input}
                     onChangeText={(searchInput) => props.textChange(searchInput)}
                     //onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}
@@ -16,7 +16,7 @@ const InputBar2 = (props) => {
                 />
             </View>
         </View>
-    )  
+    )
 }
 
 fontInput = isXR ? wp('5.5') : wp('7.5%')
@@ -71,6 +71,9 @@ const styles = StyleSheet.create({
         left: wp('0.5'), //3
         fontSize: wp('6.5'), //25
         fontWeight: '500'
+    },
+    optionsList: {
+        // Ryan do stuff here
     }
 })
 

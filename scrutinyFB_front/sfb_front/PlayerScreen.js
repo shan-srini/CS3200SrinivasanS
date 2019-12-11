@@ -5,6 +5,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { Platform } from '@unimodules/core';
 import InputBarPlayer from './components/InputBarPlayer';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { AuthSession } from 'expo';
 
 export default class PlayerScreen extends React.Component {
 
@@ -245,8 +246,8 @@ export default class PlayerScreen extends React.Component {
   getCompareOptions() {
     const { params } = this.props.navigation.state
     toReturn = []
-    if (!this.state.displayOptions)
-      return toReturn
+    // if (!this.state.displayOptions)
+    //   return toReturn
 
     if (this.state.selectP2Input.length >= 2)
       for (i = 0; i < params.allPlayerNames.length; i++) {
@@ -272,7 +273,7 @@ export default class PlayerScreen extends React.Component {
   }
 
   _keyboardDidHide = () => {
-    this.setState({ displayOptions: false })
+    // this.setState({ displayOptions: false })
   }
 
 
@@ -283,7 +284,7 @@ export default class PlayerScreen extends React.Component {
       this.state.curPlayerInfo.player_name == null ?
         <Text style={{ top: hp(50), left: wp(40) }}> Loading </Text>
         :
-        <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={false} keyboardDismissMode='on-drag'>
+        <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={false} keyboardShouldPersistTaps='always' keyboardDismissMode='on-drag'>
           <View style={styles.container}>
             <PlayerScreenFormat
               displayPlayerName={this.state.curPlayerInfo.player_name}
@@ -497,17 +498,20 @@ const styles = StyleSheet.create({
     fontWeight: ('500')
   },
   compareOptions: {
-    flex: 1,
-    top: hp('7.5'),
+    flex: 0.08,
+    bottom: hp('35.5'),
     left: wp('8'),
-    height: hp('5'),
-    backgroundColor: 'red',
   },
   compareOptionsText: {
     color: 'white',
     fontSize: wp('5')
   },
   optionsList: {
-    height: hp('7'),
-  }
+    width: wp(85),
+    backgroundColor: 'gray',
+    borderStyle: 'solid',
+    borderWidth: '2px',
+    paddingBottom: '1%',
+    borderColor: 'black',
+  },
 });

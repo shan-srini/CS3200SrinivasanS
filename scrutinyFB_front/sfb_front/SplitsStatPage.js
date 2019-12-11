@@ -94,9 +94,9 @@ export default class FullStatPage extends React.Component {
                     <StatTableComponent
                         player={params.player}
                         allStats={this.state.statsWithout}
-                        chosenColor={this.getColor1(this.state.player2Info.current_team)}
-                        chosenColor2={this.getColor2(this.state.player2Info.current_team)}
-                        chosenColorBottom={this.getColor1(this.state.player2Info.current_team)}
+                        chosenColor={this.getColor1(params.player.current_team)}
+                        chosenColor2={this.getColor2(params.player.current_team)}
+                        chosenColorBottom={this.getColor1(params.player.current_team)}
                     />
                 }
 

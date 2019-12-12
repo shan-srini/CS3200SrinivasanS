@@ -1,13 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, View, Button, StatusBar, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, StatusBar, Image, Dimensions, PixelRatio, } from 'react-native';
 import { Platform } from '@unimodules/core';
 import HomeScreenFormat from './components/HomeScreenFormat';
 import InputBar from './components/InputBar';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
+// For iPad detection
+windowSize = Dimensions.get('window');
+PR = PixelRatio.get();
+width = windowSize.width;
+height = windowSize.height;
+adjustedWidth = width * PR;
+adjustedHeight = height * PR;
+isIPad = false;
+if (PR < 2 && (adjustedWidth >= 1000 || adjustedHeight >= 1000)) {
+  isIPad = true;
+} else if (PR === 2 && (adjustedWidth >= 1920 || adjustedHeight >= 1920)) {
+  isIPad = true;
+}
+
 const headerWidth = wp('150')
-const headerHeight = hp('52')
+const headerHeight = isIPad ? hp(40) : hp('52')
 
 export default class HomeScreen extends React.Component {
 

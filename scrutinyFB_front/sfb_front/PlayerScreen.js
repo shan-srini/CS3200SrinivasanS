@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Picker, ScrollView, Keyboard, TouchableOpacity, StatusBar } from 'react-native';
+import { StyleSheet, Text, View, Picker, ScrollView, Keyboard, TouchableOpacity, Dimensions, PixelRatio, StatusBar } from 'react-native';
 import PlayerScreenFormat from './components/PlayerScreenFormat';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Platform } from '@unimodules/core';
@@ -94,6 +94,10 @@ export default class PlayerScreen extends React.Component {
 
   goToStats() {
     const { navigate } = this.props.navigation;
+    if ((this.state.comparisonType === "Comparison" || this.state.comparisonType === "Splits") && this.state.selectP2Input === "") {
+      alert("Please enter a player name in the Compare text box")
+      return
+    }
     if (this.state.comparisonType === "Player")
       navigate('StatPage', {
         player: this.state.curPlayerInfo,
@@ -371,6 +375,20 @@ export default class PlayerScreen extends React.Component {
   }
 }
 
+// For iPad detection
+windowSize = Dimensions.get('window');
+PR = PixelRatio.get();
+width = windowSize.width;
+height = windowSize.height;
+adjustedWidth = width * PR;
+adjustedHeight = height * PR;
+isIPad = false;
+if (PR < 2 && (adjustedWidth >= 1000 || adjustedHeight >= 1000)) {
+  isIPad = true;
+} else if (PR === 2 && (adjustedWidth >= 1920 || adjustedHeight >= 1920)) {
+  isIPad = true;
+}
+
 const statusBarColor = '#F1F2EB';
 const color1 = '#566347';
 const color2 = '#4B4A49';
@@ -378,6 +396,7 @@ const color3 = '#A4C2A5';
 const lightGray = '#8E8E8E';
 isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
 fontDropTitleHeaders = isX ? wp('4') : wp('5')
+fontDropTitleHeaders = isIPad ? wp(3) : fontDropTitleHeaders
 const styles = StyleSheet.create({
   statusbar: {
     backgroundColor: statusBarColor,

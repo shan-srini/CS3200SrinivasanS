@@ -8,44 +8,44 @@ const headerHeight = hp('52')
 const HomeScreenFormat = (props) => {
     return (
         <View>
-                {/* <View style={[styles.triangle1]} />
+            {/* <View style={[styles.triangle1]} />
                 <View style={[styles.triangle2]} /> */}
-                <View style={[styles.headerContainer]}>
-                    {/* <Image
+            <View style={[styles.headerContainer]}>
+                {/* <Image
                         source={require('./MainHeader.png')}  
                         style={{ width: headerWidth, height: headerHeight  }}
                         // resizeMode='contain'
                          /> */}
-                    <View style={[styles.inputContainer]}/>
-                    <View style={[styles.inputContainerRect1]}/>
-                    <View style={[styles.inputContainerRect2]}/>
-                    <View style={[styles.inputContainerCirc1]}/>
-                    <View style={[styles.inputContainerCirc2]}/>
-                    <View style={[styles.inputContainerCirc3]}/>
-                    <View style={[styles.inputContainerCirc4]}/>
-                    <View style={[styles.rectangleDesign1]}/>
-                    <View style={[styles.rectangleDesign2]}/>
-                    <View style={[styles.rectangleDesign3]}/>
-                    <View style={[styles.rectangleDesign4]}/>
-                </View>
-                {/* <View style={[styles.titleBox]}>
+                <View style={[styles.inputContainer]} />
+                <View style={[styles.inputContainerRect1]} />
+                <View style={[styles.inputContainerRect2]} />
+                <View style={[styles.inputContainerCirc1]} />
+                <View style={[styles.inputContainerCirc2]} />
+                <View style={[styles.inputContainerCirc3]} />
+                <View style={[styles.inputContainerCirc4]} />
+                <View style={[styles.rectangleDesign1]} />
+                <View style={[styles.rectangleDesign2]} />
+                <View style={[styles.rectangleDesign3]} />
+                <View style={[styles.rectangleDesign4]} />
+            </View>
+            {/* <View style={[styles.titleBox]}>
                     <Text style={styles.title}>{ props.title }</Text>
                 </View> */}
-                {/* <Text style={styles.version}>{ props.version }</Text> */}
-                <Text style={styles.version}>v 1.0.0</Text>
+            {/* <Text style={styles.version}>{ props.version }</Text> */}
+            <Text style={styles.version}>v 1.0.0</Text>
         </View>
-        
+
     )
 }
 
 const mainThemeColor = '#6C8FCA'
 const titleColor = '#40403F'
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
     titleBox: {
         height: hp('-30%')
     },
-    title: { 
+    title: {
         position: 'absolute',
         color: titleColor,
         fontFamily: 'Futura',
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
         position: 'absolute',
         alignContent: 'center',
         alignItems: 'center',
-        top:hp('-15'),
-        left:wp('-3.5'),
+        top: hp('-15'),
+        left: wp('-3.5'),
         width: wp('100%'),
         height: hp('30'),
         backgroundColor: ('transparent')
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: wp('10'),
         height: hp('4.5'),
-        borderRadius: 100/2,
+        borderRadius: 100 / 2,
         backgroundColor: mainThemeColor,
         top: hp('51.25'),
         left: wp('8'),
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: wp('10'),
         height: hp('4.5'),
-        borderRadius: 100/2,
+        borderRadius: 100 / 2,
         backgroundColor: mainThemeColor,
         top: hp('51.25'),
         left: wp('88.5'),
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: wp('10'),
         height: hp('4.5'),
-        borderRadius: 100/2,
+        borderRadius: 100 / 2,
         backgroundColor: mainThemeColor,
         top: hp('105'),
         left: wp('88.5'),
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         width: wp('10'),
         height: hp('4.5'),
-        borderRadius: 100/2,
+        borderRadius: 100 / 2,
         backgroundColor: mainThemeColor,
         top: hp('105'),
         left: wp('8'),

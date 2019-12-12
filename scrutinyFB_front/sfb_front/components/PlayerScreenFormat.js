@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Image, PixelRatio, Dimensions } from 'react-native';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 import { Platform } from '@unimodules/core';
 
@@ -21,7 +21,37 @@ fontYrTitle = isXR ? wp('6') : wp('7')
 fontComparisonTypeTitle = isXR ? wp('5') : wp('6')
 leftMesYearTitle = isXR ? wp('14.5') : wp('15.5')
 leftComparisonTypeTitle = isXR ? wp('42') : wp('45')
+teamNameFontSize = isXR ? wp(5) : wp(5)
 
+// For iPad detection
+windowSize = Dimensions.get('window');
+PR = PixelRatio.get();
+width = windowSize.width;
+height = windowSize.height;
+adjustedWidth = width * PR;
+adjustedHeight = height * PR;
+isIPad = false;
+if (PR < 2 && (adjustedWidth >= 1000 || adjustedHeight >= 1000)) {
+    isIPad = true;
+} else if (PR === 2 && (adjustedWidth >= 1920 || adjustedHeight >= 1920)) {
+    isIPad = true;
+}
+
+// isIPad ? console.log("isipad") : console.log("not ipad")
+playerNameSize = (isIPad) ? wp('6') : playerNameSize
+hemletWidth = (isIPad) ? wp('19') : hemletWidth
+hemletHeight = (isIPad) ? hp('5') : hemletHeight
+logoContainerHeight = (isIPad) ? hp('1') : logoContainerHeight
+fontStatNames = isIPad ? wp('5') : fontStatNames
+fontAgeStat = isIPad ? wp('6') : fontAgeStat
+fontPosStat = isIPad ? wp('6') : fontPosStat
+fontHtStat = isIPad ? wp('6') : fontHtStat
+fontWtStat = isIPad ? wp('6') : fontWtStat
+fontYrTitle = isIPad ? wp('6') : fontYrTitle
+fontComparisonTypeTitle = isIPad ? wp('5') : fontComparisonTypeTitle
+leftMesYearTitle = isIPad ? wp('17') : leftMesYearTitle
+leftComparisonTypeTitle = isIPad ? wp('50') : leftComparisonTypeTitle
+teamNameFontSize = isIPad ? wp(4) : teamNameFontSize
 
 const PlayerScreenFormat = (props) => {
     return (
@@ -121,7 +151,7 @@ const styles = (props) => StyleSheet.create({
     },
     teamNameText: {
         color: "#E4E4E4",
-        fontSize: wp('5'),
+        fontSize: teamNameFontSize,
         fontWeight: '700',
         alignSelf: 'center'
     },

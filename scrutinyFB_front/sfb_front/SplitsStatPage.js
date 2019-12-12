@@ -148,12 +148,12 @@ export default class FullStatPage extends React.Component {
                 <View style={styles.playerButtonContainer}>
                     <TouchableHighlight style={styles.playerNameBox1} underlayColor='#6e6e6e' onPress={() => this.setState({ splitsSwitch: true })}>
                         <Text style={[styles.playerNameBoxText]}>
-                            Stats With{params.playerSplitName.substring(params.playerSplitName.indexOf(" "))}
+                            With{params.playerSplitName.substring(params.playerSplitName.indexOf(" "))}
                         </Text>
                     </TouchableHighlight>
                     <TouchableHighlight style={styles.playerNameBox2} underlayColor='#6e6e6e' onPress={() => this.setState({ splitsSwitch: false })}>
                         <Text style={[styles.playerNameBoxText]}>
-                            Stats Without{params.playerSplitName.substring(params.playerSplitName.indexOf(" "))}
+                            Without{params.playerSplitName.substring(params.playerSplitName.indexOf(" "))}
                         </Text>
                     </TouchableHighlight>
                 </View>
@@ -172,7 +172,8 @@ export default class FullStatPage extends React.Component {
 }
 
 const mainBackgroundColor = 'white';
-// const mainBackgroundColor = 'black';
+playerNameTop = hp('1')
+playerNameTop = (isIPad) ? hp('0.5') : playerNameTop
 
 const styles = StyleSheet.create({
     container: {
@@ -218,7 +219,7 @@ const styles = StyleSheet.create({
     },
     playerNameBoxText: {
         fontSize: wp('4'),
-        top: hp('1')
+        top: playerNameTop
     },
     bottom: {
         position: 'absolute',

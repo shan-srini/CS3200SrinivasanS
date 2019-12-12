@@ -1,35 +1,51 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
+import { StyleSheet, Dimensions, PixelRatio, Text, View, TextInput, TouchableOpacity, Button, Image } from 'react-native';
 import { heightPercentageToDP as hp, widthPercentageToDP as wp } from 'react-native-responsive-screen';
 import Constants from 'expo-constants';
 import { Platform } from '@unimodules/core';
 
+// For iPad detection
+windowSize = Dimensions.get('window');
+PR = PixelRatio.get();
+width = windowSize.width;
+height = windowSize.height;
+adjustedWidth = width * PR;
+adjustedHeight = height * PR;
+isIPad = false;
+if (PR < 2 && (adjustedWidth >= 1000 || adjustedHeight >= 1000)) {
+    isIPad = true;
+} else if (PR === 2 && (adjustedWidth >= 1920 || adjustedHeight >= 1920)) {
+    isIPad = true;
+}
+const boltHeight = hp('5')
+boltWidth = wp('5')
+boltWidth = (isIPad) ? wp('3') : boltWidth
 
 const InputBar = (props) => {
-    
-    const boltHeight = hp('5')
-    const boltWidth = wp('5')
+
+
+
     return (
         <View style={[styles.inputBarContainer]}>
             <View style={styles.inputContainer}>
-                <TextInput 
-                    placeholder='Select a player ...' 
+                <TextInput
+                    placeholder='Select a player ...'
                     style={styles.input}
                     onChangeText={(searchInput) => props.textChange(searchInput)}
                     onSubmitEditing={(submitRequest) => props.changePageSubmitted(submitRequest)}
                     value={props.searchInput}
                 />
                 <TouchableOpacity style={styles.searchButton}
-                onPress={(submitRequestButton) => props.changePageFromButton(submitRequestButton)}>
+                    onPress={(submitRequestButton) => props.changePageFromButton(submitRequestButton)}>
                     <Image
-                        source={require('./lightningBoltLogo.png')}  
-                        style={{ width: boltWidth, height: boltHeight  }}
+                        source={require('./lightningBoltLogo.png')}
+                        style={{ width: boltWidth, height: boltHeight }}
                     />
                 </TouchableOpacity>
-                    
+
             </View>
         </View>
-    )  
+    )
 }
 isXR = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone xr')
 fontInput = isXR ? wp('4') : wp('5.75%')

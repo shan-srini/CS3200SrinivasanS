@@ -21,7 +21,8 @@ if (PR < 2 && (adjustedWidth >= 1000 || adjustedHeight >= 1000)) {
 }
 
 const headerWidth = wp('150')
-const headerHeight = isIPad ? hp(40) : hp('52')
+const headerHeight = isIPad ? hp('66.5') : hp('52') // 35 is also good
+const headerPos = isIPad ? hp('-16') : hp('0')
 
 export default class HomeScreen extends React.Component {
 
@@ -78,7 +79,7 @@ export default class HomeScreen extends React.Component {
           <View style={[styles.headerContainer]}>
             <Image
               source={require('./components/MainHeader.png')}
-              style={{ width: headerWidth, height: headerHeight }}
+              style={{ top: headerPos, width: headerWidth, height: headerHeight }}
             />
           </View>
 

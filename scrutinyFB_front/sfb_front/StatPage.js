@@ -90,7 +90,6 @@ export default class statTableScreen extends React.PureComponent {
 }
 
 const mainBackgroundColor = 'white';
-// const mainBackgroundColor = 'black';
 
 const styles = StyleSheet.create({
   container: {

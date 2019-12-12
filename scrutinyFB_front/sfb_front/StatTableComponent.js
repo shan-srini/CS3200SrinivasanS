@@ -114,7 +114,10 @@ const columnWidth = wp('24');
 const dataBackgroundColor = '#4B4A49';
 const dataTextColor = 'white';
 const dataFontSize = wp('5');
-const stickTopHeader = hp('0')
+const stickTopHeader = hp('0');
+namePosition = hp('6');
+namePosition = (isIPad) ? hp('3.5') : namePosition
+
 
 isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
 playerNameSize = (isX) ? wp('5') : wp('7')
@@ -152,7 +155,7 @@ const styles = (props, state) => StyleSheet.create({
         position: 'absolute',
         fontSize: playerNameSize,
         fontWeight: '600',
-        top: hp('6'),
+        top: namePosition,
         color: 'white',
     },
     header: {

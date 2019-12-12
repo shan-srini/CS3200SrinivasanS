@@ -32,6 +32,7 @@ const InputBar2 = (props) => {
 
 fontInput = isXR ? wp('5.5') : wp('7.5%')
 fontSearchButtonText = isXR ? wp('5') : wp('6.5')
+fontInput = (isIPad) ? wp('5.5') : fontInput
 
 const styles = StyleSheet.create({
     inputBarContainer: {

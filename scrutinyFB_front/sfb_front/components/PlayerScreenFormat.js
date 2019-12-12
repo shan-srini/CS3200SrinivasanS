@@ -39,7 +39,7 @@ if (PR < 2 && (adjustedWidth >= 1000 || adjustedHeight >= 1000)) {
 
 // isIPad ? console.log("isipad") : console.log("not ipad")
 playerNameSize = (isIPad) ? wp('6') : playerNameSize
-hemletWidth = (isIPad) ? wp('19') : hemletWidth
+hemletWidth = (isIPad) ? wp('16') : hemletWidth
 hemletHeight = (isIPad) ? hp('5') : hemletHeight
 logoContainerHeight = (isIPad) ? hp('1') : logoContainerHeight
 fontStatNames = isIPad ? wp('5') : fontStatNames
@@ -118,12 +118,25 @@ const PlayerScreenFormat = (props) => {
 
 const color2 = '#4B4A49';
 const lightGray = '#8E8E8E';
+compareHeaderPositioning = hp('44')
+compareHeaderPositioning = (isIPad) ? hp('42.5') : compareHeaderPositioning
+playerNamePositioning = hp('5.5%')
+playerNamePositioning = (isIPad) ? hp('2.5') : playerNamePositioning
+statNamesPositioning = wp('3')
+statNamesPositioning = (isIPad) ? wp('1.5') : statNamesPositioning
+heightContainerLeft = wp('27.25')
+heightContainerLeft = (isIPad) ? wp('27.37') : heightContainerLeft
+heightContainerBottom = hp('13.75')
+heightContainerBottom = (isIPad) ? hp('13.72') : heightContainerBottom
+weightContainerBottom = hp('13.75')
+weightContainerBottom = (isIPad) ? hp('13.7') : weightContainerBottom
+
 
 const styles = (props) => StyleSheet.create({
     page: {
         backgroundColor: props.color1,
         width: wp('100%'),
-        height: hp('100%'),
+        height: hp('130%'),
     },
     playerNameBox: {
         alignContent: 'center',
@@ -142,7 +155,7 @@ const styles = (props) => StyleSheet.create({
         fontSize: playerNameSize,
         color: 'white',//'#8E8E8E',
         alignSelf: 'center',
-        top: hp('5.5%')
+        top: playerNamePositioning
     },
     teamNameContainer: {
         top: hp('12.25'),
@@ -225,8 +238,8 @@ const styles = (props) => StyleSheet.create({
         width: wp('30.75'),
         height: hp('6.9'),
         backgroundColor: color2,
-        left: wp('27.25'),
-        bottom: hp('13.75'),
+        left: heightContainerLeft,
+        bottom: heightContainerBottom,
         borderColor: 'black',
         borderRightWidth: 0,
         borderTopWidth: 0,
@@ -238,14 +251,14 @@ const styles = (props) => StyleSheet.create({
         height: hp('6.7'),
         backgroundColor: color2,
         left: wp('27.6'),
-        bottom: hp('13.75'),
+        bottom: weightContainerBottom,
         borderWidth: 0
     },
     statNames: {
         fontSize: fontStatNames,
         color: '#D2D2D1',
         fontWeight: '400',
-        top: wp('3'),
+        top: statNamesPositioning,
         left: wp('2')
     },
     agePlayerStat: {
@@ -348,7 +361,7 @@ const styles = (props) => StyleSheet.create({
         position: 'absolute',
         color: 'white',
         fontSize: wp('7.5'),
-        top: hp('44'),
+        top: compareHeaderPositioning,
         alignSelf: 'center',
         fontWeight: '600'
     },

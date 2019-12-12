@@ -168,6 +168,7 @@ export default class PlayerScreen extends React.Component {
       "Miami Dolphins": require("./components/Helmets/DolphinsHelmet.png"),
       "Baltimore Ravens": require("./components/Helmets/RavensHelmet.png"),
       "Jacksonville Jaguars": require("./components/Helmets/JaguarsHelmet.png"),
+      null: require("./components/Helmets/NoTeamHelmet.png")
     };
     return helmets[team]
   }
@@ -206,6 +207,7 @@ export default class PlayerScreen extends React.Component {
       "Miami Dolphins": '#008E97',
       "Baltimore Ravens": '#241773',
       "Jacksonville Jaguars": '#D7A22A',
+      null: '#2b2b2b'
     };
     return colors[team]
   }
@@ -244,6 +246,7 @@ export default class PlayerScreen extends React.Component {
       "Miami Dolphins": '#FC4C02',
       "Baltimore Ravens": '#9E7C0C',
       "Jacksonville Jaguars": '#101820',
+      null: '#2b2b2b'
     };
     return colors[team]
   }
@@ -289,7 +292,7 @@ export default class PlayerScreen extends React.Component {
       this.state.curPlayerInfo.player_name == null ?
         <Text style={{ top: hp(50), left: wp(40) }}> Loading </Text>
         :
-        <ScrollView contentContainerStyle={{ flex: 1 }} scrollEnabled={false} keyboardShouldPersistTaps='always'>
+        <ScrollView contentContainerStyle={{ flex: 1, backgroundColor: 'black' }} scrollEnabled={false} keyboardShouldPersistTaps='always'>
           <View style={styles.container}>
             <PlayerScreenFormat
               displayPlayerName={this.state.curPlayerInfo.player_name}
@@ -403,7 +406,7 @@ const styles = StyleSheet.create({
     height: hp('5%')
   },
   container: {
-    backgroundColor: 'gray',
+    backgroundColor: 'black',
     flex: 1
   },
   yearStyle: {

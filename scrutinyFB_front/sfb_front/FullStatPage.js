@@ -150,7 +150,8 @@ export default class FullStatPage extends React.Component {
 }
 
 const mainBackgroundColor = 'white';
-// const mainBackgroundColor = 'black';
+playerNameTop = hp('1')
+playerNameTop = (isIPad) ? hp('0.5') : playerNameTop
 
 const styles = StyleSheet.create({
   container: {
@@ -196,7 +197,7 @@ const styles = StyleSheet.create({
   },
   playerNameBoxText: {
     fontSize: wp('4'),
-    top: hp('1')
+    top: playerNameTop
   },
   bottom: {
     position: 'absolute',

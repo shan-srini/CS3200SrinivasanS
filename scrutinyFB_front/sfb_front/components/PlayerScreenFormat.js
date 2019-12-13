@@ -4,7 +4,10 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-nat
 import { Platform } from '@unimodules/core';
 
 isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
-is7 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone 7')
+is7 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.includes('7')
+is8 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.includes('8')
+is6 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.includes('6')
+is5 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.includes('5')
 playerNameSize = (isX) ? wp('6') : wp('7.5')
 hemletWidth = (isX) ? wp('20.5') : wp('20.5')
 hemletHeight = (isX) ? hp('8.5') : hp('8.5')
@@ -122,14 +125,19 @@ compareHeaderPositioning = hp('44')
 compareHeaderPositioning = (isIPad) ? hp('42.5') : compareHeaderPositioning
 playerNamePositioning = hp('5.5%')
 playerNamePositioning = (isIPad) ? hp('2.5') : playerNamePositioning
-statNamesPositioning = wp('3')
-statNamesPositioning = (isIPad) ? wp('1.5') : statNamesPositioning
-heightContainerLeft = wp('27.25')
+statNamesPositioning = (isIPad) || (is8) || (is7) || (is6) ? wp('1.5') : wp('3')
+//statNamesPositioning = (isIPad) ? wp('1.5') : wp('3')
+heightContainerLeft = wp('27.25') //27.3 pro max
 heightContainerLeft = (isIPad) ? wp('27.37') : heightContainerLeft
-heightContainerBottom = hp('13.75')
+heightContainerBottom = hp('13.7')
 heightContainerBottom = (isIPad) ? hp('13.72') : heightContainerBottom
-weightContainerBottom = hp('13.75')
+weightContainerBottom = hp('13.7')
 weightContainerBottom = (isIPad) ? hp('13.7') : weightContainerBottom
+ageBottom = (is8) || (is7) || (is6) || (is5) ? wp('6.5') : wp('5')
+htBottom = (is8) || (is7) || (is6) || (is5) ? wp('6.4') : wp('4.9')
+wtBottom = (is8) || (is7) || (is6) || (is5) ? wp('6.5') : wp('5')
+posBottom = (is8) || (is7) || (is6) || (is5) ? wp('6.5') : wp('5')
+
 
 
 const styles = (props) => StyleSheet.create({
@@ -262,32 +270,31 @@ const styles = (props) => StyleSheet.create({
         left: wp('2')
     },
     agePlayerStat: {
-        //fontSize: wp('6.5'),
         fontSize: fontAgeStat,
         color: 'white',
         fontWeight: '400',
-        bottom: wp('5'),
+        bottom: ageBottom,
         left: wp('16.2')
     },
     posPlayerStat: {
         fontSize: fontPosStat,
         color: 'white',
         fontWeight: '400',
-        bottom: wp('5'),
+        bottom: posBottom,
         left: wp('15.5')
     },
     htPlayerStat: {
         fontSize: fontHtStat,
         color: 'white',
         fontWeight: '400',
-        bottom: wp('4.9'),
+        bottom: htBottom,
         left: wp('11.5')
     },
     wtPlayerStat: {
         fontSize: fontWtStat,
         color: 'white',
         fontWeight: '400',
-        bottom: wp('5'),
+        bottom: wtBottom,
         left: wp('12.5')
     },
     wholeButtonContainer: {

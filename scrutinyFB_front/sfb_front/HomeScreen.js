@@ -20,9 +20,26 @@ if (PR < 2 && (adjustedWidth >= 1000 || adjustedHeight >= 1000)) {
   isIPad = true;
 }
 
+// For iPhone detection
+isX = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.toLowerCase().includes('iphone x')
+is8 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.includes('8')
+is7 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.includes('7')
+is6 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.includes('6')
+is5 = Platform.OS == 'ios' && Expo.Constants.platform.ios.model.includes('5')
+
+if ((is8) || (is7) || (is6) || (is5)) {
+  headerPos = hp('-6')
+}
+else if ((isIPad)) {
+  headerPos = hp('-16')
+}
+else {
+  headerPos = hp('0')
+}
+
+//headerPos = (is8) || (is7) || (is6) || (is5) ? hp('-6') || (isIPad) ? hp('-10') : hp('0')
 const headerWidth = wp('150')
 const headerHeight = isIPad ? hp('66.5') : hp('52') // 35 is also good
-const headerPos = isIPad ? hp('-16') : hp('0')
 
 export default class HomeScreen extends React.Component {
 

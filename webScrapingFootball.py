@@ -136,20 +136,21 @@ def getStatisticTable():
     toReturn = pd.DataFrame(
             )
     # Delete maxp and i after, just for testing
-    maxp = 8
+    maxp = 300
     i = 0
     for year in playerIdsDict:
         for playerId in playerIdsDict[year]:
                 urlToHit = baseLink + playerId + '/gamelog/' + str(year) + '/'
                 statisticTable = pd.read_html(urlToHit)[0]
-                toReturn = pd.concat([toReturn, statisticTable])
                 statisticTable.insert(0, "player_id", playerId)
-                sleep(1) #(150 * 1second * 2) / 60   mins total time for this
+                toReturn = pd.concat([toReturn, statisticTable])
+                sleep(2) #(150 * 1second * 2) / 60   mins total time for this
                 # Delete this code after, it is just for testing
                 i+=1
+                print(i)
+                print(playerId)
                 if i >= maxp:
                     return toReturn
-    
     return toReturn
 ##############################################################################
 # Execution - main, Python doesn't have a main method? This is a collection of
@@ -157,20 +158,20 @@ def getStatisticTable():
     
 # Executes executeGetPlayerIds. playerIdsDict will contain lists of ids from years
 # specified in this call below after this function is executed
-playerIdsDict = executeGetPlayerIds(2018, 2019)
+#playerIdsDict = executeGetPlayerIds(2018, 2019)
 
 # Unique playerIdList from years specified in executeGetPlayerIds call above
-finalPlayerIdList = makePlayerUnique()
+#finalPlayerIdList = makePlayerUnique()
 
 # Get the playerTable using finalPlayerIdList
-playerInfoTable = getPlayer()
+# playerInfoTable = getPlayer()
 
 ### initTeamDict(int startYear, int endYear INCLUSIVE)
 ### Start at the first szn to eventually get teamInfo about
-initTeamDict(2018, 2019)
+#initTeamDict(2018, 2019)
 
 ### call gets the Team Table
-teamTable = getTeamTable()
+#teamTable = getTeamTable()
 
 # Gets the weak entity Statistic Table and inherently enough info for Game Table as well
 statisticTable = getStatisticTable()
@@ -179,7 +180,7 @@ statisticTable = getStatisticTable()
 # To export DataFrame to csv
 # playerInfoTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/playerInfoTable.csv', index = None)
 # teamTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/teamTable.csv', index = None)
-# statisticTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/statisticTable.csv', index = None)
+# statisticTable.to_csv('/Users/shanmukha/Documents/CS3200/FootballProject/statisticTable2.csv', index = None)
  
     
 

@@ -32,7 +32,7 @@ const HomeScreenFormat = (props) => {
                     <Text style={styles.title}>{ props.title }</Text>
                 </View> */}
             {/* <Text style={styles.version}>{ props.version }</Text> */}
-            <Text style={styles.version}>v 1.0.0</Text>
+            <Text style={styles.version}>v 1.0.1</Text>
         </View>
 
     )

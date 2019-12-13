@@ -126,9 +126,9 @@ statNamesPositioning = wp('3')
 statNamesPositioning = (isIPad) ? wp('1.5') : statNamesPositioning
 heightContainerLeft = wp('27.25')
 heightContainerLeft = (isIPad) ? wp('27.37') : heightContainerLeft
-heightContainerBottom = hp('13.75')
+heightContainerBottom = hp('13.7')
 heightContainerBottom = (isIPad) ? hp('13.72') : heightContainerBottom
-weightContainerBottom = hp('13.75')
+weightContainerBottom = hp('13.7')
 weightContainerBottom = (isIPad) ? hp('13.7') : weightContainerBottom
 
 

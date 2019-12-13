@@ -63,7 +63,7 @@ export default class HomeScreen extends React.Component {
       return
     }
     allList = this.state.allPlayerNames
-    toReturn = allList.filter(name => (name[0].toLowerCase().indexOf(searchInput.toLowerCase()) == 0))
+    toReturn = allList.filter(name => (name[0].toLowerCase().indexOf(searchInput.toLowerCase()) != -1))
     // console.log(toReturn) // works as expected
     this.setState({ playerOptionList: toReturn })
   }

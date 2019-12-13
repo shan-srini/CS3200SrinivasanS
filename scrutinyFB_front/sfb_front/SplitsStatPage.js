@@ -62,7 +62,7 @@ export default class FullStatPage extends React.Component {
                 if (this.state.statsWith.length == 0) {
                     // alert(`${params.playerName} has played every game WITHOUT ${params.playerSplitName} in ${params.year}`)
                     Alert.alert("oops!",
-                        `${params.playerName}has played every game WITHOUT ${params.playerSplitName} in ${params.year}`,
+                        `${params.playerName} has played every game WITHOUT ${params.playerSplitName} in ${params.year}`,
                         [
                             { text: `Go back`, onPress: () => navigate("Player") },
                             {
@@ -79,7 +79,7 @@ export default class FullStatPage extends React.Component {
                 }
                 if (this.state.statsWithout.length == 0) {
                     Alert.alert("oops!",
-                        `${params.playerName}has played every game WITH ${params.playerSplitName} in ${params.year}`,
+                        `${params.playerName} has played every game WITH ${params.playerSplitName} in ${params.year}`,
                         [
                             { text: `Go back`, onPress: () => navigate("Player") },
                             {
